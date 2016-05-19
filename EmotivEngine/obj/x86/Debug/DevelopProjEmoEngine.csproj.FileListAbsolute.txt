@@ -9,3 +9,6 @@ D:\Eigene_Dateien\Dokumente\Visual Studio 2015\Projects\EmotivEngine\EmotivEngin
 E:\Users\Jonas\Documents\Visual Studio 2015\Projects\EmotivEngine\EmotivEngine\bin\x86\Debug\EmotivEngine.exe.config
 E:\Users\Jonas\Documents\Visual Studio 2015\Projects\EmotivEngine\EmotivEngine\obj\x86\Debug\EmotivEngine.exe
 E:\Users\Jonas\Documents\Visual Studio 2015\Projects\EmotivEngine\EmotivEngine\obj\x86\Debug\EmotivEngine.pdb
+D:\Eigene_Dateien\Dokumente\Visual Studio 2015\Projects\ProjektEmo\EmotivEngine\bin\x86\Debug\EmotivEngine.exe.config
+D:\Eigene_Dateien\Dokumente\Visual Studio 2015\Projects\ProjektEmo\EmotivEngine\obj\x86\Debug\EmotivEngine.exe
+D:\Eigene_Dateien\Dokumente\Visual Studio 2015\Projects\ProjektEmo\EmotivEngine\obj\x86\Debug\EmotivEngine.pdb
