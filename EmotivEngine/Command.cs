@@ -18,7 +18,13 @@ namespace EmotivEngine
 
         protected int commandId { get; }
         protected string commandName { get; }
-        protected int senderId {get;}
+        protected int senderId { get; }
         protected double intensity { get; }
+
+        override public string ToString()
+        {
+            return "Command ID: " + this.commandId + ", Sender ID: " + this.senderId + ", command Name: " + this.commandName + ", intensity: " + this.intensity;
+        }
+
     }
 }

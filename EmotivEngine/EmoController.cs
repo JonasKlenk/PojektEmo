@@ -27,23 +27,25 @@ namespace EmotivEngine
             return id;
         }
 
-        enum command : int { CognitivePush = 0, CognitivePull = 1, CognitiveLift = 2, CognitiveDrop = 3, CognitiveLeft = 4,
-            CognitiveRight = 5, CognitiveRotateLeft = 6, CognitiveRotateRight = 7, CognitiveRotateClockwise=8,
-            CognitiveRotateCounterClockwise =9, CognitiveRotateForward=10, CognitiveRotateBackwards=11,
-            ExpressiveSmile=12, ExpressiveLookLeft=13, ExpressiveLookRight=14, ExpressiveWinkLeft=15, ExpressiveWinkRight=16, ExpressiveBlink=17 };
+        private enum command : int
+        {
+            CognitivePush = 0, CognitivePull = 1, CognitiveLift = 2, CognitiveDrop = 3, CognitiveLeft = 4,
+            CognitiveRight = 5, CognitiveRotateLeft = 6, CognitiveRotateRight = 7, CognitiveRotateClockwise = 8,
+            CognitiveRotateCounterClockwise = 9, CognitiveRotateForward = 10, CognitiveRotateBackwards = 11,
+            ExpressiveSmile = 12, ExpressiveLookLeft = 13, ExpressiveLookRight = 14, ExpressiveWinkLeft = 15, ExpressiveWinkRight = 16, ExpressiveBlink = 17
+        };
 
-        private EmoController() { }
+        private EmoController(CentralControlEngine cce) { this.controlEngine = cce; }
 
 
-        public IController getInstance(CentralControlEngine cce)
+        public static IController getInstance(CentralControlEngine cce)
         {
             if (singleInstance != null)
                 return singleInstance;
-            this.controlEngine = cce;
-            return singleInstance = new EmoController();
-            
+            return singleInstance = new EmoController(cce);
+
         }
-        
+
         public string[] getCommands()
         {
             return (String[])Enum.GetValues(typeof(command));
@@ -52,23 +54,28 @@ namespace EmotivEngine
         public bool initialize()
         {
             engine = EmoEngine.Instance;
-            engine.RemoteConnect("127.0.0.1", 1726);
+            engine.UserAdded += new EmoEngine.UserAddedEventHandler(engine_UserAdded_Event);
+            engine.EmoEngineConnected += new EmoEngine.EmoEngineConnectedEventHandler(connected);
+            engine.EmoEngineDisconnected += new EmoEngine.EmoEngineDisconnectedEventHandler(discon);
             engine.AffectivEmoStateUpdated += Engine_AffectivEmoStateUpdated;
             engine.CognitivEmoStateUpdated += Engine_CognitivEmoStateUpdated;
             engine.EmoEngineEmoStateUpdated += Engine_EmoEngineEmoStateUpdated;
             engine.ExpressivEmoStateUpdated += Engine_ExpressivEmoStateUpdated;
-            return true; 
+
+            engine.RemoteConnect("127.0.0.1", 1726);
+            return true;
         }
 
         private void Engine_CognitivEmoStateUpdated(object sender, EmoStateUpdatedEventArgs e)
         {
             bool success = true;
-            switch (e.emoState.CognitivGetCurrentAction()) {
+            switch (e.emoState.CognitivGetCurrentAction())
+            {
                 case EdkDll.EE_CognitivAction_t.COG_PUSH:
                     controlEngine.addCommand(new Command((int)command.CognitivePush, command.CognitivePush.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
                     break;
                 case EdkDll.EE_CognitivAction_t.COG_PULL:
-                    success = controlEngine.addCommand(new Command((int)command.CognitivePull, command.CognitivePull.ToString("G"), this.id, (double) e.emoState.CognitivGetCurrentActionPower()));
+                    success = controlEngine.addCommand(new Command((int)command.CognitivePull, command.CognitivePull.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
                     break;
                 case EdkDll.EE_CognitivAction_t.COG_LIFT:
                     success = controlEngine.addCommand(new Command((int)command.CognitiveLift, command.CognitiveLift.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
@@ -193,6 +200,29 @@ namespace EmotivEngine
         }
 
 
+        private void connected(object sender, EmoEngineEventArgs e)
+        {
+            Console.WriteLine("connected");
+        }
 
+        private void discon(object sender, EmoEngineEventArgs e)
+        {
+            Console.WriteLine("disc");
+        }
+
+        private void engine_UserAdded_Event(object sender, EmoEngineEventArgs e)
+        {
+            Console.WriteLine("User Added Event has occured");
+
+            Profile p = engine.GetUserProfile((uint)e.userId);
+            Console.Out.WriteLine("UserID = " + e.userId);
+            Console.Out.WriteLine(p.ToString());
+
+        }
+
+        public string getType()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -9,11 +9,13 @@ namespace EmotivEngine
 {
     class CentralControlEngine
     {
-        private static CentralControlEngine instance;
+        private static CentralControlEngine instance = null;
         private CentralControlEngine() { }
         private Thread inputHandler;
         private bool acceptInput = false;
         private CommandQueue inputQueue = new CommandQueue(8);
+        private IControllableDevice controllableDevice;
+        private IController controller;
 
         //Todo halten der Controllable devices
         //halten der Controller
@@ -25,10 +27,22 @@ namespace EmotivEngine
         {
             get
             {
-                if (instance == null)
-                    instance = new CentralControlEngine();
+                if (instance != null)
+                    return instance;
+                instance = new CentralControlEngine();
                 return instance;
             }
+        }
+
+        public void setController(IController controller)
+        {
+            this.controller = controller;
+            controller.initialize();
+        }
+
+        public void setControllableDevice(IControllableDevice controllableDevice)
+        {
+            this.controllableDevice = controllableDevice;
         }
 
         public bool isAcceptingInput()
@@ -37,17 +51,18 @@ namespace EmotivEngine
         }
         public bool addCommand(Command c)
         {
-            if(acceptInput)
+            if (acceptInput)
                 return inputQueue.enqueue(c);
             return false;
         }
 
         public void start()
         {
+            controller.setActive();
             if (inputHandler == null)
                 inputHandler = new Thread(new ThreadStart(run));
             inputHandler.Start();
-            acceptInput = true;  
+            acceptInput = true;
         }
 
         public void stop()
@@ -56,6 +71,7 @@ namespace EmotivEngine
             while (!inputQueue.isEmpty())
                 Thread.Sleep(10);
             inputHandler.Abort();
+            controller.setDeactive();
         }
 
         private void run()
@@ -63,15 +79,20 @@ namespace EmotivEngine
             while (true)
             {
                 while (inputQueue.isEmpty())
-                    Thread.Sleep(10);
+                    Thread.Sleep(1);
                 Command c = inputQueue.dequeue();
-                
+                ThreadPool.QueueUserWorkItem(new WaitCallback(processCommand), c);
                 //TODO:
                 //Id für Zielobjekt finden (über Mapper Objekt
-                //Mapping d. Befehle anhand von Controller und Controllable ID -> Mapper ID)
 
             }
+        }
 
+        private void processCommand(object c)
+        {
+            //Mapping
+            //Mapping d. Befehle anhand von Controller und Controllable ID -> Mapper ID)
+            Console.Out.WriteLine(((Command)c).ToString());
         }
     }
 }

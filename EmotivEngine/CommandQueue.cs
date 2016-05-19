@@ -36,9 +36,10 @@ namespace EmotivEngine
             Command returnCommand;
             if (queue.TryDequeue(out returnCommand))
             {
+                currentCommands--;
                 return returnCommand;
             }
-                
+
             else
             {
                 //Logging Operation required!
@@ -47,7 +48,9 @@ namespace EmotivEngine
         }
         public bool isEmpty()
         {
-            if (queue.TryPeek() != null)
+            Command c;
+            queue.TryPeek(out c);
+            if (c != null)
                 return false;
             return true;
         }
