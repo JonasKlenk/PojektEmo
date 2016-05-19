@@ -14,6 +14,7 @@ namespace EmotivEngine
         bool setActive();
         bool setDeactive();
         bool initialize();
+        void setId(int id);
         //IController getInstance(CentralControlEngine cce);
         string[] getCommands();
         event EventHandler Warning;
