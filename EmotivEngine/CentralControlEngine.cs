@@ -34,7 +34,7 @@ namespace EmotivEngine
             unbindControllerDeviceMap(controller);
             controllerDeviceMap.Add(new ControllerBinding(controller, controllableDevice, mapping));
         }
-        
+
         //Löschen einer Controller - device - Map Verknüpfung
         public void unbindControllerDeviceMap(IController controller)
         {
@@ -93,8 +93,8 @@ namespace EmotivEngine
 
         public void start()
         {
-            foreach(IController c in controllerList)
-                    c.setActive();
+            foreach (IController c in controllerList)
+                c.setActive();
             if (inputHandler == null)
                 inputHandler = new Thread(new ThreadStart(run));
             inputHandler.Start();
@@ -140,11 +140,12 @@ namespace EmotivEngine
             public IController controller;
             public IControllableDevice controllableDevice;
             public Mapping mapping;
-            public ControllerBinding (IController controller, IControllableDevice controllableDevice, Mapping mapping)
+            public ControllerBinding(IController controller, IControllableDevice controllableDevice, Mapping mapping)
             {
                 this.controller = controller;
                 this.controllableDevice = controllableDevice;
                 this.mapping = mapping;
             }
+        }
     }
 }

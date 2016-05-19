@@ -13,7 +13,7 @@ namespace EmotivEngine
         static void Main(string[] args)
         {
             CentralControlEngine cce = CentralControlEngine.Instance;
-            cce.setController(EmoController.getInstance(cce));
+            cce.registerController(EmoController.getInstance(cce));
             cce.start();
         }
     }
