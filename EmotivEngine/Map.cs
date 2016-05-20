@@ -42,6 +42,7 @@ namespace EmotivEngine
 
         public Command translate(Command c)
         {
+            //TODO: "dummy" durch richtige Namensfindung ersetzen
             return new Command(this.commandMapping[c.getCommandId()], "dummy", c.getSenderId(), c.getIntensity()); }
 
         public int translate(int id) { return commandMapping[id]; }
