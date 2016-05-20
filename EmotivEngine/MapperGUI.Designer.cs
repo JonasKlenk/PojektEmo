@@ -96,6 +96,7 @@
             this.ComboControllerID.Name = "ComboControllerID";
             this.ComboControllerID.Size = new System.Drawing.Size(300, 21);
             this.ComboControllerID.TabIndex = 3;
+            this.ComboControllerID.SelectedIndexChanged += new System.EventHandler(this.ComboControllerID_SelectedIndexChanged);
             // 
             // ComboControllableDeviceID
             // 
@@ -105,11 +106,13 @@
             this.ComboControllableDeviceID.Name = "ComboControllableDeviceID";
             this.ComboControllableDeviceID.Size = new System.Drawing.Size(309, 21);
             this.ComboControllableDeviceID.TabIndex = 5;
+            this.ComboControllableDeviceID.SelectedIndexChanged += new System.EventHandler(this.ComboControllableDeviceID_SelectedIndexChanged);
             // 
             // listCommandTypes
             // 
             this.listCommandTypes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.listCommandTypes.Enabled = false;
             this.listCommandTypes.FormattingEnabled = true;
             this.listCommandTypes.Location = new System.Drawing.Point(12, 80);
             this.listCommandTypes.Name = "listCommandTypes";
@@ -121,6 +124,7 @@
             // 
             this.listActionTypes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.listActionTypes.Enabled = false;
             this.listActionTypes.FormattingEnabled = true;
             this.listActionTypes.Location = new System.Drawing.Point(399, 80);
             this.listActionTypes.Name = "listActionTypes";

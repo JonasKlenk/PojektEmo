@@ -91,6 +91,7 @@
     <Compile Include="IControllableDevice.cs" />
     <Compile Include="IController.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="Map.cs" />
     <Compile Include="MapperGUI.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -15,11 +15,13 @@ namespace EmotivEngine
         private int selectedCommand;
         private int selectedAction;
         private int selectedMapping;
-        private IControllableDevice[] listControllableDevices;
-        private IController[] listController;
+        private ICollection<IControllableDevice> listControllableDevices;
+        private ICollection<IController> listController;
+        private Mapping mapping;
+        private string[] displayMap;
 
 
-        internal void setAvailiableControllers(ICollection<IController> availiableControllers)
+        private void setAvailiableControllers(ICollection<IController> availiableControllers)
         {
             List<string> types = new List<string>();
             foreach (var item in availiableControllers)
@@ -28,7 +30,7 @@ namespace EmotivEngine
             }
             ComboControllerID.DataSource = types;
         }
-        internal void SetAvailiableControllabelDevices(ICollection<IControllableDevice> availiableDevices)
+        private void setAvailiableControllabelDevices(ICollection<IControllableDevice> availiableDevices)
         {
             List<string> types = new List<string>();
             foreach (var item in availiableDevices)
@@ -37,9 +39,29 @@ namespace EmotivEngine
             }
             ComboControllableDeviceID.DataSource = types;
         }
-        public MapperGUI()
+
+        internal MapperGUI(ICollection<IControllableDevice> availiableDevices, ICollection<IController> availiableControllers)
         {
             InitializeComponent();
+            setAvailiableControllers(availiableControllers);
+            setAvailiableControllabelDevices(availiableDevices);
+            mapping = new Mapping(availiableControllers, availiableDevices);
+            
+        }
+        private void ComboControllerID_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            mapping.setActiveController(ComboControllerID.SelectedIndex);
+            listCommandTypes.DataSource = mapping.getCommandList();
+            listCommandTypes.Enabled = true;
+
+        }
+
+        private void ComboControllableDeviceID_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            mapping.setActiveDevice(ComboControllableDeviceID.SelectedIndex);
+            listActionTypes.DataSource = mapping.getActionList();
+            listActionTypes.Enabled = true;
+
         }
 
         private void listCommandTypes_SelectedIndexChanged(object sender, EventArgs e)
@@ -59,17 +81,20 @@ namespace EmotivEngine
 
         private void buttonBind_Click(object sender, EventArgs e)
         {
-
+            mapping.bind(selectedAction, selectedCommand);
+            listMapping.DataSource = mapping.getTextCommandMapping();
         }
 
         private void buttonDeleteBind_Click(object sender, EventArgs e)
         {
-
+            mapping.unbind(selectedMapping);
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
 
         }
+
+
     }
 }

@@ -4,18 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using System.Windows.Forms;
 
 
 namespace EmotivEngine
 {
     class Mapping
     {
-        private ICollection<IController> availiableControllers;
-        private ICollection<IControllableDevice> availiableControllabelDevices;
-        private string controllerType;
-        private string controllableDeviceType;
-        private string CreationDateTime;
+        //private ICollection<IController> availiableControllers;
+        //private ICollection<IControllableDevice> availiableControllabelDevices;
+        private IController[] availiableControllers;
+        private IControllableDevice[] availiableControllabelDevices;
+        private IController controller;
+        private IControllableDevice device;
+        private string creationDateTime;
         private int[] commandMapping;
         private int i;
         private string[] types;   
@@ -26,28 +27,18 @@ namespace EmotivEngine
         /// <param name="availiableControllabelDevices"></param>
         public Mapping(ICollection<IController> availiableControllers, ICollection<IControllableDevice> availiableControllabelDevices)
         {
-
-            this.availiableControllers = availiableControllers;
-            this.availiableControllabelDevices = availiableControllabelDevices;
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            MapperGUI gui = new MapperGUI();
-            Application.Run(gui);
-
-            gui.setAvailiableControllers(availiableControllers);
-            gui.SetAvailiableControllabelDevices(availiableControllabelDevices);
-
-
-
+            this.availiableControllers = availiableControllers.ToArray();
+            this.availiableControllabelDevices = availiableControllabelDevices.ToArray();
         }
 
-        
-
-        private Mapping()
+        public void setActiveController(int i)
         {
-
+            controller = availiableControllers[i];
         }
-
+        public void setActiveDevice(int i)
+        {
+            device= availiableControllabelDevices[i];
+        }
 
 
         public void bind(int command, int action)
@@ -78,20 +69,24 @@ namespace EmotivEngine
         {
             return device.getActionTypes();
         }
-        public void serializeXML()
-        {
-
-        }
         public string saveMapping()
         {
-            return null;
+            Map a = new Map(controller.getType(), device.getType(), commandMapping);
+            a.serializeXML();
+                return null;
         }
+
+
         public static Mapping loadMapping(string path)
         {
             return null;
         }
 
-
+        internal object getTextcommandMapping()
+        {
+            //TODO: noch lesbar machen
+            return commandMapping;
+        }
     }
 
 
