@@ -11,15 +11,15 @@ namespace EmotivEngine
 {
     class Map : IXmlSerializable
     {
-        private string controller;
-        private string controllableDevice;
+        private string controllerType;
+        private string controllableDeviceType;
         private string creationDateTime;
         private int[] commandMapping;
 
         public Map(string contollerType, string controllableDeviceType, int[] commandoMapping)
         {
-            this.controller = contollerType;
-            this.controllableDevice = controllableDeviceType;
+            this.controllerType = contollerType;
+            this.controllableDeviceType = controllableDeviceType;
             this.commandMapping = commandoMapping;
             this.creationDateTime = DateTime.Now.ToString("dd.MM.yy HH:mm:ss");
         }
@@ -87,5 +87,12 @@ namespace EmotivEngine
             xmlWriter.WriteEndDocument();
             xmlWriter.Close();
         }
+
+        public Command translate(Command c)
+        {
+            //TODO: "dummy" durch richtige Namensfindung ersetzen
+            return new Command(this.commandMapping[c.getCommandId()], "dummy", c.getSenderId(), c.getIntensity()); }
+
+        public int translate(int id) { return commandMapping[id]; }
     }
 }
