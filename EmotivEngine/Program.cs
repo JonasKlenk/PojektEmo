@@ -15,7 +15,7 @@ namespace EmotivEngine
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        [STAThread]
+        //[STAThread]
         static void Main(string[] args)
         {
             CentralControlEngine cce = CentralControlEngine.Instance;
@@ -25,8 +25,9 @@ namespace EmotivEngine
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            MapperGUI gui = new MapperGUI();
-            Application.Run(gui);
+            //TODO:
+            //MapperGUI gui = new MapperGUI();
+            //Application.Run(gui);
 
         }
     }

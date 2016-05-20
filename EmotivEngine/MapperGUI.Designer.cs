@@ -45,13 +45,15 @@
             this.buttonDeleteBind = new System.Windows.Forms.Button();
             this.listMapping = new System.Windows.Forms.ListBox();
             this.SaveMappingDialog = new System.Windows.Forms.SaveFileDialog();
+            this.name = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonBind
             // 
             this.buttonBind.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.buttonBind.Location = new System.Drawing.Point(318, 80);
+            this.buttonBind.Location = new System.Drawing.Point(318, 129);
             this.buttonBind.Name = "buttonBind";
             this.buttonBind.Size = new System.Drawing.Size(75, 23);
             this.buttonBind.TabIndex = 0;
@@ -62,7 +64,7 @@
             // buttonSave
             // 
             this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSave.Location = new System.Drawing.Point(552, 465);
+            this.buttonSave.Location = new System.Drawing.Point(552, 514);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 23);
             this.buttonSave.TabIndex = 1;
@@ -73,7 +75,7 @@
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Location = new System.Drawing.Point(635, 465);
+            this.buttonCancel.Location = new System.Drawing.Point(635, 514);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 2;
@@ -93,7 +95,7 @@
             "g",
             "h",
             "i"});
-            this.ComboControllerID.Location = new System.Drawing.Point(12, 40);
+            this.ComboControllerID.Location = new System.Drawing.Point(12, 89);
             this.ComboControllerID.Name = "ComboControllerID";
             this.ComboControllerID.Size = new System.Drawing.Size(300, 21);
             this.ComboControllerID.TabIndex = 3;
@@ -103,7 +105,7 @@
             // 
             this.ComboControllableDeviceID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ComboControllableDeviceID.FormattingEnabled = true;
-            this.ComboControllableDeviceID.Location = new System.Drawing.Point(399, 40);
+            this.ComboControllableDeviceID.Location = new System.Drawing.Point(399, 89);
             this.ComboControllableDeviceID.Name = "ComboControllableDeviceID";
             this.ComboControllableDeviceID.Size = new System.Drawing.Size(309, 21);
             this.ComboControllableDeviceID.TabIndex = 5;
@@ -115,9 +117,9 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.listCommandTypes.Enabled = false;
             this.listCommandTypes.FormattingEnabled = true;
-            this.listCommandTypes.Location = new System.Drawing.Point(12, 80);
+            this.listCommandTypes.Location = new System.Drawing.Point(12, 129);
             this.listCommandTypes.Name = "listCommandTypes";
-            this.listCommandTypes.Size = new System.Drawing.Size(300, 173);
+            this.listCommandTypes.Size = new System.Drawing.Size(300, 212);
             this.listCommandTypes.TabIndex = 6;
             this.listCommandTypes.SelectedIndexChanged += new System.EventHandler(this.listCommandTypes_SelectedIndexChanged);
             // 
@@ -127,16 +129,16 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listActionTypes.Enabled = false;
             this.listActionTypes.FormattingEnabled = true;
-            this.listActionTypes.Location = new System.Drawing.Point(399, 80);
+            this.listActionTypes.Location = new System.Drawing.Point(399, 129);
             this.listActionTypes.Name = "listActionTypes";
-            this.listActionTypes.Size = new System.Drawing.Size(309, 173);
+            this.listActionTypes.Size = new System.Drawing.Size(309, 212);
             this.listActionTypes.TabIndex = 7;
             this.listActionTypes.SelectedIndexChanged += new System.EventHandler(this.listActionTypes_SelectedIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 24);
+            this.label1.Location = new System.Drawing.Point(12, 73);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(51, 13);
             this.label1.TabIndex = 8;
@@ -146,7 +148,7 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(396, 24);
+            this.label2.Location = new System.Drawing.Point(396, 73);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(99, 13);
             this.label2.TabIndex = 9;
@@ -155,7 +157,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 64);
+            this.label3.Location = new System.Drawing.Point(12, 113);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(59, 13);
             this.label3.TabIndex = 10;
@@ -164,7 +166,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(396, 64);
+            this.label4.Location = new System.Drawing.Point(396, 113);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(42, 13);
             this.label4.TabIndex = 11;
@@ -197,7 +199,7 @@
             // buttonDeleteBind
             // 
             this.buttonDeleteBind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDeleteBind.Location = new System.Drawing.Point(12, 465);
+            this.buttonDeleteBind.Location = new System.Drawing.Point(12, 514);
             this.buttonDeleteBind.Name = "buttonDeleteBind";
             this.buttonDeleteBind.Size = new System.Drawing.Size(158, 23);
             this.buttonDeleteBind.TabIndex = 13;
@@ -208,17 +210,36 @@
             // listMapping
             // 
             this.listMapping.FormattingEnabled = true;
-            this.listMapping.Location = new System.Drawing.Point(12, 259);
+            this.listMapping.Location = new System.Drawing.Point(12, 308);
             this.listMapping.Name = "listMapping";
             this.listMapping.Size = new System.Drawing.Size(696, 199);
             this.listMapping.TabIndex = 14;
             this.listMapping.SelectedIndexChanged += new System.EventHandler(this.listMapping_SelectedIndexChanged);
             // 
+            // name
+            // 
+            this.name.Location = new System.Drawing.Point(12, 47);
+            this.name.Name = "name";
+            this.name.Size = new System.Drawing.Size(696, 20);
+            this.name.TabIndex = 15;
+            this.name.TextChanged += new System.EventHandler(this.name_TextChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(15, 28);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(35, 13);
+            this.label5.TabIndex = 16;
+            this.label5.Text = "Name";
+            // 
             // MapperGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(720, 500);
+            this.ClientSize = new System.Drawing.Size(720, 547);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.name);
             this.Controls.Add(this.listMapping);
             this.Controls.Add(this.buttonDeleteBind);
             this.Controls.Add(this.label4);
@@ -262,6 +283,8 @@
         private System.Windows.Forms.Button buttonDeleteBind;
         private System.Windows.Forms.ListBox listMapping;
         private System.Windows.Forms.SaveFileDialog SaveMappingDialog;
+        private System.Windows.Forms.TextBox name;
+        private System.Windows.Forms.Label label5;
     }
 }
 

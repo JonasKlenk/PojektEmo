@@ -97,6 +97,9 @@ namespace EmotivEngine
             
         }
 
-
+        private void name_TextChanged(object sender, EventArgs e)
+        {
+            mapping.setName(name.Text);
+        }
     }
 }
