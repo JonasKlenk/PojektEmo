@@ -81,6 +81,7 @@
             this.buttonCancel.TabIndex = 2;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // ComboControllerID
             // 
@@ -256,7 +257,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MapperGUI";
-            this.Text = "Form1";
+            this.Text = "7";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
