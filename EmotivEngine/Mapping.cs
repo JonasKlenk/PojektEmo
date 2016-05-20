@@ -24,7 +24,7 @@ namespace EmotivEngine
         /// </summary>
         /// <param name="availiableControllers"></param>
         /// <param name="availiableControllabelDevices"></param>
-        public Mapping(IController[] availiableControllers,IControllableDevice[] availiableControllabelDevices)
+        public Mapping(IController[] availiableControllers, IControllableDevice[] availiableControllabelDevices)
         {
             this.availiableControllers = availiableControllers;
             this.availiableControllabelDevices = availiableControllabelDevices;
@@ -36,7 +36,7 @@ namespace EmotivEngine
         }
         public void setActiveDevice(int i)
         {
-            device= availiableControllabelDevices[i];
+            device = availiableControllabelDevices[i];
         }
 
 
@@ -68,18 +68,16 @@ namespace EmotivEngine
         {
             return device.getActionTypes();
         }
-        public string saveMapping(Stream writeStream)
+        public void saveMapping(Stream writeStream)
         {
             Map a = new Map(controller.getType(), device.getType(), commandMapping);
-            private XmlWriter writer = XmlWriter.Create(;
-            
-                return null;
+            XmlWriter writer = XmlWriter.Create(writeStream);
+            a.WriteXml(writer);   
+
         }
-
-
-        public static Mapping loadMapping(string path)
+        public static Mapping loadMapping(Stream readStream)
         {
-            return null;
+           ;
         }
 
         public string[] getTextCommandMapping()
@@ -94,10 +92,6 @@ namespace EmotivEngine
             return a ;
         }
 
-        internal void saveMapping(Stream stream)
-        {
-            throw new NotImplementedException();
-        }
     }
 
 

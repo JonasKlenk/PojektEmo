@@ -94,7 +94,7 @@ namespace EmotivEngine
                 mapping.saveMapping(SaveMappingDialog.OpenFile());
             }
              
-            mapping.saveMapping();
+            
         }
 
 

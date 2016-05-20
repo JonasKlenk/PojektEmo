@@ -26,18 +26,66 @@ namespace EmotivEngine
 
         public XmlSchema GetSchema()
         {
-            //TODO
-            throw new NotImplementedException();
+            return (null);
         }
 
         public void ReadXml(XmlReader reader)
         {
-            throw new NotImplementedException();
+            while (reader.Read())
+            {
+                switch (reader.Name)
+                {
+                    case "controller":
+                        controller = reader.Value;
+                        break;
+                    case "controllableDevice":
+                        controllableDevice = reader.Value;
+                        break;
+                    case "creationDateTime":
+                        controllableDevice = reader.Value;
+                        break;
+                    case "Bindings":
+                        while (reader.Read())
+                        {
+                            reader.coutn
+                            switch (reader.Name)
+                            {
+                                case "r"
+                                default:
+                                    break;
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                reader.MoveToNextAttribute();
+            }
         }
 
-        public void WriteXml(XmlWriter writer)
+        public void WriteXml(XmlWriter xmlWriter)
         {
-            throw new NotImplementedException();
+            xmlWriter.WriteStartDocument();
+            xmlWriter.WriteStartElement("Map");
+
+            xmlWriter.WriteAttributeString("controller", controller);
+            xmlWriter.WriteAttributeString("controllableDevice", controllableDevice);
+            xmlWriter.WriteAttributeString("creationDateTime", creationDateTime);
+
+
+            xmlWriter.WriteStartElement("Bindings");
+
+            for (int i = 0; i < commandMapping.Length; i++)
+            {
+                xmlWriter.WriteStartElement("Binding");
+                xmlWriter.WriteAttributeString("Command", i.ToString());
+                xmlWriter.WriteAttributeString("Action", commandMapping[i].ToString());
+                xmlWriter.WriteEndElement();
+            }
+            xmlWriter.WriteEndElement();
+
+            xmlWriter.WriteEndDocument();
+            xmlWriter.Close();
         }
     }
 }
