@@ -21,7 +21,7 @@ namespace EmotivEngine
         private string[] displayMap;
 
 
-        private void setAvailiableControllers(ICollection<IController> availiableControllers)
+        private void setAvailableControllers(ICollection<IController> availiableControllers)
         {
             List<string> types = new List<string>();
             foreach (var item in availiableControllers)
@@ -30,7 +30,7 @@ namespace EmotivEngine
             }
             ComboControllerID.DataSource = types;
         }
-        private void setAvailiableControllabelDevices(ICollection<IControllableDevice> availiableDevices)
+        private void setAvailableControllabelDevices(ICollection<IControllableDevice> availiableDevices)
         {
             List<string> types = new List<string>();
             foreach (var item in availiableDevices)
@@ -40,12 +40,12 @@ namespace EmotivEngine
             ComboControllableDeviceID.DataSource = types;
         }
 
-        internal MapperGUI(IControllableDevice[] availiableDevices, IController[] availiableControllers)
+        internal MapperGUI(IControllableDevice[] availableDevices, IController[] availableControllers)
         {
             InitializeComponent();
-            mapping = new Mapping(availiableControllers, availiableDevices);
-            setAvailiableControllers(availiableControllers);
-            setAvailiableControllabelDevices(availiableDevices);
+            mapping = new Mapping(availableControllers, availableDevices);
+            setAvailableControllers(availableControllers);
+            setAvailableControllabelDevices(availableDevices);
         }
         private void ComboControllerID_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -78,7 +78,7 @@ namespace EmotivEngine
 
         private void buttonBind_Click(object sender, EventArgs e)
         {
-            mapping.bind(selectedAction, selectedCommand);
+            mapping.bind(selectedCommand, selectedAction);
             listMapping.DataSource = mapping.getTextCommandMapping();
         }
 
@@ -89,6 +89,11 @@ namespace EmotivEngine
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
+            if (SaveMappingDialog.ShowDialog() == DialogResult.OK)
+            {
+                mapping.saveMapping(SaveMappingDialog.OpenFile());
+            }
+             
             mapping.saveMapping();
         }
 

@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 
 namespace EmotivEngine
 {
-    class Map
+    class Map : IXmlSerializable
     {
         private string controller;
         private string controllableDevice;
@@ -21,12 +24,20 @@ namespace EmotivEngine
             this.creationDateTime = DateTime.Now.ToString("dd.MM.yy HH:mm:ss");
         }
 
-        public void serializeXML()
+        public XmlSchema GetSchema()
         {
-
+            //TODO
+            throw new NotImplementedException();
         }
 
+        public void ReadXml(XmlReader reader)
+        {
+            throw new NotImplementedException();
+        }
 
-
+        public void WriteXml(XmlWriter writer)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

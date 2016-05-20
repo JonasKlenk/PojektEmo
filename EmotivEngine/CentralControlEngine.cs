@@ -10,7 +10,7 @@ namespace EmotivEngine
 {
     class CentralControlEngine
     {
-        //Todo halten der Controllable devices
+        // TODO halten der Controllable devices
         //halten der Controller
         //halten der Mapper
 

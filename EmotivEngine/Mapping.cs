@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Serialization;
 
 
@@ -66,10 +68,11 @@ namespace EmotivEngine
         {
             return device.getActionTypes();
         }
-        public string saveMapping()
+        public string saveMapping(Stream writeStream)
         {
             Map a = new Map(controller.getType(), device.getType(), commandMapping);
-            a.serializeXML();
+            private XmlWriter writer = XmlWriter.Create(;
+            
                 return null;
         }
 
@@ -89,6 +92,11 @@ namespace EmotivEngine
                     a[i] = getCommandList()[i] +" mit " + getActionList()[commandMapping[i]];
             }
             return a ;
+        }
+
+        internal void saveMapping(Stream stream)
+        {
+            throw new NotImplementedException();
         }
     }
 
