@@ -16,19 +16,16 @@ namespace EmotivEngine
         private IControllableDevice[] availiableControllabelDevices;
         private IController controller;
         private IControllableDevice device;
-        private string creationDateTime;
         private int[] commandMapping;
-        private int i;
-        private string[] types;   
         /// <summary>
         /// Construktor mit Gui
         /// </summary>
         /// <param name="availiableControllers"></param>
         /// <param name="availiableControllabelDevices"></param>
-        public Mapping(ICollection<IController> availiableControllers, ICollection<IControllableDevice> availiableControllabelDevices)
+        public Mapping(IController[] availiableControllers,IControllableDevice[] availiableControllabelDevices)
         {
-            this.availiableControllers = availiableControllers.ToArray();
-            this.availiableControllabelDevices = availiableControllabelDevices.ToArray();
+            this.availiableControllers = availiableControllers;
+            this.availiableControllabelDevices = availiableControllabelDevices;
         }
 
         public void setActiveController(int i)
@@ -82,10 +79,16 @@ namespace EmotivEngine
             return null;
         }
 
-        internal object getTextcommandMapping()
-        {
-            //TODO: noch lesbar machen
-            return commandMapping;
+        public string[] getTextCommandMapping()
+        {            
+            string[] a = new string[commandMapping.Length];
+            
+            for (int i = 0; i < commandMapping.Length; i++)
+            {
+                if (commandMapping[i]!=-1)
+                    a[i] = getCommandList()[i] +" mit " + getActionList()[commandMapping[i]];
+            }
+            return a ;
         }
     }
 

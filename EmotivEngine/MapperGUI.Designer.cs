@@ -44,6 +44,7 @@
             this.loadMappingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonDeleteBind = new System.Windows.Forms.Button();
             this.listMapping = new System.Windows.Forms.ListBox();
+            this.SaveMappingDialog = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -260,6 +261,7 @@
         private System.Windows.Forms.ToolStripMenuItem loadMappingToolStripMenuItem;
         private System.Windows.Forms.Button buttonDeleteBind;
         private System.Windows.Forms.ListBox listMapping;
+        private System.Windows.Forms.SaveFileDialog SaveMappingDialog;
     }
 }
 

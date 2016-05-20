@@ -15,8 +15,8 @@ namespace EmotivEngine
         private int selectedCommand;
         private int selectedAction;
         private int selectedMapping;
-        private ICollection<IControllableDevice> listControllableDevices;
-        private ICollection<IController> listController;
+        private IControllableDevice[] listControllableDevices;
+        private IController[] listController;
         private Mapping mapping;
         private string[] displayMap;
 
@@ -40,20 +40,18 @@ namespace EmotivEngine
             ComboControllableDeviceID.DataSource = types;
         }
 
-        internal MapperGUI(ICollection<IControllableDevice> availiableDevices, ICollection<IController> availiableControllers)
+        internal MapperGUI(IControllableDevice[] availiableDevices, IController[] availiableControllers)
         {
             InitializeComponent();
+            mapping = new Mapping(availiableControllers, availiableDevices);
             setAvailiableControllers(availiableControllers);
             setAvailiableControllabelDevices(availiableDevices);
-            mapping = new Mapping(availiableControllers, availiableDevices);
-            
         }
         private void ComboControllerID_SelectedIndexChanged(object sender, EventArgs e)
         {
             mapping.setActiveController(ComboControllerID.SelectedIndex);
             listCommandTypes.DataSource = mapping.getCommandList();
             listCommandTypes.Enabled = true;
-
         }
 
         private void ComboControllableDeviceID_SelectedIndexChanged(object sender, EventArgs e)
@@ -61,7 +59,6 @@ namespace EmotivEngine
             mapping.setActiveDevice(ComboControllableDeviceID.SelectedIndex);
             listActionTypes.DataSource = mapping.getActionList();
             listActionTypes.Enabled = true;
-
         }
 
         private void listCommandTypes_SelectedIndexChanged(object sender, EventArgs e)
@@ -92,7 +89,7 @@ namespace EmotivEngine
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-
+            mapping.saveMapping();
         }
 
 
