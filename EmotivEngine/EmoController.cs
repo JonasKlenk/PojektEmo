@@ -26,7 +26,10 @@ namespace EmotivEngine
         {
             return id;
         }
-
+        public void setId(int id)
+        {
+            this.id=id;
+        }
         private enum command : int
         {
             CognitivePush = 0, CognitivePull = 1, CognitiveLift = 2, CognitiveDrop = 3, CognitiveLeft = 4,
@@ -225,9 +228,6 @@ namespace EmotivEngine
             throw new NotImplementedException();
         }
 
-        public void setId(int id)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
