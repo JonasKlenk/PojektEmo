@@ -31,8 +31,8 @@
             this.buttonBind = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.ControllerID = new System.Windows.Forms.ComboBox();
-            this.ControllableDeviceID = new System.Windows.Forms.ComboBox();
+            this.ComboControllerID = new System.Windows.Forms.ComboBox();
+            this.ComboControllableDeviceID = new System.Windows.Forms.ComboBox();
             this.listCommandTypes = new System.Windows.Forms.ListBox();
             this.listActionTypes = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -79,22 +79,32 @@
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
-            // ControllerID
+            // ComboControllerID
             // 
-            this.ControllerID.FormattingEnabled = true;
-            this.ControllerID.Location = new System.Drawing.Point(12, 40);
-            this.ControllerID.Name = "ControllerID";
-            this.ControllerID.Size = new System.Drawing.Size(300, 21);
-            this.ControllerID.TabIndex = 3;
+            this.ComboControllerID.FormattingEnabled = true;
+            this.ComboControllerID.Items.AddRange(new object[] {
+            "a",
+            "b",
+            "c",
+            "d",
+            "e",
+            "f",
+            "g",
+            "h",
+            "i"});
+            this.ComboControllerID.Location = new System.Drawing.Point(12, 40);
+            this.ComboControllerID.Name = "ComboControllerID";
+            this.ComboControllerID.Size = new System.Drawing.Size(300, 21);
+            this.ComboControllerID.TabIndex = 3;
             // 
-            // ControllableDeviceID
+            // ComboControllableDeviceID
             // 
-            this.ControllableDeviceID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ControllableDeviceID.FormattingEnabled = true;
-            this.ControllableDeviceID.Location = new System.Drawing.Point(399, 40);
-            this.ControllableDeviceID.Name = "ControllableDeviceID";
-            this.ControllableDeviceID.Size = new System.Drawing.Size(309, 21);
-            this.ControllableDeviceID.TabIndex = 5;
+            this.ComboControllableDeviceID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ComboControllableDeviceID.FormattingEnabled = true;
+            this.ComboControllableDeviceID.Location = new System.Drawing.Point(399, 40);
+            this.ComboControllableDeviceID.Name = "ComboControllableDeviceID";
+            this.ComboControllableDeviceID.Size = new System.Drawing.Size(309, 21);
+            this.ComboControllableDeviceID.TabIndex = 5;
             // 
             // listCommandTypes
             // 
@@ -212,8 +222,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listActionTypes);
             this.Controls.Add(this.listCommandTypes);
-            this.Controls.Add(this.ControllableDeviceID);
-            this.Controls.Add(this.ControllerID);
+            this.Controls.Add(this.ComboControllableDeviceID);
+            this.Controls.Add(this.ComboControllerID);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonBind);
@@ -233,8 +243,8 @@
         private System.Windows.Forms.Button buttonBind;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.ComboBox ControllerID;
-        private System.Windows.Forms.ComboBox ControllableDeviceID;
+        private System.Windows.Forms.ComboBox ComboControllerID;
+        private System.Windows.Forms.ComboBox ComboControllableDeviceID;
         private System.Windows.Forms.ListBox listCommandTypes;
         private System.Windows.Forms.ListBox listActionTypes;
         private System.Windows.Forms.Label label1;

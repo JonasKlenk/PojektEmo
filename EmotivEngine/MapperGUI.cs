@@ -15,13 +15,33 @@ namespace EmotivEngine
         private int selectedCommand;
         private int selectedAction;
         private int selectedMapping;
+        private IControllableDevice[] listControllableDevices;
+        private IController[] listController;
 
 
+        internal void setAvailiableControllers(ICollection<IController> availiableControllers)
+        {
+            List<string> types = new List<string>();
+            foreach (var item in availiableControllers)
+            {
+                types.Add(item.getType());
+            }
+            ComboControllerID.DataSource = types;
+        }
+        internal void SetAvailiableControllabelDevices(ICollection<IControllableDevice> availiableDevices)
+        {
+            List<string> types = new List<string>();
+            foreach (var item in availiableDevices)
+            {
+                types.Add(item.getType());
+            }
+            ComboControllableDeviceID.DataSource = types;
+        }
         public MapperGUI()
         {
             InitializeComponent();
         }
-        
+
         private void listCommandTypes_SelectedIndexChanged(object sender, EventArgs e)
         {
             selectedCommand = listCommandTypes.SelectedIndex;
