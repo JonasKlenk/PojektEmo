@@ -1,8 +1,0 @@
-D:\Eigene_Dateien\Dokumente\Visual Studio 2015\Projects\EmotivEngine\EmotivEngine\bin\x86\Debug\EmotivEngine.exe.config
-D:\Eigene_Dateien\Dokumente\Visual Studio 2015\Projects\EmotivEngine\EmotivEngine\bin\x86\Debug\EmotivEngine.exe
-D:\Eigene_Dateien\Dokumente\Visual Studio 2015\Projects\EmotivEngine\EmotivEngine\bin\x86\Debug\EmotivEngine.pdb
-D:\Eigene_Dateien\Dokumente\Visual Studio 2015\Projects\EmotivEngine\EmotivEngine\bin\x86\Debug\DotNetEmotivSDK.dll
-D:\Eigene_Dateien\Dokumente\Visual Studio 2015\Projects\EmotivEngine\EmotivEngine\bin\x86\Debug\DotNetEmotivSDK.pdb
-D:\Eigene_Dateien\Dokumente\Visual Studio 2015\Projects\EmotivEngine\EmotivEngine\obj\x86\Debug\EmotivEngine.exe
-D:\Eigene_Dateien\Dokumente\Visual Studio 2015\Projects\EmotivEngine\EmotivEngine\obj\x86\Debug\EmotivEngine.pdb
-D:\Eigene_Dateien\Dokumente\Visual Studio 2015\Projects\EmotivEngine\EmotivEngine\obj\x86\Debug\EmotivEngine.csprojResolveAssemblyReference.cache
