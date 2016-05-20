@@ -224,5 +224,10 @@ namespace EmotivEngine
         {
             throw new NotImplementedException();
         }
+
+        public void setId(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

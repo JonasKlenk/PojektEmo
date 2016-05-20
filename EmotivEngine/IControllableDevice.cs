@@ -16,10 +16,13 @@ namespace EmotivEngine
         //Administrativ:
         void initialize();
         string getType();
+
+        int getId();
+        void setId(int id);
         //IControllableDevice getInstance();
         string[] getActionTypes(); //gibt Liste mit den ausführbaren Aktionen zurück
         bool isReady(); //überprüft die Einsatzfähigkeit des Geräte (checkliste)
-        bool setactive(); //aktiviert ein Gerät zum Fortbewegen
-        bool setdeactive(); //deaktiviert ein Gerät zum Fortbewegen
+        bool setActive(); //aktiviert ein Gerät zum Fortbewegen
+        bool setDeactive(); //deaktiviert ein Gerät zum Fortbewegen
     }
 }
