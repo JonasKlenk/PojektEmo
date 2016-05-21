@@ -35,7 +35,7 @@ namespace EmotivEngine
             List<string> types = new List<string>();
             foreach (var item in availiableDevices)
             {
-                types.Add(item.getType());
+                types.Add(item.getType().getDeviceKategory());
             }
             ComboControllableDeviceID.DataSource = types;
         }
@@ -112,7 +112,7 @@ namespace EmotivEngine
         {
             if (openMapDialog.ShowDialog() == DialogResult.OK)
             {
-                Map a = mapEditor.loadMap(openMapDialog.OpenFile());
+                //Map a = mapEditor.loadMap(openMapDialog.OpenFile());
             }
             this.Close();
         }
