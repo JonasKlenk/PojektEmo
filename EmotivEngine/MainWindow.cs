@@ -16,6 +16,7 @@ namespace EmotivEngine
 
         public MainWindow()
         {
+            //TODO: Liste von Controller und Devices initializieren.
             InitializeComponent();
             cce = CentralControlEngine.Instance;
             cce.registerController(EmoController.getInstance(cce));

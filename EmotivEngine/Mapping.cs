@@ -78,25 +78,25 @@ namespace EmotivEngine
         {
             Map a = new Map(controller.getType(), device.getType(), commandMapping, name);
             XmlWriter writer = XmlWriter.Create(writeStream);
-            a.WriteXml(writer);   
+            a.WriteXml(writer);
 
         }
         public static Mapping loadMapping(Stream readStream)
         {
-           //TODO implement
+            //TODO implement
             return null;
         }
 
         public string[] getTextCommandMapping()
-        {            
+        {
             string[] a = new string[commandMapping.Length];
-            
+
             for (int i = 0; i < commandMapping.Length; i++)
             {
-                if (commandMapping[i]!=-1)
-                    a[i] = getCommandList()[i] +" mit " + getActionList()[commandMapping[i]];
+                if (commandMapping[i] != -1)
+                    a[i] = getCommandList()[i] + " mit " + getActionList()[commandMapping[i]];
             }
-            return a ;
+            return a;
         }
 
     }
