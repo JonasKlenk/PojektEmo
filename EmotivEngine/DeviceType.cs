@@ -9,35 +9,39 @@ using System.Xml.Serialization;
 
 namespace EmotivEngine
 {
-    class DeviceKategory : IXmlSerializable
+    [Serializable()]
+    [System.Xml.Serialization.XmlRoot("DEVICETYPE")]
+    class DeviceKategory
     {
-        public DeviceKategory(XmlReader reader)
+        public DeviceKategory(string kategory, string[] actionlist)
         {
-            ReadXml(reader);
+            this.kategoryType = kategory;
+            this.actionList = actionlist;
         }
 
-        public DeviceKategory(string Kategory)
+        [System.Xml.Serialization.XmlElement("KategoryType")]
+        private string kategoryType;
+        [System.Xml.Serialization.XmlElement("KategoryType")]
+        private string[] actionList;
+
+        public static DeviceKategory ReadXml(XmlReader reader)
         {
-
-        }
-
-        private string KategoryType;
-        private string[] ActionList;
-
-
-        public XmlSchema GetSchema()
-        {
-            return null;
-        }
-
-        public void ReadXml(XmlReader reader)
-        {
-            throw new NotImplementedException();
+            XmlSerializer serializer = new XmlSerializer(typeof(DeviceKategory));
+            DeviceKategory a = (DeviceKategory)serializer.Deserialize(reader);
+            reader.Close();
+            return a;
         }
 
         public void WriteXml(XmlWriter writer)
         {
-            throw new NotImplementedException();
+            XmlSerializer serializer = new XmlSerializer(typeof(Map));
+            serializer.Serialize(writer, this);
+            writer.Close();
+        }
+
+        internal string getDeviceKategory()
+        {
+            return kategoryType;
         }
 
         //TODO Einzelnen Klassen Implementieren
