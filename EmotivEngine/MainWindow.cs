@@ -25,7 +25,7 @@ namespace EmotivEngine
 
         private void toggleStartStop_Click(object sender, EventArgs e)
         {
-            if (!cce.isRunning())
+            if (!cce.getIsRunning())
             {
                 cce.start();
                 resetLog_Click(null, null);

@@ -20,11 +20,9 @@ namespace EmotivEngine
         public event EventHandler loggerUpdated;
         private static CentralControlEngine instance = null;
         private CentralControlEngine() { }
-        private Thread inputHandler;
         private int highestControllerId = -1;
         private int highestControllableId = -1;
-        private bool acceptInput = false;
-        private CommandQueue inputQueue = new CommandQueue(8);
+        private bool isRunning = false;
         private List<IControllableDevice> controllableDeviceList = new List<IControllableDevice>();
         private List<IController> controllerList = new List<IController>();
         private List<ControllerBinding> controllerDeviceMap = new List<ControllerBinding>();
@@ -32,7 +30,7 @@ namespace EmotivEngine
         private Logger.loggingLevel loggingLevel = Logger.loggingLevel.debug;
 
         //anlegen einer Controller - device - Map Verknüpfung
-        public void bindControllerDeviceMap(IController controller, IControllableDevice controllableDevice, MapEditor mapping)
+        public void bindControllerDeviceMap(IController controller, IControllableDevice controllableDevice, Mapping mapping)
         {
             unbindControllerDeviceMap(controller);
             controllerDeviceMap.Add(new ControllerBinding(controller, controllableDevice, mapping));
@@ -66,13 +64,6 @@ namespace EmotivEngine
             controllerDeviceMap.RemoveAll(binding => binding.controller == controller);
         }
 
-        public bool isRunning()
-        {
-            if (inputHandler != null)
-                return inputHandler.IsAlive;
-            return false;
-        }
-
         public IControllableDevice[] getControllableDevices()
         {
             return controllableDeviceList.ToArray();
@@ -91,6 +82,7 @@ namespace EmotivEngine
                     return instance;
                 instance = new CentralControlEngine();
                 instance.resetLog();
+                ControllerBinding.cce = instance;
                 return instance;
             }
         }
@@ -126,16 +118,16 @@ namespace EmotivEngine
             logger.addLog(name, String.Format(Texts.Logging.controllableUnregisterd, controllableDevice.getType(), controllableDevice.getId()), Logger.loggingLevel.info);
         }
 
-        public bool isAcceptingInput()
+        public bool getIsRunning()
         {
-            return acceptInput;
+            return isRunning;
         }
 
         public bool addCommand(Command c)
         {
 
-            if (acceptInput)
-                if (inputQueue.enqueue(c))
+            if (isRunning)
+                if (controllerDeviceMap.Find(binding => binding.controller.getId() == c.getSenderId()).inputQueue.enqueue(c))
                     logger.addLog(name, String.Format(Texts.Logging.commandAddedToQueue, c.getCommandName(), c.getCommandId(), c.getSenderId(), c.getIntensity()), Logger.loggingLevel.debug);
             return false;
         }
@@ -144,57 +136,72 @@ namespace EmotivEngine
         {
             foreach (IController c in controllerList)
                 c.setActive();
-            inputHandler = new Thread(new ThreadStart(run));
-            inputHandler.Start();
-            acceptInput = true;
+            foreach (ControllerBinding cb in controllerDeviceMap)
+                cb.startInputHandler();
+            isRunning = true;
             logger.addLog(name, Texts.Logging.engineStarted, Logger.loggingLevel.info); 
         }
 
         public void stop()
         {
-            acceptInput = false;
-            while (!inputQueue.isEmpty())
-                Thread.Sleep(10);
-            inputHandler.Abort();
+            isRunning = false;
+            foreach (ControllerBinding c in controllerDeviceMap) {
+                while (!c.inputQueue.isEmpty())
+                    Thread.Sleep(10);
+                c.inputHandler.Suspend();
+            }
             foreach (IController c in controllerList)
                 c.setDeactive();
             logger.addLog(name, Texts.Logging.engineStoppedByUser, Logger.loggingLevel.info);
         }
 
-        private void run()
-        {
-            while (true)
-            {
-                while (inputQueue.isEmpty())
-                    Thread.Sleep(1);
-                Command c = inputQueue.dequeue();
-                ThreadPool.QueueUserWorkItem(new WaitCallback(processCommand), c);
-                //TODO:
-                //Id für Zielobjekt finden (über Mapper Objekt
-
-            }
-        }
-
-        private void processCommand(object c)
-        {
-            //TODO: TranlsateCommand
-
-            //Find correct target device and perform action
-            //controllerDeviceMap.Find(binding => binding.controller.getId() == ((Command)c).getSenderId()).controllableDevice.performAction(/*translated Command*/);
-            Console.Out.WriteLine(((Command)c).ToString());
-        }
-
         //Stellt eine Verknüpfung zwischen COntroller - Device - Mapping dar.
         class ControllerBinding
         {
+            static public CentralControlEngine cce;
             public IController controller;
             public IControllableDevice controllableDevice;
-            public MapEditor mapping;
-            public ControllerBinding(IController controller, IControllableDevice controllableDevice, MapEditor mapping)
+            public Mapping mapping;
+            public CommandQueue inputQueue = new CommandQueue(8);
+            public Thread inputHandler;
+            public ControllerBinding(IController controller, IControllableDevice controllableDevice, Mapping mapping)
             {
                 this.controller = controller;
                 this.controllableDevice = controllableDevice;
                 this.mapping = mapping;
+            }
+            private void run()
+            {
+                while (true)
+                {
+                    while (inputQueue.isEmpty())
+                        Thread.Sleep(1);
+                    Command c = inputQueue.dequeue();
+                    processCommand(c);
+                    //TODO:
+                    //Id für Zielobjekt finden (über Mapper Objekt
+
+                }
+            }
+
+            private void processCommand(object c)
+            {
+                //TODO: TranlsateCommand
+
+                //Find correct target device and perform action
+                //controllerDeviceMap.Find(binding => binding.controller.getId() == ((Command)c).getSenderId()).controllableDevice.performAction(/*translated Command*/);
+                Console.Out.WriteLine(((Command)c).ToString());
+            }
+
+            public void startInputHandler()
+            {
+                if (inputHandler != null)
+                {
+                    inputHandler.Resume();
+                    return;
+                }
+                inputHandler = new Thread(new ThreadStart(run));
+                inputHandler.Start();
             }
         }
     }
