@@ -76,7 +76,7 @@ namespace EmotivEngine
         }
         public void saveMapping(Stream writeStream)
         {
-            Map a = new Map(controller.getType(), device.getType().getDeviceCategory(), commandMapping, name);
+            Map a = new Map(controller.getType(), device.getType(), commandMapping, name);
             XmlWriter writer = XmlWriter.Create(writeStream);
             a.WriteXml(writer);
 
@@ -94,7 +94,7 @@ namespace EmotivEngine
             for (int i = 0; i < commandMapping.Length; i++)
             {
                 if (commandMapping[i] != -1)
-                    a[i] = getCommandList()[i] + " to " + getActionList()[commandMapping[i]];
+                    a[i] = getCommandList()[i] + " mit " + getActionList()[commandMapping[i]];
             }
             return a;
         }
