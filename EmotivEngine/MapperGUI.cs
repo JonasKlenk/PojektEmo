@@ -35,7 +35,7 @@ namespace EmotivEngine
             List<string> types = new List<string>();
             foreach (var item in availiableDevices)
             {
-                types.Add(item.getType());
+                //types.Add(item.getType());
             }
             ComboControllableDeviceID.DataSource = types;
         }
