@@ -9,12 +9,19 @@ using System.Xml.Serialization;
 
 namespace EmotivEngine
 {
-    class Map : IXmlSerializable
+    [Serializable()]
+    [System.Xml.Serialization.XmlRoot("MAP")]
+    public class Map
     {
+        [System.Xml.Serialization.XmlElement("controllerType")]
         private string controllerType;
+        [System.Xml.Serialization.XmlElement("controllableDeviceType")]
         private string controllableDeviceType;
+        [System.Xml.Serialization.XmlElement("creationDateTime")]
         private string creationDateTime;
+        [System.Xml.Serialization.XmlElement("name")]
         private string name;
+        [System.Xml.Serialization.XmlElement("commandMapping")]
         private int[] commandMapping;
 
         public Map(string contollerType, string controllableDeviceType, int[] commandoMapping, string name)
@@ -26,77 +33,97 @@ namespace EmotivEngine
             this.creationDateTime = DateTime.Now.ToString("dd.MM.yy HH:mm:ss");
         }
 
-        public XmlSchema GetSchema()
+        public static Map ReadXml(string inputUri)
         {
-            //TODO Implement!!!
-            return (null);
+            XmlReader reader = XmlReader.Create(inputUri);
+            XmlSerializer serializer = new XmlSerializer(typeof(Map));
+            Map a = (Map)serializer.Deserialize(reader);
+            reader.Close();
+            return a;
+
         }
 
-        public void ReadXml(XmlReader reader)
+        public static Map ReadXml(XmlReader reader)
         {
-            while (reader.Read())
-            {
-                switch (reader.Name)
-                {
-                    case "controllerType":
-                        controllerType = reader.Value;
-                        break;
-                    case "controllableDeviceType":
-                        controllableDeviceType = reader.Value;
-                        break;
-                    case "creationDateTime":
-                        controllableDeviceType = reader.Value;
-                        break;
-                    case "Bindings":
-                        while (reader.Read())
-                        {
-                            //TODO reader.count
-                            switch (reader.Name)
-                            {
-                                case "r":
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-                        break;
-                    default:
-                        //TODO throw unkown Attribute (o.ä.) Exception
-                        break;
-                }
-                reader.MoveToNextAttribute();
-            }
+
+            XmlSerializer serializer = new XmlSerializer(typeof(Map));
+            Map a = (Map)serializer.Deserialize(reader);
+            reader.Close();
+            return a;
+
+
+            //while (reader.Read())
+            //{
+            //    switch (reader.Name)
+            //    {
+            //        case "controllerType":
+            //            controllerType = reader.Value;
+            //            break;
+            //        case "controllableDeviceType":
+            //            controllableDeviceType = reader.Value;
+            //            break;
+            //        case "creationDateTime":
+            //            controllableDeviceType = reader.Value;
+            //            break;
+            //        case "Bindings":
+            //            while (reader.Read())
+            //            {
+            //                //TODO reader.count
+            //                switch (reader.Name)
+            //                {
+            //                    case "r":
+            //                        break;
+            //                    default:
+            //                        break;
+            //                }
+            //            }
+            //            break;
+            //        default:
+            //            //TODO throw unkown Attribute (o.ä.) Exception
+            //            break;
+            //    }
+            //    reader.MoveToNextAttribute();
+            //}
+
+
         }
 
-        public void WriteXml(XmlWriter xmlWriter)
+        public void WriteXml(XmlWriter writer)
         {
-            xmlWriter.WriteStartDocument();
-            xmlWriter.WriteStartElement("Map");
 
-            xmlWriter.WriteAttributeString("controllerType", controllerType);
-            xmlWriter.WriteAttributeString("controllableDeviceType", controllableDeviceType);
-            xmlWriter.WriteAttributeString("creationDateTime", creationDateTime);
+            XmlSerializer serializer = new XmlSerializer(typeof(Map));
+            serializer.Serialize(writer, this);
+            writer.Close();
+            
+
+            //xmlWriter.WriteStartDocument();
+            //xmlWriter.WriteStartElement("Map");
+
+            //xmlWriter.WriteAttributeString("controllerType", controllerType);
+            //xmlWriter.WriteAttributeString("controllableDeviceType", controllableDeviceType);
+            //xmlWriter.WriteAttributeString("creationDateTime", creationDateTime);
 
 
-            xmlWriter.WriteStartElement("Bindings");
+            //xmlWriter.WriteStartElement("Bindings");
 
-            for (int i = 0; i < commandMapping.Length; i++)
-            {
-                xmlWriter.WriteStartElement("Binding");
-                xmlWriter.WriteAttributeString("Command", i.ToString());
-                xmlWriter.WriteAttributeString("Action", commandMapping[i].ToString());
-                xmlWriter.WriteEndElement();
-            }
-            xmlWriter.WriteEndElement();
+            //for (int i = 0; i < commandMapping.Length; i++)
+            //{
+            //    xmlWriter.WriteStartElement("Binding");
+            //    xmlWriter.WriteAttributeString("Command", i.ToString());
+            //    xmlWriter.WriteAttributeString("Action", commandMapping[i].ToString());
+            //    xmlWriter.WriteEndElement();
+            //}
+            //xmlWriter.WriteEndElement();
 
-            xmlWriter.WriteEndDocument();
-            xmlWriter.Close();
+            //xmlWriter.WriteEndDocument();
+            //xmlWriter.Close();
         }
 
-        public Command translate(Command c)
+        internal Command translate(Command c)
         {
             //TODO: "dummy" durch richtige Namensfindung ersetzen
-            return new Command(this.commandMapping[c.getCommandId()], "dummy", c.getSenderId(), c.getIntensity()); }
+            return new Command(this.commandMapping[c.getCommandId()], "dummy", c.getSenderId(), c.getIntensity());
+        }
 
         public int translate(int id) { return commandMapping[id]; }
     }
