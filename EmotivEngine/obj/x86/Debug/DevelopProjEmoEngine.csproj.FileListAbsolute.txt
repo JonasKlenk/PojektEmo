@@ -20,3 +20,11 @@ E:\Users\Jonas\Documents\Visual Studio 2015\Projects\PojektEmo\EmotivEngine\bin\
 E:\Users\Jonas\Documents\Visual Studio 2015\Projects\PojektEmo\EmotivEngine\obj\x86\Debug\EmotivEngine.MapperGUI.resources
 E:\Users\Jonas\Documents\Visual Studio 2015\Projects\PojektEmo\EmotivEngine\obj\x86\Debug\DevelopProjEmoEngine.csproj.GenerateResource.Cache
 E:\Users\Jonas\Documents\Visual Studio 2015\Projects\PojektEmo\EmotivEngine\obj\x86\Debug\DevelopProjEmoEngine.csprojResolveAssemblyReference.cache
+D:\Eigene_Dateien\Dokumente\Visual Studio 2015\Projects\ProjektEmo\EmotivEngine\bin\x86\Debug\EmotivEngine.exe
+D:\Eigene_Dateien\Dokumente\Visual Studio 2015\Projects\ProjektEmo\EmotivEngine\bin\x86\Debug\EmotivEngine.pdb
+D:\Eigene_Dateien\Dokumente\Visual Studio 2015\Projects\ProjektEmo\EmotivEngine\bin\x86\Debug\DotNetEmotivSDK.dll
+D:\Eigene_Dateien\Dokumente\Visual Studio 2015\Projects\ProjektEmo\EmotivEngine\bin\x86\Debug\DotNetEmotivSDK.pdb
+D:\Eigene_Dateien\Dokumente\Visual Studio 2015\Projects\ProjektEmo\EmotivEngine\obj\x86\Debug\DevelopProjEmoEngine.csprojResolveAssemblyReference.cache
+D:\Eigene_Dateien\Dokumente\Visual Studio 2015\Projects\ProjektEmo\EmotivEngine\obj\x86\Debug\EmotivEngine.MainWindow.resources
+D:\Eigene_Dateien\Dokumente\Visual Studio 2015\Projects\ProjektEmo\EmotivEngine\obj\x86\Debug\EmotivEngine.MapperGUI.resources
+D:\Eigene_Dateien\Dokumente\Visual Studio 2015\Projects\ProjektEmo\EmotivEngine\obj\x86\Debug\DevelopProjEmoEngine.csproj.GenerateResource.Cache

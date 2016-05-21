@@ -179,8 +179,7 @@ namespace EmotivEngine
 
         public bool setActive()
         {
-            if (runEngineThread == null)
-                runEngineThread = new Thread(new ThreadStart(runEngine));
+            runEngineThread = new Thread(new ThreadStart(runEngine));
             runEngineThread.Start();
             return true;
 
@@ -225,7 +224,9 @@ namespace EmotivEngine
 
         public string getType()
         {
-            throw new NotImplementedException();
+            //TODO: musste geändert werden, da sonst keine initialisierung möglich!
+            //throw new NotImplementedException();
+            return null;
         }
 
         

@@ -14,18 +14,21 @@ namespace EmotivEngine
         private string controllerType;
         private string controllableDeviceType;
         private string creationDateTime;
+        private string name;
         private int[] commandMapping;
 
-        public Map(string contollerType, string controllableDeviceType, int[] commandoMapping)
+        public Map(string contollerType, string controllableDeviceType, int[] commandoMapping, string name)
         {
             this.controllerType = contollerType;
             this.controllableDeviceType = controllableDeviceType;
             this.commandMapping = commandoMapping;
+            this.name = name;
             this.creationDateTime = DateTime.Now.ToString("dd.MM.yy HH:mm:ss");
         }
 
         public XmlSchema GetSchema()
         {
+            //TODO Implement!!!
             return (null);
         }
 
@@ -35,28 +38,30 @@ namespace EmotivEngine
             {
                 switch (reader.Name)
                 {
-                    case "controller":
-                        controller = reader.Value;
+                    case "controllerType":
+                        controllerType = reader.Value;
                         break;
-                    case "controllableDevice":
-                        controllableDevice = reader.Value;
+                    case "controllableDeviceType":
+                        controllableDeviceType = reader.Value;
                         break;
                     case "creationDateTime":
-                        controllableDevice = reader.Value;
+                        controllableDeviceType = reader.Value;
                         break;
                     case "Bindings":
                         while (reader.Read())
                         {
-                            reader.coutn
+                            //TODO reader.count
                             switch (reader.Name)
                             {
-                                case "r"
+                                case "r":
+                                    break;
                                 default:
                                     break;
                             }
                         }
                         break;
                     default:
+                        //TODO throw unkown Attribute (o.ä.) Exception
                         break;
                 }
                 reader.MoveToNextAttribute();
@@ -68,8 +73,8 @@ namespace EmotivEngine
             xmlWriter.WriteStartDocument();
             xmlWriter.WriteStartElement("Map");
 
-            xmlWriter.WriteAttributeString("controller", controller);
-            xmlWriter.WriteAttributeString("controllableDevice", controllableDevice);
+            xmlWriter.WriteAttributeString("controllerType", controllerType);
+            xmlWriter.WriteAttributeString("controllableDeviceType", controllableDeviceType);
             xmlWriter.WriteAttributeString("creationDateTime", creationDateTime);
 
 

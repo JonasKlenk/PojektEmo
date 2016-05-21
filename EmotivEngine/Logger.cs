@@ -8,10 +8,10 @@ namespace EmotivEngine
 {
     class Logger
     {
-        List<string> log = new List<string>();
-
-        public enum loggingLevel { debug, warning, error };
-        loggingLevel currentLogLevel = loggingLevel.warning;
+        private List<string> log = new List<string>();
+        public event EventHandler logAdded;
+        public enum loggingLevel { debug, info, warning, error };
+        static loggingLevel currentLogLevel = loggingLevel.warning;
 
         public void addLog(string senderName, string message, loggingLevel level)
         {
@@ -27,15 +27,27 @@ namespace EmotivEngine
                 case loggingLevel.warning:
                     logEntry.Append(" <Warning>");
                     break;
+                case loggingLevel.info:
+                    logEntry.Append(" <Info>");
+                    break;
                 case loggingLevel.debug:
                     logEntry.Append(" <Debug>");
                     break;
             }
             logEntry.Append("\n");
             log.Add(logEntry.ToString());
+
+            EventHandler lclLogAdded = logAdded;
+            if (lclLogAdded != null)
+                lclLogAdded(this, new EventArgs());
         }
 
-        override public string ToString()
+        public void setLogLevel(loggingLevel l)
+        {
+            currentLogLevel = l;
+        }
+
+        public string getLogText()
         {
             StringBuilder output = new StringBuilder();
             foreach (string s in log)
@@ -45,7 +57,11 @@ namespace EmotivEngine
 
         public void printLog()
         {
-            Console.Out.Write(this.ToString());
+            Console.Out.Write(getLogText());
+        }
+        public void resetLog()
+        {
+            log = new List<string>();
         }
     }
 }

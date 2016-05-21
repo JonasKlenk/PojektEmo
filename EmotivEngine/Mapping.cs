@@ -18,6 +18,7 @@ namespace EmotivEngine
         private IControllableDevice[] availiableControllabelDevices;
         private IController controller;
         private IControllableDevice device;
+        private string name;
         private int[] commandMapping;
         /// <summary>
         /// Construktor mit Gui
@@ -37,6 +38,11 @@ namespace EmotivEngine
         public void setActiveDevice(int i)
         {
             device = availiableControllabelDevices[i];
+        }
+
+        public void setName(string name)
+        {
+            this.name = name;
         }
 
 
@@ -70,26 +76,27 @@ namespace EmotivEngine
         }
         public void saveMapping(Stream writeStream)
         {
-            Map a = new Map(controller.getType(), device.getType(), commandMapping);
+            Map a = new Map(controller.getType(), device.getType(), commandMapping, name);
             XmlWriter writer = XmlWriter.Create(writeStream);
-            a.WriteXml(writer);   
+            a.WriteXml(writer);
 
         }
         public static Mapping loadMapping(Stream readStream)
         {
-           ;
+            //TODO implement
+            return null;
         }
 
         public string[] getTextCommandMapping()
-        {            
+        {
             string[] a = new string[commandMapping.Length];
-            
+
             for (int i = 0; i < commandMapping.Length; i++)
             {
-                if (commandMapping[i]!=-1)
-                    a[i] = getCommandList()[i] +" mit " + getActionList()[commandMapping[i]];
+                if (commandMapping[i] != -1)
+                    a[i] = getCommandList()[i] + " mit " + getActionList()[commandMapping[i]];
             }
-            return a ;
+            return a;
         }
 
     }

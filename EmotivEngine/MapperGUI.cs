@@ -93,10 +93,19 @@ namespace EmotivEngine
             {
                 mapping.saveMapping(SaveMappingDialog.OpenFile());
             }
+            this.Close();
              
             
         }
 
+        private void name_TextChanged(object sender, EventArgs e)
+        {
+            mapping.setName(name.Text);
+        }
 
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

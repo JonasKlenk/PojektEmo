@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{7C099D57-4B1B-460C-BADC-08912DDC7306}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EmotivEngine</RootNamespace>
     <AssemblyName>EmotivEngine</AssemblyName>
@@ -67,6 +67,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DotNetEmotivSDK">
       <HintPath>..\..\..\..\..\..\Emotiv standard libraries v3.0.0.41\Examples\EpocExamples\examples_DotNet\DotNetEmotivSDK\obj\x86\Release\DotNetEmotivSDK.dll</HintPath>
@@ -87,10 +90,17 @@
     <Compile Include="CentralControlEngine.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="CommandQueue.cs" />
+    <Compile Include="DeviceType.cs" />
     <Compile Include="EmoController.cs" />
     <Compile Include="IControllableDevice.cs" />
     <Compile Include="IController.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="MainWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainWindow.Designer.cs">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Map.cs" />
     <Compile Include="MapperGUI.cs">
       <SubType>Form</SubType>
@@ -101,6 +111,8 @@
     <Compile Include="Mapping.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TcpDevice.cs" />
+    <Compile Include="Texts.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -118,6 +130,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="MainWindow.resx">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MapperGUI.resx">
       <DependentUpon>MapperGUI.cs</DependentUpon>
     </EmbeddedResource>

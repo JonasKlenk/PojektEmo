@@ -18,15 +18,9 @@ namespace EmotivEngine
         [STAThread]
         static void Main(string[] args)
         {
-            CentralControlEngine cce = CentralControlEngine.Instance;
-            cce.registerController(EmoController.getInstance(cce));
-            cce.start();
-
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            MapperGUI gui = new MapperGUI();
-            Application.Run(gui);
+            Application.Run(new MainWindow());
 
         }
     }
