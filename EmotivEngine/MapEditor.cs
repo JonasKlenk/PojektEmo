@@ -10,7 +10,7 @@ using System.Xml.Serialization;
 
 namespace EmotivEngine
 {
-    class Mapping
+    class MapEditor
     {
         //private ICollection<IController> availiableControllers;
         //private ICollection<IControllableDevice> availiableControllabelDevices;
@@ -25,7 +25,7 @@ namespace EmotivEngine
         /// </summary>
         /// <param name="availiableControllers"></param>
         /// <param name="availiableControllabelDevices"></param>
-        public Mapping(IController[] availiableControllers, IControllableDevice[] availiableControllabelDevices)
+        public MapEditor(IController[] availiableControllers, IControllableDevice[] availiableControllabelDevices)
         {
             this.availiableControllers = availiableControllers;
             this.availiableControllabelDevices = availiableControllabelDevices;
@@ -39,13 +39,10 @@ namespace EmotivEngine
         {
             device = availiableControllabelDevices[i];
         }
-
         public void setName(string name)
         {
             this.name = name;
         }
-
-
         public void bind(int command, int action)
         {
             if (commandMapping == null)
@@ -58,14 +55,12 @@ namespace EmotivEngine
             }
             commandMapping[command] = action;
         }
-
         public void unbind(int index)
         {
             if (commandMapping == null)
                 return;
             commandMapping[index] = -1;
         }
-
         public string[] getCommandList()
         {
             return controller.getCommands();
@@ -85,7 +80,6 @@ namespace EmotivEngine
         {
             return Map.ReadXml(XmlReader.Create(readStream));
         }
-
         public string[] getTextCommandMapping()
         {
             string[] a = new string[commandMapping.Length];

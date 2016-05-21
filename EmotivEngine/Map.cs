@@ -40,83 +40,21 @@ namespace EmotivEngine
             Map a = (Map)serializer.Deserialize(reader);
             reader.Close();
             return a;
-
         }
 
         public static Map ReadXml(XmlReader reader)
         {
-
             XmlSerializer serializer = new XmlSerializer(typeof(Map));
             Map a = (Map)serializer.Deserialize(reader);
             reader.Close();
             return a;
-
-
-            //while (reader.Read())
-            //{
-            //    switch (reader.Name)
-            //    {
-            //        case "controllerType":
-            //            controllerType = reader.Value;
-            //            break;
-            //        case "controllableDeviceType":
-            //            controllableDeviceType = reader.Value;
-            //            break;
-            //        case "creationDateTime":
-            //            controllableDeviceType = reader.Value;
-            //            break;
-            //        case "Bindings":
-            //            while (reader.Read())
-            //            {
-            //                //TODO reader.count
-            //                switch (reader.Name)
-            //                {
-            //                    case "r":
-            //                        break;
-            //                    default:
-            //                        break;
-            //                }
-            //            }
-            //            break;
-            //        default:
-            //            //TODO throw unkown Attribute (o.ä.) Exception
-            //            break;
-            //    }
-            //    reader.MoveToNextAttribute();
-            //}
-
-
         }
 
         public void WriteXml(XmlWriter writer)
         {
-
             XmlSerializer serializer = new XmlSerializer(typeof(Map));
             serializer.Serialize(writer, this);
             writer.Close();
-            
-
-            //xmlWriter.WriteStartDocument();
-            //xmlWriter.WriteStartElement("Map");
-
-            //xmlWriter.WriteAttributeString("controllerType", controllerType);
-            //xmlWriter.WriteAttributeString("controllableDeviceType", controllableDeviceType);
-            //xmlWriter.WriteAttributeString("creationDateTime", creationDateTime);
-
-
-            //xmlWriter.WriteStartElement("Bindings");
-
-            //for (int i = 0; i < commandMapping.Length; i++)
-            //{
-            //    xmlWriter.WriteStartElement("Binding");
-            //    xmlWriter.WriteAttributeString("Command", i.ToString());
-            //    xmlWriter.WriteAttributeString("Action", commandMapping[i].ToString());
-            //    xmlWriter.WriteEndElement();
-            //}
-            //xmlWriter.WriteEndElement();
-
-            //xmlWriter.WriteEndDocument();
-            //xmlWriter.Close();
         }
 
         internal Command translate(Command c)

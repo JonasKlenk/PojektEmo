@@ -47,6 +47,7 @@
             this.SaveMappingDialog = new System.Windows.Forms.SaveFileDialog();
             this.name = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.openMapDialog = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -196,6 +197,7 @@
             this.loadMappingToolStripMenuItem.Name = "loadMappingToolStripMenuItem";
             this.loadMappingToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.loadMappingToolStripMenuItem.Text = "Load Mapping";
+            this.loadMappingToolStripMenuItem.Click += new System.EventHandler(this.loadMappingToolStripMenuItem_Click);
             // 
             // buttonDeleteBind
             // 
@@ -230,11 +232,15 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(15, 28);
+            this.label5.Location = new System.Drawing.Point(9, 31);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(35, 13);
             this.label5.TabIndex = 16;
             this.label5.Text = "Name";
+            // 
+            // openMapDialog
+            // 
+            this.openMapDialog.FileName = "openFileDialog1";
             // 
             // MapperGUI
             // 
@@ -259,7 +265,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MapperGUI";
-            this.Text = "7";
+            this.Text = "Map Editor";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -288,6 +294,7 @@
         private System.Windows.Forms.SaveFileDialog SaveMappingDialog;
         private System.Windows.Forms.TextBox name;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.OpenFileDialog openMapDialog;
     }
 }
 

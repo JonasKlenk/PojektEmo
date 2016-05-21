@@ -123,4 +123,7 @@
   <metadata name="SaveMappingDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>228, 22</value>
   </metadata>
+  <metadata name="openMapDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>389, 22</value>
+  </metadata>
 </root>

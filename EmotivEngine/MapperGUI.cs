@@ -17,7 +17,7 @@ namespace EmotivEngine
         private int selectedMapping;
         private IControllableDevice[] listControllableDevices;
         private IController[] listController;
-        private Mapping mapping;
+        private MapEditor mapEditor;
         private string[] displayMap;
 
 
@@ -43,21 +43,21 @@ namespace EmotivEngine
         internal MapperGUI(IControllableDevice[] availableDevices, IController[] availableControllers)
         {
             InitializeComponent();
-            mapping = new Mapping(availableControllers, availableDevices);
+            mapEditor = new MapEditor(availableControllers, availableDevices);
             setAvailableControllers(availableControllers);
             setAvailableControllabelDevices(availableDevices);
         }
         private void ComboControllerID_SelectedIndexChanged(object sender, EventArgs e)
         {
-            mapping.setActiveController(ComboControllerID.SelectedIndex);
-            listCommandTypes.DataSource = mapping.getCommandList();
+            mapEditor.setActiveController(ComboControllerID.SelectedIndex);
+            listCommandTypes.DataSource = mapEditor.getCommandList();
             listCommandTypes.Enabled = true;
         }
 
         private void ComboControllableDeviceID_SelectedIndexChanged(object sender, EventArgs e)
         {
-            mapping.setActiveDevice(ComboControllableDeviceID.SelectedIndex);
-            listActionTypes.DataSource = mapping.getActionList();
+            mapEditor.setActiveDevice(ComboControllableDeviceID.SelectedIndex);
+            listActionTypes.DataSource = mapEditor.getActionList();
             listActionTypes.Enabled = true;
         }
 
@@ -78,20 +78,20 @@ namespace EmotivEngine
 
         private void buttonBind_Click(object sender, EventArgs e)
         {
-            mapping.bind(selectedCommand, selectedAction);
-            listMapping.DataSource = mapping.getTextCommandMapping();
+            mapEditor.bind(selectedCommand, selectedAction);
+            listMapping.DataSource = mapEditor.getTextCommandMapping();
         }
 
         private void buttonDeleteBind_Click(object sender, EventArgs e)
         {
-            mapping.unbind(selectedMapping);
+            mapEditor.unbind(selectedMapping);
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
             if (SaveMappingDialog.ShowDialog() == DialogResult.OK)
             {
-                mapping.saveMapping(SaveMappingDialog.OpenFile());
+                mapEditor.saveMapping(SaveMappingDialog.OpenFile());
             }
             this.Close();
              
@@ -100,11 +100,20 @@ namespace EmotivEngine
 
         private void name_TextChanged(object sender, EventArgs e)
         {
-            mapping.setName(name.Text);
+            mapEditor.setName(name.Text);
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
+            this.Close();
+        }
+
+        private void loadMappingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openMapDialog.ShowDialog() == DialogResult.OK)
+            {
+                Map a = mapEditor.loadMap(openMapDialog.OpenFile());
+            }
             this.Close();
         }
     }
