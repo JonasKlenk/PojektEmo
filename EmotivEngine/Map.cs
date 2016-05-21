@@ -28,7 +28,7 @@ namespace EmotivEngine
 
         public XmlSchema GetSchema()
         {
-            //TODO Implement!!!
+            // Implement!!!
             return (null);
         }
 

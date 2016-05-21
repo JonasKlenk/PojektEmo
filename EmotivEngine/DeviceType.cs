@@ -40,6 +40,11 @@ namespace EmotivEngine
             throw new NotImplementedException();
         }
 
+        internal string getDeviceCategory()
+        {
+            throw new NotImplementedException();
+        }
+
         //TODO Einzelnen Klassen Implementieren
         //in 
     }

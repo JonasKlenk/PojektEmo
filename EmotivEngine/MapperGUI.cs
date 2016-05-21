@@ -47,6 +47,8 @@ namespace EmotivEngine
             setAvailableControllers(availableControllers);
             setAvailableControllabelDevices(availableDevices);
         }
+
+
         private void ComboControllerID_SelectedIndexChanged(object sender, EventArgs e)
         {
             mapping.setActiveController(ComboControllerID.SelectedIndex);

@@ -62,8 +62,7 @@ namespace EmotivEngine
 
         private void openMappingDialog_Click(object sender, EventArgs e)
         {
-            MapperGUI mapperGui = new MapperGUI(cce.getControllableDevices(), cce.getControllers());
-            mapperGui.Show();
+            new MapperGUI(cce.getControllableDevices(), cce.getControllers()).Show();
         }
 
         private void MainWindow_FormClosed(object sender, FormClosedEventArgs e)
