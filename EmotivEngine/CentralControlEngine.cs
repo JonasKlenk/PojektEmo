@@ -30,10 +30,10 @@ namespace EmotivEngine
         private Logger.loggingLevel loggingLevel = Logger.loggingLevel.debug;
 
         //anlegen einer Controller - device - Map Verknüpfung
-        public void bindControllerDeviceMap(IController controller, IControllableDevice controllableDevice, Mapping mapping)
+        public void bindControllerDeviceMap(IController controller, IControllableDevice controllableDevice, MapEditor mapEditor)
         {
             unbindControllerDeviceMap(controller);
-            controllerDeviceMap.Add(new ControllerBinding(controller, controllableDevice, mapping));
+            controllerDeviceMap.Add(new ControllerBinding(controller, controllableDevice, mapEditor));
         }
 
         public string getLogText()
@@ -161,14 +161,14 @@ namespace EmotivEngine
             static public CentralControlEngine cce;
             public IController controller;
             public IControllableDevice controllableDevice;
-            public Mapping mapping;
+            public MapEditor mapEditor;
             public CommandQueue inputQueue = new CommandQueue(8);
             public Thread inputHandler;
-            public ControllerBinding(IController controller, IControllableDevice controllableDevice, Mapping mapping)
+            public ControllerBinding(IController controller, IControllableDevice controllableDevice, MapEditor mapEditor)
             {
                 this.controller = controller;
                 this.controllableDevice = controllableDevice;
-                this.mapping = mapping;
+                this.mapEditor = mapEditor;
             }
             private void run()
             {
