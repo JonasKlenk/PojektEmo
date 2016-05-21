@@ -38,7 +38,6 @@ namespace EmotivEngine
                 statusLabel.BackColor = Color.Red;
                 statusLabel.Text = "Stopped";
                 toggleStartStop.Text = "Start Engine";
-
             }
         }
 

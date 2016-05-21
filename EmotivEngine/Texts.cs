@@ -18,5 +18,10 @@ namespace EmotivEngine
             static public string engineStarted = "Engine started succesfully.";
             static public string engineStoppedByUser = "Engine stopped by user";
         }
+
+        public static class GUITexts
+        {
+
+        }
     }
 }
