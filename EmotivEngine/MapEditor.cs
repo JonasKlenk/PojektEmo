@@ -18,8 +18,12 @@ namespace EmotivEngine
         private IControllableDevice[] availiableControllabelDevices;
         private IController controller;
         private IControllableDevice device;
-        private string name;
-        private int[] commandMapping;
+        public string controllerType { get; }
+        public string deviceType { get; }
+        public string name { get; set; }
+        private int[] bindings;
+        private string[] commandList;
+        private string[] actionList;
         /// <summary>
         /// Construktor mit Gui
         /// </summary>
@@ -30,14 +34,26 @@ namespace EmotivEngine
             this.availiableControllers = availiableControllers;
             this.availiableControllabelDevices = availiableControllabelDevices;
         }
+        private MapEditor(Map a)
+        {
+            name = a.name;
+            bindings = a.bindings;
+            controllerType = a.controllerType;
+            deviceType = a.controllableDeviceType;
+            commandList = a.commandList;
+            actionList = a.actionList;
+
+        }
 
         public void setActiveController(int i)
         {
             controller = availiableControllers[i];
+            commandList = controller.getCommands();
         }
         public void setActiveDevice(int i)
         {
             device = availiableControllabelDevices[i];
+            actionList = device.getActions();
         }
         public void setName(string name)
         {
@@ -45,49 +61,48 @@ namespace EmotivEngine
         }
         public void bind(int command, int action)
         {
-            if (commandMapping == null)
+            if (bindings == null)
             {
-                commandMapping = new int[getCommandList().Length];
-                for (int i = 0; i < commandMapping.Length; i++)
+                bindings = new int[getCommandList().Length];
+                for (int i = 0; i < bindings.Length; i++)
                 {
-                    commandMapping[i] = -1;
+                    bindings[i] = -1;
                 }
             }
-            commandMapping[command] = action;
+            bindings[command] = action;
         }
         public void unbind(int index)
         {
-            if (commandMapping == null)
+            if (bindings == null)
                 return;
-            commandMapping[index] = -1;
+            bindings[index] = -1;
         }
         public string[] getCommandList()
         {
-            return controller.getCommands();
+            return commandList;
         }
         public string[] getActionList()
         {
-            return device.getActionTypes();
+            return actionList;
         }
         public void saveMapping(Stream writeStream)
         {
-            Map a = new Map(controller.getType(), device.getType().getDeviceKategory(), commandMapping, name);
+            Map a = new Map(controller.getType(), device.getType().getDeviceKategory(), bindings, name, getCommandList(), getActionList());
             XmlWriter writer = XmlWriter.Create(writeStream);
             a.WriteXml(writer);
-
         }
-        public static Map loadMap(Stream readStream)
-        {
-            return Map.ReadXml(XmlReader.Create(readStream));
+        public static MapEditor loadMap(Stream readStream)
+        {           
+            return new MapEditor(Map.ReadXml(XmlReader.Create(readStream)));
         }
         public string[] getTextCommandMapping()
         {
-            string[] a = new string[commandMapping.Length];
+            string[] a = new string[bindings.Length];
 
-            for (int i = 0; i < commandMapping.Length; i++)
+            for (int i = 0; i < bindings.Length; i++)
             {
-                if (commandMapping[i] != -1)
-                    a[i] = getCommandList()[i] + " mit " + getActionList()[commandMapping[i]];
+                if (bindings[i] != -1)
+                    a[i] = getCommandList()[i] + " to " + getActionList()[bindings[i]];
             }
             return a;
         }

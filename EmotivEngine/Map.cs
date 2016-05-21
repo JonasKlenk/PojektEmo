@@ -14,22 +14,29 @@ namespace EmotivEngine
     public class Map
     {
         [System.Xml.Serialization.XmlElement("controllerType")]
-        private string controllerType;
+        public string controllerType { get; }
         [System.Xml.Serialization.XmlElement("controllableDeviceType")]
-        private string controllableDeviceType;
+        public string controllableDeviceType { get; }
         [System.Xml.Serialization.XmlElement("creationDateTime")]
         private string creationDateTime;
         [System.Xml.Serialization.XmlElement("name")]
-        private string name;
-        [System.Xml.Serialization.XmlElement("commandMapping")]
-        private int[] commandMapping;
+        public string name { get; }
+        [System.Xml.Serialization.XmlElement("bindings")]
+        public int[] bindings { get; }
+        [System.Xml.Serialization.XmlElement("commandList")]
+        public string[] commandList { get; }
+        [System.Xml.Serialization.XmlElement("actionList")]
+        public string[] actionList { get; }
 
-        public Map(string contollerType, string controllableDeviceType, int[] commandoMapping, string name)
+        public Map(string contollerType, string controllableDeviceType, int[] commandoMapping, string name, string[] commandList, string[] actionList)
         {
             this.controllerType = contollerType;
             this.controllableDeviceType = controllableDeviceType;
-            this.commandMapping = commandoMapping;
+            this.bindings = commandoMapping;
             this.name = name;
+            this.commandList = commandList;
+            this.actionList = actionList;
+
             this.creationDateTime = DateTime.Now.ToString("dd.MM.yy HH:mm:ss");
         }
 
@@ -60,9 +67,10 @@ namespace EmotivEngine
         internal Command translate(Command c)
         {
             //TODO: "dummy" durch richtige Namensfindung ersetzen
-            return new Command(this.commandMapping[c.getCommandId()], "dummy", c.getSenderId(), c.getIntensity());
+            return new Command(this.bindings[c.getCommandId()], "dummy", c.getSenderId(), c.getIntensity());
         }
 
-        public int translate(int id) { return commandMapping[id]; }
+        public int translate(int id)
+        { return bindings[id]; }
     }
 }

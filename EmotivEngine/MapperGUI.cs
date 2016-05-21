@@ -15,48 +15,39 @@ namespace EmotivEngine
         private int selectedCommand;
         private int selectedAction;
         private int selectedMapping;
-        private IControllableDevice[] listControllableDevices;
-        private IController[] listController;
         private MapEditor mapEditor;
-        private string[] displayMap;
+        private IController[] availableControllers;
+        private IControllableDevice[] availableDevices;
 
 
-        private void setAvailableControllers(ICollection<IController> availiableControllers)
+        private void setAvailableControllers(IController[] availiableControllers)
         {
-            List<string> types = new List<string>();
-            foreach (var item in availiableControllers)
-            {
-                types.Add(item.getType());
-            }
-            ComboControllerID.DataSource = types;
+            comboControllerID.DataSource = availiableControllers;
         }
-        private void setAvailableControllabelDevices(ICollection<IControllableDevice> availiableDevices)
+        private void setAvailableControllabelDevices(IControllableDevice[] availiableDevices)
         {
-            List<string> types = new List<string>();
-            foreach (var item in availiableDevices)
-            {
-                types.Add(item.getType().getDeviceKategory());
-            }
-            ComboControllableDeviceID.DataSource = types;
+            comboControllableDeviceID.DataSource = availiableDevices;
         }
 
         internal MapperGUI(IControllableDevice[] availableDevices, IController[] availableControllers)
         {
             InitializeComponent();
             mapEditor = new MapEditor(availableControllers, availableDevices);
+            this.availableControllers = availableControllers;
+            this.availableDevices = availableDevices;
             setAvailableControllers(availableControllers);
             setAvailableControllabelDevices(availableDevices);
         }
         private void ComboControllerID_SelectedIndexChanged(object sender, EventArgs e)
         {
-            mapEditor.setActiveController(ComboControllerID.SelectedIndex);
+            mapEditor.setActiveController(comboControllerID.SelectedIndex);
             listCommandTypes.DataSource = mapEditor.getCommandList();
             listCommandTypes.Enabled = true;
         }
 
         private void ComboControllableDeviceID_SelectedIndexChanged(object sender, EventArgs e)
         {
-            mapEditor.setActiveDevice(ComboControllableDeviceID.SelectedIndex);
+            mapEditor.setActiveDevice(comboControllableDeviceID.SelectedIndex);
             listActionTypes.DataSource = mapEditor.getActionList();
             listActionTypes.Enabled = true;
         }
@@ -112,9 +103,24 @@ namespace EmotivEngine
         {
             if (openMapDialog.ShowDialog() == DialogResult.OK)
             {
-                //Map a = mapEditor.loadMap(openMapDialog.OpenFile());
+                mapEditor = MapEditor.loadMap(openMapDialog.OpenFile());
+                name.Text = mapEditor.name;
+                comboControllerID.Text = mapEditor.controllerType;
+                comboControllerID.Enabled = false;
+                comboControllableDeviceID.Text = mapEditor.deviceType;
+                comboControllableDeviceID.Enabled = false;
+                listCommandTypes.DataSource = mapEditor.getCommandList();
+                listActionTypes.DataSource = mapEditor.getActionList();
+                listMapping.DataSource = mapEditor.getTextCommandMapping();
             }
             this.Close();
+        }
+
+        private void newMappingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            mapEditor = new MapEditor(availableControllers, availableDevices);
+            setAvailableControllers(availableControllers);
+            setAvailableControllabelDevices(availableDevices);
         }
     }
 }

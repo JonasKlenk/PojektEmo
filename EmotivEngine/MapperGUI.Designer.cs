@@ -31,8 +31,8 @@
             this.buttonBind = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.ComboControllerID = new System.Windows.Forms.ComboBox();
-            this.ComboControllableDeviceID = new System.Windows.Forms.ComboBox();
+            this.comboControllerID = new System.Windows.Forms.ComboBox();
+            this.comboControllableDeviceID = new System.Windows.Forms.ComboBox();
             this.listCommandTypes = new System.Windows.Forms.ListBox();
             this.listActionTypes = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -48,6 +48,7 @@
             this.name = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.openMapDialog = new System.Windows.Forms.OpenFileDialog();
+            this.newMappingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -84,10 +85,10 @@
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
-            // ComboControllerID
+            // comboControllerID
             // 
-            this.ComboControllerID.FormattingEnabled = true;
-            this.ComboControllerID.Items.AddRange(new object[] {
+            this.comboControllerID.FormattingEnabled = true;
+            this.comboControllerID.Items.AddRange(new object[] {
             "a",
             "b",
             "c",
@@ -97,21 +98,21 @@
             "g",
             "h",
             "i"});
-            this.ComboControllerID.Location = new System.Drawing.Point(12, 89);
-            this.ComboControllerID.Name = "ComboControllerID";
-            this.ComboControllerID.Size = new System.Drawing.Size(300, 21);
-            this.ComboControllerID.TabIndex = 3;
-            this.ComboControllerID.SelectedIndexChanged += new System.EventHandler(this.ComboControllerID_SelectedIndexChanged);
+            this.comboControllerID.Location = new System.Drawing.Point(12, 89);
+            this.comboControllerID.Name = "comboControllerID";
+            this.comboControllerID.Size = new System.Drawing.Size(300, 21);
+            this.comboControllerID.TabIndex = 3;
+            this.comboControllerID.SelectedIndexChanged += new System.EventHandler(this.ComboControllerID_SelectedIndexChanged);
             // 
-            // ComboControllableDeviceID
+            // comboControllableDeviceID
             // 
-            this.ComboControllableDeviceID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ComboControllableDeviceID.FormattingEnabled = true;
-            this.ComboControllableDeviceID.Location = new System.Drawing.Point(399, 89);
-            this.ComboControllableDeviceID.Name = "ComboControllableDeviceID";
-            this.ComboControllableDeviceID.Size = new System.Drawing.Size(309, 21);
-            this.ComboControllableDeviceID.TabIndex = 5;
-            this.ComboControllableDeviceID.SelectedIndexChanged += new System.EventHandler(this.ComboControllableDeviceID_SelectedIndexChanged);
+            this.comboControllableDeviceID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboControllableDeviceID.FormattingEnabled = true;
+            this.comboControllableDeviceID.Location = new System.Drawing.Point(399, 89);
+            this.comboControllableDeviceID.Name = "comboControllableDeviceID";
+            this.comboControllableDeviceID.Size = new System.Drawing.Size(309, 21);
+            this.comboControllableDeviceID.TabIndex = 5;
+            this.comboControllableDeviceID.SelectedIndexChanged += new System.EventHandler(this.ComboControllableDeviceID_SelectedIndexChanged);
             // 
             // listCommandTypes
             // 
@@ -187,6 +188,7 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newMappingToolStripMenuItem,
             this.loadMappingToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -195,7 +197,7 @@
             // loadMappingToolStripMenuItem
             // 
             this.loadMappingToolStripMenuItem.Name = "loadMappingToolStripMenuItem";
-            this.loadMappingToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.loadMappingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.loadMappingToolStripMenuItem.Text = "Load Mapping";
             this.loadMappingToolStripMenuItem.Click += new System.EventHandler(this.loadMappingToolStripMenuItem_Click);
             // 
@@ -242,6 +244,13 @@
             // 
             this.openMapDialog.FileName = "openFileDialog1";
             // 
+            // newMappingToolStripMenuItem
+            // 
+            this.newMappingToolStripMenuItem.Name = "newMappingToolStripMenuItem";
+            this.newMappingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newMappingToolStripMenuItem.Text = "New Mapping";
+            this.newMappingToolStripMenuItem.Click += new System.EventHandler(this.newMappingToolStripMenuItem_Click);
+            // 
             // MapperGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -257,8 +266,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listActionTypes);
             this.Controls.Add(this.listCommandTypes);
-            this.Controls.Add(this.ComboControllableDeviceID);
-            this.Controls.Add(this.ComboControllerID);
+            this.Controls.Add(this.comboControllableDeviceID);
+            this.Controls.Add(this.comboControllerID);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonBind);
@@ -278,8 +287,8 @@
         private System.Windows.Forms.Button buttonBind;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.ComboBox ComboControllerID;
-        private System.Windows.Forms.ComboBox ComboControllableDeviceID;
+        private System.Windows.Forms.ComboBox comboControllerID;
+        private System.Windows.Forms.ComboBox comboControllableDeviceID;
         private System.Windows.Forms.ListBox listCommandTypes;
         private System.Windows.Forms.ListBox listActionTypes;
         private System.Windows.Forms.Label label1;
@@ -295,6 +304,7 @@
         private System.Windows.Forms.TextBox name;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.OpenFileDialog openMapDialog;
+        private System.Windows.Forms.ToolStripMenuItem newMappingToolStripMenuItem;
     }
 }
 

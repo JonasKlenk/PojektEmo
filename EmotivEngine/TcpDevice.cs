@@ -13,7 +13,7 @@ namespace EmotivEngine
             throw new NotImplementedException();
         }
 
-        public string[] getActionTypes()
+        public string[] getActions()
         {
             throw new NotImplementedException();
         }
