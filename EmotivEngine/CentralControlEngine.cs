@@ -28,6 +28,7 @@ namespace EmotivEngine
         private List<ControllerBinding> controllerDeviceMap = new List<ControllerBinding>();
         private const string name = "CCE";
         private Logger.loggingLevel loggingLevel = Logger.loggingLevel.debug;
+        private List<Map> mapList = new List<Map>();
         public void addLog(string sender, string message, Logger.loggingLevel level)
         {
             logger.addLog(sender, message, level);
@@ -70,12 +71,17 @@ namespace EmotivEngine
 
         public IControllableDevice[] getControllableDevices()
         {
-            return controllableDeviceList.ToArray();
+            return controllableDeviceList.ToArray<IControllableDevice>();
         }
 
         public IController[] getControllers()
         {
-            return controllerList.ToArray();
+            return controllerList.ToArray<IController>();
+        }
+
+        public Map[] getMaps()
+        {
+            return mapList.ToArray<Map>();
         }
 
         public static CentralControlEngine Instance
@@ -96,30 +102,40 @@ namespace EmotivEngine
             controller.setId(++highestControllerId);
             controllerList.Add(controller);
             controller.initialize();
-            logger.addLog(name, String.Format(Texts.Logging.controllerRegisterd, controller.getType(), controller.getId()), Logger.loggingLevel.info);
+            logger.addLog(name, String.Format(Texts.Logging.controllerRegistered, controller.getType(), controller.getId()), Logger.loggingLevel.info);
         }
 
         public void registerControllableDevice(IControllableDevice controllableDevice)
         {
-            logger.addLog(name, String.Format(Texts.Logging.controllableRegisterd, controllableDevice.getType(), controllableDevice.getId()), Logger.loggingLevel.info);
             controllableDevice.setId(++highestControllableId);
             controllableDeviceList.Add(controllableDevice);
             controllableDevice.initialize();
+            logger.addLog(name, String.Format(Texts.Logging.controllableRegistered, controllableDevice.getType(), controllableDevice.getId()), Logger.loggingLevel.info);
+        }
 
+        public void registerMap(Map map)
+        {
+            mapList.Add(map);
+            logger.addLog(name, String.Format(Texts.Logging.mapRegistered, map.name), Logger.loggingLevel.info);
+        }
+        public void unregisterMap(Map map)
+        {
+            mapList.Remove(map);
+            logger.addLog(name, String.Format(Texts.Logging.mapUnregistered, map.name), Logger.loggingLevel.info);
         }
 
         public void unregisterController(IController controller)
         {
             controller.setDeactive();
             controllerList.Remove(controller);
-            logger.addLog(name, String.Format(Texts.Logging.controllerUnregisterd, controller.getType(), controller.getId()), Logger.loggingLevel.info);
+            logger.addLog(name, String.Format(Texts.Logging.controllerUnregistered, controller.getType(), controller.getId()), Logger.loggingLevel.info);
         }
 
         public void unregisterControllableDevice(IControllableDevice controllableDevice)
         {
             controllableDevice.setDeactive();
             controllableDeviceList.Remove(controllableDevice);
-            logger.addLog(name, String.Format(Texts.Logging.controllableUnregisterd, controllableDevice.getType(), controllableDevice.getId()), Logger.loggingLevel.info);
+            logger.addLog(name, String.Format(Texts.Logging.controllableUnregistered, controllableDevice.getType(), controllableDevice.getId()), Logger.loggingLevel.info);
         }
 
         public bool getIsRunning()

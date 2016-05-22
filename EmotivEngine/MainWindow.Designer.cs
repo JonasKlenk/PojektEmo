@@ -29,10 +29,18 @@
         private void InitializeComponent()
         {
             this.toggleStartStop = new System.Windows.Forms.Button();
-            this.openMappingDialog = new System.Windows.Forms.Button();
             this.log = new System.Windows.Forms.TextBox();
             this.resetLog = new System.Windows.Forms.Button();
             this.statusLabel = new System.Windows.Forms.Label();
+            this.comboBoxSelectController = new System.Windows.Forms.ComboBox();
+            this.comboBoxSelectCOntrollable = new System.Windows.Forms.ComboBox();
+            this.labelController = new System.Windows.Forms.Label();
+            this.labelDevice = new System.Windows.Forms.Label();
+            this.labelMapping = new System.Windows.Forms.Label();
+            this.comboBoxSelectMap = new System.Windows.Forms.ComboBox();
+            this.btnAddMapping = new System.Windows.Forms.Button();
+            this.btnDelMapping = new System.Windows.Forms.Button();
+            this.btnEditMapping = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // toggleStartStop
@@ -45,16 +53,6 @@
             this.toggleStartStop.UseVisualStyleBackColor = true;
             this.toggleStartStop.Click += new System.EventHandler(this.toggleStartStop_Click);
             // 
-            // openMappingDialog
-            // 
-            this.openMappingDialog.Location = new System.Drawing.Point(11, 118);
-            this.openMappingDialog.Name = "openMappingDialog";
-            this.openMappingDialog.Size = new System.Drawing.Size(200, 50);
-            this.openMappingDialog.TabIndex = 2;
-            this.openMappingDialog.Text = "Open Mapping Configurator";
-            this.openMappingDialog.UseVisualStyleBackColor = true;
-            this.openMappingDialog.Click += new System.EventHandler(this.openMappingDialog_Click);
-            // 
             // log
             // 
             this.log.AcceptsReturn = true;
@@ -63,13 +61,13 @@
             this.log.Name = "log";
             this.log.ReadOnly = true;
             this.log.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.log.Size = new System.Drawing.Size(242, 101);
+            this.log.Size = new System.Drawing.Size(242, 253);
             this.log.TabIndex = 4;
             this.log.Text = "No Events";
             // 
             // resetLog
             // 
-            this.resetLog.Location = new System.Drawing.Point(223, 118);
+            this.resetLog.Location = new System.Drawing.Point(223, 271);
             this.resetLog.Name = "resetLog";
             this.resetLog.Size = new System.Drawing.Size(242, 50);
             this.resetLog.TabIndex = 5;
@@ -88,15 +86,101 @@
             this.statusLabel.Text = "Stopped";
             this.statusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // selectControllerComboBox
+            // 
+            this.comboBoxSelectController.FormattingEnabled = true;
+            this.comboBoxSelectController.Location = new System.Drawing.Point(11, 147);
+            this.comboBoxSelectController.Name = "selectControllerComboBox";
+            this.comboBoxSelectController.Size = new System.Drawing.Size(200, 21);
+            this.comboBoxSelectController.TabIndex = 6;
+            // 
+            // selectControllabeComboBox
+            // 
+            this.comboBoxSelectCOntrollable.FormattingEnabled = true;
+            this.comboBoxSelectCOntrollable.Location = new System.Drawing.Point(11, 200);
+            this.comboBoxSelectCOntrollable.Name = "selectControllabeComboBox";
+            this.comboBoxSelectCOntrollable.Size = new System.Drawing.Size(200, 21);
+            this.comboBoxSelectCOntrollable.TabIndex = 7;
+            // 
+            // labelController
+            // 
+            this.labelController.AutoSize = true;
+            this.labelController.Location = new System.Drawing.Point(12, 131);
+            this.labelController.Name = "labelController";
+            this.labelController.Size = new System.Drawing.Size(51, 13);
+            this.labelController.TabIndex = 8;
+            this.labelController.Text = "Controller";
+            // 
+            // labelDevice
+            // 
+            this.labelDevice.AutoSize = true;
+            this.labelDevice.Location = new System.Drawing.Point(13, 184);
+            this.labelDevice.Name = "labelDevice";
+            this.labelDevice.Size = new System.Drawing.Size(41, 13);
+            this.labelDevice.TabIndex = 9;
+            this.labelDevice.Text = "Device";
+            // 
+            // labelMapping
+            // 
+            this.labelMapping.AutoSize = true;
+            this.labelMapping.Location = new System.Drawing.Point(13, 233);
+            this.labelMapping.Name = "labelMapping";
+            this.labelMapping.Size = new System.Drawing.Size(48, 13);
+            this.labelMapping.TabIndex = 11;
+            this.labelMapping.Text = "Mapping";
+            // 
+            // comboBox1
+            // 
+            this.comboBoxSelectMap.FormattingEnabled = true;
+            this.comboBoxSelectMap.Location = new System.Drawing.Point(11, 249);
+            this.comboBoxSelectMap.Name = "comboBox1";
+            this.comboBoxSelectMap.Size = new System.Drawing.Size(200, 21);
+            this.comboBoxSelectMap.TabIndex = 10;
+            // 
+            // btnAddMapping
+            // 
+            this.btnAddMapping.Location = new System.Drawing.Point(11, 284);
+            this.btnAddMapping.Name = "btnAddMapping";
+            this.btnAddMapping.Size = new System.Drawing.Size(66, 37);
+            this.btnAddMapping.TabIndex = 12;
+            this.btnAddMapping.Text = "Add";
+            this.btnAddMapping.UseVisualStyleBackColor = true;
+            // 
+            // btnDelMapping
+            // 
+            this.btnDelMapping.Location = new System.Drawing.Point(156, 284);
+            this.btnDelMapping.Name = "btnDelMapping";
+            this.btnDelMapping.Size = new System.Drawing.Size(55, 37);
+            this.btnDelMapping.TabIndex = 13;
+            this.btnDelMapping.Text = "Delete";
+            this.btnDelMapping.UseVisualStyleBackColor = true;
+            // 
+            // btnEditMapping
+            // 
+            this.btnEditMapping.Location = new System.Drawing.Point(83, 284);
+            this.btnEditMapping.Name = "btnEditMapping";
+            this.btnEditMapping.Size = new System.Drawing.Size(67, 37);
+            this.btnEditMapping.TabIndex = 14;
+            this.btnEditMapping.Text = "Edit";
+            this.btnEditMapping.UseVisualStyleBackColor = true;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(478, 182);
+            this.ClientSize = new System.Drawing.Size(478, 335);
+            this.Controls.Add(this.btnEditMapping);
+            this.Controls.Add(this.btnDelMapping);
+            this.Controls.Add(this.btnAddMapping);
+            this.Controls.Add(this.labelMapping);
+            this.Controls.Add(this.comboBoxSelectMap);
+            this.Controls.Add(this.labelDevice);
+            this.Controls.Add(this.labelController);
+            this.Controls.Add(this.comboBoxSelectCOntrollable);
+            this.Controls.Add(this.comboBoxSelectController);
             this.Controls.Add(this.statusLabel);
             this.Controls.Add(this.resetLog);
             this.Controls.Add(this.log);
-            this.Controls.Add(this.openMappingDialog);
             this.Controls.Add(this.toggleStartStop);
             this.Name = "MainWindow";
             this.Text = "MainWindow";
@@ -109,9 +193,17 @@
         #endregion
 
         private System.Windows.Forms.Button toggleStartStop;
-        private System.Windows.Forms.Button openMappingDialog;
         private System.Windows.Forms.TextBox log;
         private System.Windows.Forms.Button resetLog;
         private System.Windows.Forms.Label statusLabel;
+        private System.Windows.Forms.ComboBox comboBoxSelectController;
+        private System.Windows.Forms.ComboBox comboBoxSelectCOntrollable;
+        private System.Windows.Forms.Label labelController;
+        private System.Windows.Forms.Label labelDevice;
+        private System.Windows.Forms.Label labelMapping;
+        private System.Windows.Forms.ComboBox comboBoxSelectMap;
+        private System.Windows.Forms.Button btnAddMapping;
+        private System.Windows.Forms.Button btnDelMapping;
+        private System.Windows.Forms.Button btnEditMapping;
     }
 }

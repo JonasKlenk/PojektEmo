@@ -13,7 +13,7 @@ namespace EmotivEngine
     {
         public event EventHandler Error;
         public event EventHandler Warning;
-
+        private static string type = Texts.ControllerTypes.CT_EmotivEPOC;
         private CentralControlEngine controlEngine;
         private EmoState lastEmoState = new EmoState();
         private Thread runEngineThread;
@@ -232,9 +232,7 @@ namespace EmotivEngine
 
         public string getType()
         {
-            //TODO: musste geändert werden, da sonst keine initialisierung möglich!
-            //throw new NotImplementedException();
-            return null;
+            return type;
         }
 
         

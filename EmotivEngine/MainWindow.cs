@@ -21,8 +21,14 @@ namespace EmotivEngine
             cce = CentralControlEngine.Instance;
             cce.registerController(EmoController.getInstance(cce));
             cce.loggerUpdated += new EventHandler<LoggerEventArgs>(updateLog);
+            cce.registerMap(new Map(Texts.ControllerTypes.CT_EmotivEPOC, "test", new int[] { 1, 2, 3 }, "Map 1", EmoController.getInstance(cce).getCommands(), new string[] { "asd", "asd2" }));
             log.Text = cce.getLogText();
             log.AppendText("");
+            comboBoxSelectController.DataSource = cce.getControllers();
+            comboBoxSelectCOntrollable.DataSource = cce.getControllableDevices();
+            comboBoxSelectMap.DataSource = cce.getMaps();
+            comboBoxSelectMap.DisplayMember = "name";
+
         }
 
         private void toggleStartStop_Click(object sender, EventArgs e)
@@ -67,5 +73,6 @@ namespace EmotivEngine
         {
             Application.Exit();
         }
+
     }
 }
