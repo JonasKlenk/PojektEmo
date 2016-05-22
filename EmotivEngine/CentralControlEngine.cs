@@ -10,11 +10,6 @@ namespace EmotivEngine
 {
     class CentralControlEngine
     {
-        // TODO halten der Controllable devices
-        //halten der Controller
-        //halten der Mapper
-
-        //+ jeweils register/unregister Methoden
 
         private Logger logger;
         public event EventHandler<LoggerEventArgs> loggerUpdated;
@@ -34,11 +29,11 @@ namespace EmotivEngine
             logger.addLog(sender, message, level);
         }
 
-        //anlegen einer Controller - device - Map Verknüpfung
-        public void bindControllerDeviceMap(IController controller, IControllableDevice controllableDevice, MapEditor mapEditor)
+        //Anlegen einer Controller - device - Map Verknüpfung
+        public void bindControllerDeviceMap(IController controller, IControllableDevice controllableDevice, Map map)
         {
             unbindControllerDeviceMap(controller);
-            controllerDeviceMap.Add(new ControllerBinding(controller, controllableDevice, mapEditor));
+            controllerDeviceMap.Add(new ControllerBinding(controller, controllableDevice, map));
         }
 
         public string getLogText()
@@ -185,14 +180,14 @@ namespace EmotivEngine
             static public CentralControlEngine cce;
             public IController controller;
             public IControllableDevice controllableDevice;
-            public MapEditor mapEditor;
+            public Map map;
             public CommandQueue inputQueue = new CommandQueue(8);
             public Thread inputHandler;
-            public ControllerBinding(IController controller, IControllableDevice controllableDevice, MapEditor mapEditor)
+            public ControllerBinding(IController controller, IControllableDevice controllableDevice, Map map)
             {
                 this.controller = controller;
                 this.controllableDevice = controllableDevice;
-                this.mapEditor = mapEditor;
+                this.map = map;
             }
             private void run()
             {
@@ -208,12 +203,9 @@ namespace EmotivEngine
                 }
             }
 
-            private void processCommand(object c)
+            private void processCommand(Command c)
             {
-                //TODO: TranlsateCommand
-
-                //Find correct target device and perform action
-                //controllerDeviceMap.Find(binding => binding.controller.getId() == ((Command)c).getSenderId()).controllableDevice.performAction(/*translated Command*/);
+                cce.controllerDeviceMap.Find(binding => binding.controller.getId() == ((Command)c).getSenderId()).controllableDevice.performAction(cce.controllerDeviceMap.Find(binding => binding.controller.getId() == ((Command)c).getSenderId()).map.translate(c));
                 Console.Out.WriteLine(((Command)c).ToString());
             }
 

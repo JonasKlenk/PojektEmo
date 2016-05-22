@@ -46,5 +46,7 @@ namespace EmotivEngine
 
         //TODO Einzelnen Klassen Implementieren
         //in 
+        //Anmerkung Tim: Was genau in einzelnen Klassen implementieren? Du meinst Umstellung von String literal auf DeviceKategory?
+        //DeviceKategory ist eine ziemlich komische Denglische Mischform - DeviceCategory oder GeräteKategorie...
     }
 }

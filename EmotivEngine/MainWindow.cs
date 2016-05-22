@@ -25,7 +25,7 @@ namespace EmotivEngine
             log.Text = cce.getLogText();
             log.AppendText("");
             comboBoxSelectController.DataSource = cce.getControllers();
-            comboBoxSelectCOntrollable.DataSource = cce.getControllableDevices();
+            comboBoxSelectControllable.DataSource = cce.getControllableDevices();
             comboBoxSelectMap.DataSource = cce.getMaps();
             comboBoxSelectMap.DisplayMember = "name";
 
@@ -74,5 +74,23 @@ namespace EmotivEngine
             Application.Exit();
         }
 
+        private void btnAddMapping_Click(object sender, EventArgs e)
+        {
+            //TODO
+            //Setzen der beiden Werte für ComboBoxen in MapperGui
+            //comboBoxSelectController.SelectedItem
+            //comboBoxSelectControllable.SelectedItem
+            new MapperGUI(cce.getControllableDevices(), cce.getControllers()).Show();
+            //anlegen der persistierten map
+            //cce.Map(createdMap) -> Wo bekomme ich created Map her? Muss das möglicherweise aus deiner MapEditor Klasse ausgerufen werden?
+
+        }
+
+        private void btnDelMapping_Click(object sender, EventArgs e)
+        {
+            //TODO
+            //löschen der persistierten Version der Map
+            cce.unregisterMap((Map)comboBoxSelectMap.SelectedItem);
+        }
     }
 }

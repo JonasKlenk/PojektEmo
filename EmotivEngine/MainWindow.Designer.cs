@@ -33,7 +33,7 @@
             this.resetLog = new System.Windows.Forms.Button();
             this.statusLabel = new System.Windows.Forms.Label();
             this.comboBoxSelectController = new System.Windows.Forms.ComboBox();
-            this.comboBoxSelectCOntrollable = new System.Windows.Forms.ComboBox();
+            this.comboBoxSelectControllable = new System.Windows.Forms.ComboBox();
             this.labelController = new System.Windows.Forms.Label();
             this.labelDevice = new System.Windows.Forms.Label();
             this.labelMapping = new System.Windows.Forms.Label();
@@ -86,21 +86,21 @@
             this.statusLabel.Text = "Stopped";
             this.statusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // selectControllerComboBox
+            // comboBoxSelectController
             // 
             this.comboBoxSelectController.FormattingEnabled = true;
             this.comboBoxSelectController.Location = new System.Drawing.Point(11, 147);
-            this.comboBoxSelectController.Name = "selectControllerComboBox";
+            this.comboBoxSelectController.Name = "comboBoxSelectController";
             this.comboBoxSelectController.Size = new System.Drawing.Size(200, 21);
             this.comboBoxSelectController.TabIndex = 6;
             // 
-            // selectControllabeComboBox
+            // comboBoxSelectCOntrollable
             // 
-            this.comboBoxSelectCOntrollable.FormattingEnabled = true;
-            this.comboBoxSelectCOntrollable.Location = new System.Drawing.Point(11, 200);
-            this.comboBoxSelectCOntrollable.Name = "selectControllabeComboBox";
-            this.comboBoxSelectCOntrollable.Size = new System.Drawing.Size(200, 21);
-            this.comboBoxSelectCOntrollable.TabIndex = 7;
+            this.comboBoxSelectControllable.FormattingEnabled = true;
+            this.comboBoxSelectControllable.Location = new System.Drawing.Point(11, 200);
+            this.comboBoxSelectControllable.Name = "comboBoxSelectCOntrollable";
+            this.comboBoxSelectControllable.Size = new System.Drawing.Size(200, 21);
+            this.comboBoxSelectControllable.TabIndex = 7;
             // 
             // labelController
             // 
@@ -129,11 +129,11 @@
             this.labelMapping.TabIndex = 11;
             this.labelMapping.Text = "Mapping";
             // 
-            // comboBox1
+            // comboBoxSelectMap
             // 
             this.comboBoxSelectMap.FormattingEnabled = true;
             this.comboBoxSelectMap.Location = new System.Drawing.Point(11, 249);
-            this.comboBoxSelectMap.Name = "comboBox1";
+            this.comboBoxSelectMap.Name = "comboBoxSelectMap";
             this.comboBoxSelectMap.Size = new System.Drawing.Size(200, 21);
             this.comboBoxSelectMap.TabIndex = 10;
             // 
@@ -145,6 +145,7 @@
             this.btnAddMapping.TabIndex = 12;
             this.btnAddMapping.Text = "Add";
             this.btnAddMapping.UseVisualStyleBackColor = true;
+            this.btnAddMapping.Click += new System.EventHandler(this.btnAddMapping_Click);
             // 
             // btnDelMapping
             // 
@@ -154,6 +155,7 @@
             this.btnDelMapping.TabIndex = 13;
             this.btnDelMapping.Text = "Delete";
             this.btnDelMapping.UseVisualStyleBackColor = true;
+            this.btnDelMapping.Click += new System.EventHandler(this.btnDelMapping_Click);
             // 
             // btnEditMapping
             // 
@@ -176,7 +178,7 @@
             this.Controls.Add(this.comboBoxSelectMap);
             this.Controls.Add(this.labelDevice);
             this.Controls.Add(this.labelController);
-            this.Controls.Add(this.comboBoxSelectCOntrollable);
+            this.Controls.Add(this.comboBoxSelectControllable);
             this.Controls.Add(this.comboBoxSelectController);
             this.Controls.Add(this.statusLabel);
             this.Controls.Add(this.resetLog);
@@ -197,7 +199,7 @@
         private System.Windows.Forms.Button resetLog;
         private System.Windows.Forms.Label statusLabel;
         private System.Windows.Forms.ComboBox comboBoxSelectController;
-        private System.Windows.Forms.ComboBox comboBoxSelectCOntrollable;
+        private System.Windows.Forms.ComboBox comboBoxSelectControllable;
         private System.Windows.Forms.Label labelController;
         private System.Windows.Forms.Label labelDevice;
         private System.Windows.Forms.Label labelMapping;
