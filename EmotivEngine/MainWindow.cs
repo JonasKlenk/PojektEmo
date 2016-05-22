@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace EmotivEngine
 {
     public partial class MainWindow : Form
     {
         CentralControlEngine cce;
+        static private string xmlMapPath = "./Data/Maps/";
 
         public MainWindow()
         {
@@ -24,6 +27,8 @@ namespace EmotivEngine
             cce.registerMap(new Map(Texts.ControllerTypes.CT_EmotivEPOC, "test", new int[] { 1, 2, 3 }, "Map 1", EmoController.getInstance(cce).getCommands(), new string[] { "asd", "asd2" }));
             log.Text = cce.getLogText();
             log.AppendText("");
+            foreach(string path in Directory.GetFiles(xmlMapPath))
+                cce.registerMap(Map.ReadXml(path));
             comboBoxSelectController.DataSource = cce.getControllers();
             comboBoxSelectControllable.DataSource = cce.getControllableDevices();
             comboBoxSelectMap.DataSource = cce.getMaps();
@@ -71,6 +76,13 @@ namespace EmotivEngine
 
         private void MainWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
+            
+            if (!Directory.Exists(xmlMapPath))
+                Directory.CreateDirectory(xmlMapPath);
+            foreach(Map m in cce.getMaps())
+            {
+                m.WriteXml(XmlWriter.Create(new StringBuilder().Append(xmlMapPath).Append(m.name).Append(".xml").ToString()));
+            }
             Application.Exit();
         }
 

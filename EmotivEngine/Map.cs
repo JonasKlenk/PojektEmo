@@ -40,6 +40,9 @@ namespace EmotivEngine
             this.creationDateTime = DateTime.Now.ToString("dd.MM.yy HH:mm:ss");
         }
 
+        //Hinzugefügt, weil nötig für XML Serialiserr...
+        private Map() { }
+
         public static Map ReadXml(string inputUri)
         {
             XmlReader reader = XmlReader.Create(inputUri);
