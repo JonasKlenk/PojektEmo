@@ -59,7 +59,7 @@ namespace EmotivEngine
                 EventHandler<LoggerEventArgs> lclLoggerUpdated = loggerUpdated;
                 if (lclLoggerUpdated != null)
                     lclLoggerUpdated(this, e);
-                
+
             };
         }
         //Löschen einer Controller - device - Map Verknüpfung
@@ -129,10 +129,13 @@ namespace EmotivEngine
 
         public bool addCommand(Command c)
         {
-
             if (isRunning)
-                if (controllerDeviceMap.Find(binding => binding.controller.getId() == c.getSenderId()).inputQueue.enqueue(c))
-                    logger.addLog(name, String.Format(Texts.Logging.commandAddedToQueue, c.getCommandName(), c.getCommandId(), c.getSenderId(), c.getIntensity()), Logger.loggingLevel.debug);
+            {
+                ControllerBinding cb = controllerDeviceMap.Find(binding => binding.controller.getId() == c.getSenderId());
+                if (cb != null)
+                    if (cb.inputQueue.enqueue(c))
+                        logger.addLog(name, String.Format(Texts.Logging.commandAddedToQueue, c.getCommandName(), c.getCommandId(), c.getSenderId(), c.getIntensity()), Logger.loggingLevel.debug);
+            }
             return false;
         }
 
@@ -143,13 +146,14 @@ namespace EmotivEngine
             foreach (ControllerBinding cb in controllerDeviceMap)
                 cb.startInputHandler();
             isRunning = true;
-            logger.addLog(name, Texts.Logging.engineStarted, Logger.loggingLevel.info); 
+            logger.addLog(name, Texts.Logging.engineStarted, Logger.loggingLevel.info);
         }
 
         public void stop()
         {
             isRunning = false;
-            foreach (ControllerBinding c in controllerDeviceMap) {
+            foreach (ControllerBinding c in controllerDeviceMap)
+            {
                 while (!c.inputQueue.isEmpty())
                     Thread.Sleep(10);
                 c.inputHandler.Suspend();

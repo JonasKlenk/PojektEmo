@@ -34,7 +34,7 @@ namespace EmotivEngine
                     logEntry.Append(" <Debug>");
                     break;
             }
-            logEntry.Append("\n");
+            logEntry.Append(System.Environment.NewLine);
             log.Add(logEntry.ToString());
 
             EventHandler<LoggerEventArgs> lclLogAdded = logAdded;

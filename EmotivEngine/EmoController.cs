@@ -51,7 +51,7 @@ namespace EmotivEngine
 
         public string[] getCommands()
         {
-            return (String[])Enum.GetValues(typeof(command));
+            return (string[])Enum.GetNames(typeof(command));
         }
 
         public bool initialize()
@@ -124,6 +124,7 @@ namespace EmotivEngine
                 if (lclWarning != null)
                     lclWarning(this, e);
             }
+            controlEngine.addLog("EmoController", String.Format("Could not add command {0} to queue.", e.emoState.CognitivGetCurrentAction().ToString()), Logger.loggingLevel.warning);
         }
 
         private void Engine_EmoEngineEmoStateUpdated(object sender, EmoStateUpdatedEventArgs e)
