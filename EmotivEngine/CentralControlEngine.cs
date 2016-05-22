@@ -17,7 +17,7 @@ namespace EmotivEngine
         //+ jeweils register/unregister Methoden
 
         private Logger logger;
-        public event EventHandler loggerUpdated;
+        public event EventHandler<LoggerEventArgs> loggerUpdated;
         private static CentralControlEngine instance = null;
         private CentralControlEngine() { }
         private int highestControllerId = -1;
@@ -28,6 +28,10 @@ namespace EmotivEngine
         private List<ControllerBinding> controllerDeviceMap = new List<ControllerBinding>();
         private const string name = "CCE";
         private Logger.loggingLevel loggingLevel = Logger.loggingLevel.debug;
+        public void addLog(string sender, string message, Logger.loggingLevel level)
+        {
+            logger.addLog(sender, message, level);
+        }
 
         //anlegen einer Controller - device - Map Verknüpfung
         public void bindControllerDeviceMap(IController controller, IControllableDevice controllableDevice, MapEditor mapEditor)
@@ -50,9 +54,9 @@ namespace EmotivEngine
         private void initializeLoggerEvents()
         {
             logger.setLogLevel(loggingLevel);
-            logger.logAdded += (object o, EventArgs e) =>
+            logger.logAdded += (object o, LoggerEventArgs e) =>
             {
-                EventHandler lclLoggerUpdated = loggerUpdated;
+                EventHandler<LoggerEventArgs> lclLoggerUpdated = loggerUpdated;
                 if (lclLoggerUpdated != null)
                     lclLoggerUpdated(this, e);
                 

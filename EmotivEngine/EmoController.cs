@@ -65,7 +65,14 @@ namespace EmotivEngine
             engine.EmoEngineEmoStateUpdated += Engine_EmoEngineEmoStateUpdated;
             engine.ExpressivEmoStateUpdated += Engine_ExpressivEmoStateUpdated;
 
-            engine.RemoteConnect("127.0.0.1", 1726);
+            try {
+                engine.RemoteConnect("127.0.0.1", 1726);
+            }
+            catch(Emotiv.EmoEngineException e)
+            {
+                controlEngine.addLog("EmoControler", e.Message, Logger.loggingLevel.error);
+                return false;
+            }
             return true;
         }
 

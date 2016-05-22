@@ -95,6 +95,7 @@
     <Compile Include="IControllableDevice.cs" />
     <Compile Include="IController.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="LoggerEventArgs.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>

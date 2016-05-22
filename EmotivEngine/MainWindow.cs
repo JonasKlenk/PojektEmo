@@ -20,7 +20,9 @@ namespace EmotivEngine
             InitializeComponent();
             cce = CentralControlEngine.Instance;
             cce.registerController(EmoController.getInstance(cce));
-            cce.loggerUpdated += new EventHandler(updateLog);
+            cce.loggerUpdated += new EventHandler<LoggerEventArgs>(updateLog);
+            log.Text = cce.getLogText();
+            log.AppendText("");
         }
 
         private void toggleStartStop_Click(object sender, EventArgs e)
@@ -28,7 +30,6 @@ namespace EmotivEngine
             if (!cce.getIsRunning())
             {
                 cce.start();
-                resetLog_Click(null, null);
                 statusLabel.BackColor = Color.Green;
                 statusLabel.Text = "Running";
                 toggleStartStop.Text = "Stop Engine";          
@@ -42,16 +43,12 @@ namespace EmotivEngine
             }
         }
 
-        private void updateLog(object sender, EventArgs e)
+        private void updateLog(object sender, LoggerEventArgs e)
         {
             if (this.log.InvokeRequired)
-            {
-                this.Invoke(new Action(() => { log.Text = cce.getLogText(); }));
-            }
+                this.Invoke(new Action(() => log.AppendText(e.getAddedLog())));
             else
-            {
-                log.Text = cce.getLogText();
-            }
+                log.AppendText(e.getAddedLog());
         }
 
         private void resetLog_Click(object sender, EventArgs e)

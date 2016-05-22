@@ -9,7 +9,7 @@ namespace EmotivEngine
     class Logger
     {
         private List<string> log = new List<string>();
-        public event EventHandler logAdded;
+        public event EventHandler<LoggerEventArgs> logAdded;
         public enum loggingLevel { debug, info, warning, error };
         static loggingLevel currentLogLevel = loggingLevel.warning;
 
@@ -37,9 +37,9 @@ namespace EmotivEngine
             logEntry.Append("\n");
             log.Add(logEntry.ToString());
 
-            EventHandler lclLogAdded = logAdded;
+            EventHandler<LoggerEventArgs> lclLogAdded = logAdded;
             if (lclLogAdded != null)
-                lclLogAdded(this, new EventArgs());
+                lclLogAdded(this, new LoggerEventArgs(logEntry.ToString()));
         }
 
         public void setLogLevel(loggingLevel l)
