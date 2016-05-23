@@ -20,9 +20,9 @@ namespace EmotivEngine
         }
 
         [System.Xml.Serialization.XmlElement("KategoryType")]
-        private string kategoryType;
+        public string kategoryType { get; }
         [System.Xml.Serialization.XmlElement("KategoryType")]
-        private string[] actionList;
+        public string[] actionList{ get;  }
 
         public static DeviceKategory ReadXml(XmlReader reader)
         {
