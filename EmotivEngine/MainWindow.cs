@@ -76,6 +76,8 @@ namespace EmotivEngine
 
         private void MainWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
+            //TODO: Serialisieren igentlich unnötig, kann gelöscht werden, wenn neu erstellt/geänderte Maps
+            //immer gleich serialisiert werden.
             
             if (!Directory.Exists(xmlMapPath))
                 Directory.CreateDirectory(xmlMapPath);
@@ -103,6 +105,13 @@ namespace EmotivEngine
             //TODO
             //löschen der persistierten Version der Map
             cce.unregisterMap((Map)comboBoxSelectMap.SelectedItem);
+        }
+
+        private void btnEditMapping_Click(object sender, EventArgs e)
+        {
+            //comboBoxSelectController.SelectedItem
+            //comboBoxSelectControllable.SelectedItem
+            //(Map)comboBoxSelectMap.SelectedItem
         }
     }
 }
