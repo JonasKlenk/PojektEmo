@@ -76,6 +76,8 @@ namespace EmotivEngine
 
         private void MainWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
+            //TODO: Serialisieren igentlich unnötig, kann gelöscht werden, wenn neu erstellt/geänderte Maps
+            //immer gleich serialisiert werden.
             
             if (!Directory.Exists(xmlMapPath))
                 Directory.CreateDirectory(xmlMapPath);
