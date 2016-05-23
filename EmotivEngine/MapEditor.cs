@@ -87,11 +87,17 @@ namespace EmotivEngine
         }
         public void saveMapping(Stream writeStream)
         {
-            Map a = new Map(controller.getType(), device.getType().getDeviceKategory(), bindings, name, getCommandList(), getActionList());
+            Map a = new Map(controller.getType(), device.getType().categoryName, bindings, name, getCommandList(), getActionList());
             
             XmlWriter writer = XmlWriter.Create(writeStream);
             a.WriteXml(writer);
         }
+
+        public static MapEditor loadMap(Map map)
+        {
+            return new MapEditor(map);
+        }
+
         public static MapEditor loadMap(Stream readStream)
         {           
             return new MapEditor(Map.ReadXml(XmlReader.Create(readStream)));

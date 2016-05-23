@@ -38,6 +38,21 @@ namespace EmotivEngine
             setAvailableControllers(availableControllers);
             setAvailableControllabelDevices(availableDevices);
         }
+
+        internal MapperGUI(MapEditor mapEditor)
+        {
+            this.mapEditor = mapEditor;
+            this.upateGUI(mapEditor);
+        }
+
+        private void upateGUI(MapEditor mapEditor)
+        {
+            listCommandTypes.DataSource = mapEditor.getCommandList();
+            listActionTypes.DataSource = mapEditor.getActionList();
+            listMapping.DataSource = mapEditor.getTextCommandMapping();
+            name.Text = mapEditor.name;
+        }
+
         private void ComboControllerID_SelectedIndexChanged(object sender, EventArgs e)
         {
             mapEditor.setActiveController(comboControllerID.SelectedIndex);
