@@ -137,7 +137,8 @@ namespace EmotivEngine
         {
             //comboBoxSelectController.SelectedItem
             //comboBoxSelectControllable.SelectedItem
-            //(Map)comboBoxSelectMap.SelectedItem
+            //TODO TESTEN
+            new MapperGUI(MapEditor.loadMap((Map)comboBoxSelectMap.SelectedItem));
         }
 
         private void button1_Click(object sender, EventArgs e)

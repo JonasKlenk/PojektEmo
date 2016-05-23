@@ -41,6 +41,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newMappingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadMappingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonDeleteBind = new System.Windows.Forms.Button();
             this.listMapping = new System.Windows.Forms.ListBox();
@@ -48,7 +49,6 @@
             this.name = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.openMapDialog = new System.Windows.Forms.OpenFileDialog();
-            this.newMappingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -194,10 +194,17 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
+            // newMappingToolStripMenuItem
+            // 
+            this.newMappingToolStripMenuItem.Name = "newMappingToolStripMenuItem";
+            this.newMappingToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.newMappingToolStripMenuItem.Text = "New Mapping";
+            this.newMappingToolStripMenuItem.Click += new System.EventHandler(this.newMappingToolStripMenuItem_Click);
+            // 
             // loadMappingToolStripMenuItem
             // 
             this.loadMappingToolStripMenuItem.Name = "loadMappingToolStripMenuItem";
-            this.loadMappingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loadMappingToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.loadMappingToolStripMenuItem.Text = "Load Mapping";
             this.loadMappingToolStripMenuItem.Click += new System.EventHandler(this.loadMappingToolStripMenuItem_Click);
             // 
@@ -216,9 +223,10 @@
             // 
             this.listMapping.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listMapping.FormattingEnabled = true;
             this.listMapping.Location = new System.Drawing.Point(12, 411);
+            this.listMapping.MultiColumn = true;
             this.listMapping.Name = "listMapping";
+            this.listMapping.ScrollAlwaysVisible = true;
             this.listMapping.Size = new System.Drawing.Size(696, 199);
             this.listMapping.TabIndex = 14;
             this.listMapping.SelectedIndexChanged += new System.EventHandler(this.listMapping_SelectedIndexChanged);
@@ -243,13 +251,6 @@
             // openMapDialog
             // 
             this.openMapDialog.FileName = "openFileDialog1";
-            // 
-            // newMappingToolStripMenuItem
-            // 
-            this.newMappingToolStripMenuItem.Name = "newMappingToolStripMenuItem";
-            this.newMappingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.newMappingToolStripMenuItem.Text = "New Mapping";
-            this.newMappingToolStripMenuItem.Click += new System.EventHandler(this.newMappingToolStripMenuItem_Click);
             // 
             // MapperGUI
             // 

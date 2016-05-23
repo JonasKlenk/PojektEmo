@@ -38,6 +38,21 @@ namespace EmotivEngine
             setAvailableControllers(availableControllers);
             setAvailableControllabelDevices(availableDevices);
         }
+
+        internal MapperGUI(MapEditor mapEditor)
+        {
+            this.mapEditor = mapEditor;
+            this.upateGUI(mapEditor);
+        }
+
+        private void upateGUI(MapEditor mapEditor)
+        {
+            listCommandTypes.DataSource = mapEditor.getCommandList();
+            listActionTypes.DataSource = mapEditor.getActionList();
+            listMapping.DataSource = mapEditor.getTextCommandMapping();
+            name.Text = mapEditor.name;
+        }
+
         private void ComboControllerID_SelectedIndexChanged(object sender, EventArgs e)
         {
             mapEditor.setActiveController(comboControllerID.SelectedIndex);
@@ -59,7 +74,7 @@ namespace EmotivEngine
 
         private void listActionTypes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            selectedAction = listCommandTypes.SelectedIndex;
+            selectedAction = listActionTypes.SelectedIndex;
         }
 
         private void listMapping_SelectedIndexChanged(object sender, EventArgs e)
@@ -71,11 +86,14 @@ namespace EmotivEngine
         {
             mapEditor.bind(selectedCommand, selectedAction);
             listMapping.DataSource = mapEditor.getTextCommandMapping();
+            listMapping.Show();
         }
 
         private void buttonDeleteBind_Click(object sender, EventArgs e)
         {
             mapEditor.unbind(selectedMapping);
+            listMapping.DataSource = mapEditor.getTextCommandMapping();
+            listMapping.Show();
         }
 
         private void buttonSave_Click(object sender, EventArgs e)

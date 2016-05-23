@@ -23,9 +23,9 @@ namespace EmotivEngine
         public string name { get; }
         [System.Xml.Serialization.XmlElement("bindings")]
         public int[] bindings { get; }
-        [System.Xml.Serialization.XmlElement("commandList")]
+        [System.Xml.Serialization.XmlArray("commandList")]
         public string[] commandList { get; }
-        [System.Xml.Serialization.XmlElement("actionList")]
+        [System.Xml.Serialization.XmlArray("actionList")]
         public string[] actionList { get; }
 
         public Map(string contollerType, string controllableDeviceType, int[] commandoMapping, string name, string[] commandList, string[] actionList)
@@ -40,7 +40,8 @@ namespace EmotivEngine
             this.creationDateTime = DateTime.Now.ToString("dd.MM.yy HH:mm:ss");
         }
 
-        //Hinzugefügt, weil nötig für XML Serialiserr...
+        //Hinzugefügt, weil nötig für XML Serialiserr... 
+        //TODO eig. Nicht
         private Map() { }
 
         public static Map ReadXml(string inputUri)
@@ -66,6 +67,7 @@ namespace EmotivEngine
 
         public void WriteXml(XmlWriter writer)
         {
+            //TODO kp warum der kack nicht geht... ich bin jetztpennen
             XmlSerializer serializer = new XmlSerializer(typeof(Map));
             serializer.Serialize(writer, this);
             writer.Close();
