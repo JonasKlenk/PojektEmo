@@ -10,6 +10,10 @@ namespace EmotivEngine
     {
         DeviceKategory c = new DeviceKategory("DummyTimCategory", new string[] { "RechtenArmheben", "LinkenArmHeben", "LinkesBeinHeben", "RechtesBeinHeben", "Umfallen" });
         private int id=42;
+        static private DummyDevice singleInstance = null;
+        private CentralControlEngine controlEngine;
+
+        private DummyDevice(CentralControlEngine cce) { this.controlEngine = cce; }
 
         public void enterFallbackMode()
         {
@@ -24,6 +28,13 @@ namespace EmotivEngine
         public int getId()
         {
             return this.id;
+        }
+
+        public static IControllableDevice getInstance(CentralControlEngine cce)
+        {
+            if (singleInstance != null)
+                return singleInstance;
+            return singleInstance = new DummyDevice(cce);
         }
 
         public DeviceKategory getType()
@@ -60,5 +71,6 @@ namespace EmotivEngine
         {
             this.id = id;
         }
+
     }
 }

@@ -111,6 +111,8 @@ namespace EmotivEngine
         public void registerMap(Map map)
         {
             mapList.Add(map);
+            //TODO  TEST If eingefügt
+            if (map!=null)
             logger.addLog(name, String.Format(Texts.Logging.mapRegistered, map.name), Logger.loggingLevel.info);
         }
         public void unregisterMap(Map map)
