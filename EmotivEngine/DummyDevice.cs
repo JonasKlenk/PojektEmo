@@ -44,7 +44,7 @@ namespace EmotivEngine
         }
         public void performAction(Command action)
         {
-            throw new NotImplementedException();
+            controlEngine.addLog("DummyDevice", String.Format("Received command {0} with id {1}", action.getCommandName(), action.getCommandName()), Logger.loggingLevel.debug);
         }
         public bool setActive()
         {

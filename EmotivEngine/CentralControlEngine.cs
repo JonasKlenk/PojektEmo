@@ -25,6 +25,7 @@ namespace EmotivEngine
         private Logger.loggingLevel loggingLevel = Logger.loggingLevel.debug;
         private List<Map> mapList = new List<Map>();
         private List<DeviceCategory> knownCategories = new List<DeviceCategory>();
+        public event EventHandler<BindingsEventArgs> bindingsChanged;
         public void addLog(string sender, string message, Logger.loggingLevel level)
         {
             logger.addLog(sender, message, level);
@@ -49,6 +50,15 @@ namespace EmotivEngine
         {
             unbindControllerDeviceMap(controller);
             controllerDeviceMap.Add(new ControllerBinding(controller, controllableDevice, map));
+            EventHandler<BindingsEventArgs> lclBindingsChanged = bindingsChanged;
+            if (lclBindingsChanged != null)
+            {
+                string[][] bindingStringRepresentation = new string[controllerDeviceMap.Count][];
+                int i = 0;
+                foreach (ControllerBinding cb in controllerDeviceMap)
+                    bindingStringRepresentation[i++] = new string[] { cb.controller.ToString(), cb.controllableDevice.ToString(), cb.map.name };
+                lclBindingsChanged(this, new BindingsEventArgs(bindingStringRepresentation));
+            }
         }
 
         public string getLogText()
@@ -77,6 +87,16 @@ namespace EmotivEngine
         public void unbindControllerDeviceMap(IController controller)
         {
             controllerDeviceMap.RemoveAll(binding => binding.controller == controller);
+            EventHandler<BindingsEventArgs> lclBindingsChanged = bindingsChanged;
+            if (lclBindingsChanged != null)
+            {
+                string[][] bindingStringRepresentation = new string[controllerDeviceMap.Count][];
+                int i = 0;
+                foreach (ControllerBinding cb in controllerDeviceMap)
+                    bindingStringRepresentation[i++] = new string[] { cb.controller.ToString(), cb.controllableDevice.ToString(), cb.map.name };
+
+                lclBindingsChanged(this, new BindingsEventArgs(bindingStringRepresentation));
+            }
         }
 
         public IControllableDevice[] getControllableDevices()
@@ -125,8 +145,11 @@ namespace EmotivEngine
 
         public void registerMap(Map map)
         {
-            mapList.Add(map);
-            logger.addLog(name, String.Format(Texts.Logging.mapRegistered, map.name), Logger.loggingLevel.info);
+            if (map != null)
+            {
+                mapList.Add(map);
+                logger.addLog(name, String.Format(Texts.Logging.mapRegistered, map.name), Logger.loggingLevel.info);
+            }
         }
         public void unregisterMap(Map map)
         {

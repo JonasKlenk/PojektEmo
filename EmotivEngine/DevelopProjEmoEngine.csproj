@@ -87,6 +87,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BindingsEventArgs.cs" />
     <Compile Include="CentralControlEngine.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="CommandQueue.cs" />

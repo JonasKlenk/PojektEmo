@@ -41,6 +41,11 @@
             this.btnAddMapping = new System.Windows.Forms.Button();
             this.btnDelMapping = new System.Windows.Forms.Button();
             this.btnEditMapping = new System.Windows.Forms.Button();
+            this.btnBind = new System.Windows.Forms.Button();
+            this.listViewCurrentBindings = new System.Windows.Forms.ListView();
+            this.columnController = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnDevice = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnMap = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // toggleStartStop
@@ -139,9 +144,9 @@
             // 
             // btnAddMapping
             // 
-            this.btnAddMapping.Location = new System.Drawing.Point(11, 284);
+            this.btnAddMapping.Location = new System.Drawing.Point(70, 284);
             this.btnAddMapping.Name = "btnAddMapping";
-            this.btnAddMapping.Size = new System.Drawing.Size(66, 37);
+            this.btnAddMapping.Size = new System.Drawing.Size(36, 37);
             this.btnAddMapping.TabIndex = 12;
             this.btnAddMapping.Text = "Add";
             this.btnAddMapping.UseVisualStyleBackColor = true;
@@ -159,19 +164,59 @@
             // 
             // btnEditMapping
             // 
-            this.btnEditMapping.Location = new System.Drawing.Point(83, 284);
+            this.btnEditMapping.Location = new System.Drawing.Point(112, 284);
             this.btnEditMapping.Name = "btnEditMapping";
-            this.btnEditMapping.Size = new System.Drawing.Size(67, 37);
+            this.btnEditMapping.Size = new System.Drawing.Size(38, 37);
             this.btnEditMapping.TabIndex = 14;
             this.btnEditMapping.Text = "Edit";
             this.btnEditMapping.UseVisualStyleBackColor = true;
             this.btnEditMapping.Click += new System.EventHandler(this.btnEditMapping_Click);
             // 
+            // btnBind
+            // 
+            this.btnBind.Location = new System.Drawing.Point(11, 284);
+            this.btnBind.Name = "btnBind";
+            this.btnBind.Size = new System.Drawing.Size(49, 37);
+            this.btnBind.TabIndex = 15;
+            this.btnBind.Text = "Bind";
+            this.btnBind.UseVisualStyleBackColor = true;
+            this.btnBind.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // listViewCurrentBindings
+            // 
+            this.listViewCurrentBindings.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnController,
+            this.columnDevice,
+            this.columnMap});
+            this.listViewCurrentBindings.Location = new System.Drawing.Point(11, 327);
+            this.listViewCurrentBindings.Name = "listViewCurrentBindings";
+            this.listViewCurrentBindings.Size = new System.Drawing.Size(454, 197);
+            this.listViewCurrentBindings.TabIndex = 16;
+            this.listViewCurrentBindings.UseCompatibleStateImageBehavior = false;
+            this.listViewCurrentBindings.View = System.Windows.Forms.View.Details;
+            // 
+            // columnController
+            // 
+            this.columnController.Text = "Controller";
+            this.columnController.Width = 150;
+            // 
+            // columnDevice
+            // 
+            this.columnDevice.Text = "Device";
+            this.columnDevice.Width = 150;
+            // 
+            // columnMap
+            // 
+            this.columnMap.Text = "Map";
+            this.columnMap.Width = 154;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(478, 335);
+            this.ClientSize = new System.Drawing.Size(478, 536);
+            this.Controls.Add(this.listViewCurrentBindings);
+            this.Controls.Add(this.btnBind);
             this.Controls.Add(this.btnEditMapping);
             this.Controls.Add(this.btnDelMapping);
             this.Controls.Add(this.btnAddMapping);
@@ -208,5 +253,10 @@
         private System.Windows.Forms.Button btnAddMapping;
         private System.Windows.Forms.Button btnDelMapping;
         private System.Windows.Forms.Button btnEditMapping;
+        private System.Windows.Forms.Button btnBind;
+        private System.Windows.Forms.ListView listViewCurrentBindings;
+        private System.Windows.Forms.ColumnHeader columnDevice;
+        private System.Windows.Forms.ColumnHeader columnMap;
+        private System.Windows.Forms.ColumnHeader columnController;
     }
 }

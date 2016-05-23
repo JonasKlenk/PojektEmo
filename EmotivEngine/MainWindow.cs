@@ -28,14 +28,25 @@ namespace EmotivEngine
             cce.registerControllableDevice(DummyDevice.getInstance(cce));
             //HACK Testende
             cce.loggerUpdated += new EventHandler<LoggerEventArgs>(updateLog);
-            //cce.registerMap(new Map(Texts.ControllerTypes.CT_EmotivEPOC, "test", new int[] { 1, 2, 3 }, "Map 1", EmoController.getInstance(cce).getCommands(), new string[] { "asd", "asd2" }));
-
+            cce.registerMap(new Map(Texts.ControllerTypes.CT_EmotivEPOC, "test", new int[] { 1, 2, 3 }, "Map 1", EmoController.getInstance(cce).getCommands(), new string[] { "asd", "asd2" }));
             log.Text = cce.getLogText();
             log.AppendText("");
             if (Directory.Exists(xmlMapPath))
                 foreach (string path in Directory.GetFiles(xmlMapPath))
                     cce.registerMap(Map.ReadXml(path));
-
+            cce.bindingsChanged += new EventHandler<BindingsEventArgs>((sender, argument) =>
+           {
+               this.Invoke(new Action<BindingsEventArgs>( (binding) => {
+                   this.listViewCurrentBindings.Items.Clear();
+               foreach (string[] test in binding.bindings) {
+                   ListViewItem newItem = new ListViewItem("item_test");
+                   newItem.SubItems.Add(test[0]);
+                   newItem.SubItems.Add(test[1]);
+                       newItem.SubItems.Add(test[2]);
+                       this.listViewCurrentBindings.Items.Add(newItem);
+                   } }), argument);
+           });
+                
             List<DeviceCategory> categories = new List<DeviceCategory>();
             if (Directory.Exists(xmlCategoryPath))
                 foreach (string path in Directory.GetFiles(xmlCategoryPath))
@@ -127,6 +138,12 @@ namespace EmotivEngine
             //comboBoxSelectController.SelectedItem
             //comboBoxSelectControllable.SelectedItem
             //(Map)comboBoxSelectMap.SelectedItem
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (comboBoxSelectControllable.SelectedItem != null && comboBoxSelectController.SelectedItem != null && comboBoxSelectMap.SelectedItem != null)
+                cce.bindControllerDeviceMap((IController)comboBoxSelectController.SelectedItem, (IControllableDevice)comboBoxSelectControllable.SelectedItem, (Map)comboBoxSelectMap.SelectedItem); 
         }
     }
 }
