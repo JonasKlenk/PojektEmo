@@ -94,11 +94,11 @@
             this.comboBoxSelectController.Size = new System.Drawing.Size(200, 21);
             this.comboBoxSelectController.TabIndex = 6;
             // 
-            // comboBoxSelectCOntrollable
+            // comboBoxSelectControllable
             // 
             this.comboBoxSelectControllable.FormattingEnabled = true;
             this.comboBoxSelectControllable.Location = new System.Drawing.Point(11, 200);
-            this.comboBoxSelectControllable.Name = "comboBoxSelectCOntrollable";
+            this.comboBoxSelectControllable.Name = "comboBoxSelectControllable";
             this.comboBoxSelectControllable.Size = new System.Drawing.Size(200, 21);
             this.comboBoxSelectControllable.TabIndex = 7;
             // 
@@ -165,6 +165,7 @@
             this.btnEditMapping.TabIndex = 14;
             this.btnEditMapping.Text = "Edit";
             this.btnEditMapping.UseVisualStyleBackColor = true;
+            this.btnEditMapping.Click += new System.EventHandler(this.btnEditMapping_Click);
             // 
             // MainWindow
             // 

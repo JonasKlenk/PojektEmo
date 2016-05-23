@@ -106,5 +106,12 @@ namespace EmotivEngine
             //löschen der persistierten Version der Map
             cce.unregisterMap((Map)comboBoxSelectMap.SelectedItem);
         }
+
+        private void btnEditMapping_Click(object sender, EventArgs e)
+        {
+            //comboBoxSelectController.SelectedItem
+            //comboBoxSelectControllable.SelectedItem
+            //(Map)comboBoxSelectMap.SelectedItem
+        }
     }
 }
