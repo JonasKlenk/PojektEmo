@@ -15,7 +15,7 @@ namespace EmotivEngine
 
         //Administrativ:
         void initialize();
-        DeviceKategory getType();
+        DeviceCategory getType();
 
         int getId();
         void setId(int id);

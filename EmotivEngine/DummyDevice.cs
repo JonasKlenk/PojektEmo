@@ -8,7 +8,7 @@ namespace EmotivEngine
 {
     class DummyDevice : IControllableDevice
     {
-        DeviceKategory c = new DeviceKategory("DummyTimCategory", new string[] { "RechtenArmheben", "LinkenArmHeben", "LinkesBeinHeben", "RechtesBeinHeben", "Umfallen" });
+        DeviceCategory c = new DeviceCategory("DummyTimCategory", new string[] { "RechtenArmheben", "LinkenArmHeben", "LinkesBeinHeben", "RechtesBeinHeben", "Umfallen" });
         private int id=42;
 
         public void enterFallbackMode()
@@ -26,7 +26,7 @@ namespace EmotivEngine
             return this.id;
         }
 
-        public DeviceKategory getType()
+        public DeviceCategory getType()
         {
             return c;
         }
