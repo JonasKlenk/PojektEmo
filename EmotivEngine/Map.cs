@@ -45,14 +45,11 @@ namespace EmotivEngine
 
         public static Map ReadXml(string inputUri)
         {
-            /*
             XmlReader reader = XmlReader.Create(inputUri);
             XmlSerializer serializer = new XmlSerializer(typeof(Map));
             Map a = (Map)serializer.Deserialize(reader);
             reader.Close();
             return a;
-        */
-            return null;
         }
 
         public static Map ReadXml(XmlReader reader)

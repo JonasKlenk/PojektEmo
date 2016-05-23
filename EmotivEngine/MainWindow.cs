@@ -24,9 +24,6 @@ namespace EmotivEngine
             InitializeComponent();
             cce = CentralControlEngine.Instance;
             cce.registerController(EmoController.getInstance(cce));
-            //HACK TEST
-            cce.registerControllableDevice(DummyDevice.getInstance(cce));
-            //HACK Testende
             cce.loggerUpdated += new EventHandler<LoggerEventArgs>(updateLog);
             //cce.registerMap(new Map(Texts.ControllerTypes.CT_EmotivEPOC, "test", new int[] { 1, 2, 3 }, "Map 1", EmoController.getInstance(cce).getCommands(), new string[] { "asd", "asd2" }));
 

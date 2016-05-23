@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace EmotivEngine
 {
-    class TcpDevice : IControllableDevice
+    class DummyDevice : IControllableDevice
     {
+        DeviceCategory c = new DeviceCategory("DummyTimCategory", new string[] { "RechtenArmheben", "LinkenArmHeben", "LinkesBeinHeben", "RechtesBeinHeben", "Umfallen" });
+        private int id=42;
+
         public void enterFallbackMode()
         {
             throw new NotImplementedException();
@@ -15,22 +18,22 @@ namespace EmotivEngine
 
         public string[] getActions()
         {
-            throw new NotImplementedException();
+            return c.actionList ;
         }
 
         public int getId()
         {
-            throw new NotImplementedException();
+            return this.id;
         }
 
         public DeviceCategory getType()
         {
-            throw new NotImplementedException();
+            return c;
         }
 
         public void initialize()
         {
-            throw new NotImplementedException();
+            return;
         }
 
         public bool isReady()
@@ -55,7 +58,7 @@ namespace EmotivEngine
 
         public void setId(int id)
         {
-            throw new NotImplementedException();
+            this.id = id;
         }
     }
 }
