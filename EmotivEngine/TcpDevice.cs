@@ -21,9 +21,20 @@ namespace EmotivEngine
         public int getId()
         {
             throw new NotImplementedException();
+<<<<<<< HEAD
         }
 
         public DeviceCategory getType()
+=======
+        }
+
+        public IControllableDevice getInstance(CentralControlEngine cce)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DeviceKategory getType()
+>>>>>>> 93ed211e6c5c5b0884bbc846fd64bbb43ca81511
         {
             throw new NotImplementedException();
         }

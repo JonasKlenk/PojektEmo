@@ -19,7 +19,7 @@ namespace EmotivEngine
 
         int getId();
         void setId(int id);
-        //IControllableDevice getInstance();
+        //static IControllableDevice getInstance(CentralControlEngine cce); //HACK TEST 
         string[] getActions(); //gibt Liste mit den ausführbaren Aktionen zurück
         bool isReady(); //überprüft die Einsatzfähigkeit des Geräte (checkliste)
         bool setActive(); //aktiviert ein Gerät zum Fortbewegen
