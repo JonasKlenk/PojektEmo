@@ -73,8 +73,8 @@ namespace EmotivEngine
         }
         public void unbind(int index)
         {
-            if (bindings == null)
-                return;
+            if (bindings != null)
+                
             bindings[index] = -1;
         }
         public string[] getCommandList()
@@ -88,6 +88,7 @@ namespace EmotivEngine
         public void saveMapping(Stream writeStream)
         {
             Map a = new Map(controller.getType(), device.getType().getDeviceKategory(), bindings, name, getCommandList(), getActionList());
+            
             XmlWriter writer = XmlWriter.Create(writeStream);
             a.WriteXml(writer);
         }
@@ -103,6 +104,7 @@ namespace EmotivEngine
             {
                 if (bindings[i] != -1)
                     a[i] = getCommandList()[i] + " to " + getActionList()[bindings[i]];
+                else a[i] = "";
             }
             return a;
         }

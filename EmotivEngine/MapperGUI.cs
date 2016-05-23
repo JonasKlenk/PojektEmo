@@ -59,7 +59,7 @@ namespace EmotivEngine
 
         private void listActionTypes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            selectedAction = listCommandTypes.SelectedIndex;
+            selectedAction = listActionTypes.SelectedIndex;
         }
 
         private void listMapping_SelectedIndexChanged(object sender, EventArgs e)
@@ -71,11 +71,14 @@ namespace EmotivEngine
         {
             mapEditor.bind(selectedCommand, selectedAction);
             listMapping.DataSource = mapEditor.getTextCommandMapping();
+            listMapping.Show();
         }
 
         private void buttonDeleteBind_Click(object sender, EventArgs e)
         {
             mapEditor.unbind(selectedMapping);
+            listMapping.DataSource = mapEditor.getTextCommandMapping();
+            listMapping.Show();
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
