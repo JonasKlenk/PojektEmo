@@ -15,11 +15,11 @@ namespace EmotivEngine
 
         //Administrativ:
         void initialize();
-        DeviceKategory getType();
+        DeviceCategory getType();
 
         int getId();
         void setId(int id);
-        //static IControllableDevice getInstance(CentralControlEngine cce); //HACK TEST 
+        //IControllableDevice getInstance();
         string[] getActions(); //gibt Liste mit den ausführbaren Aktionen zurück
         bool isReady(); //überprüft die Einsatzfähigkeit des Geräte (checkliste)
         bool setActive(); //aktiviert ein Gerät zum Fortbewegen

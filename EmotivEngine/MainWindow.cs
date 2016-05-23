@@ -16,26 +16,37 @@ namespace EmotivEngine
     {
         CentralControlEngine cce;
         static private string xmlMapPath = "./Data/Maps/";
+        static private string xmlCategoryPath = "./Data/Categories/";
 
         public MainWindow()
         {
-            //TODO: Liste von Controller und Devices initializieren.
+            //TODO: Liste von Controller und Devices initialisieren.
             InitializeComponent();
             cce = CentralControlEngine.Instance;
             cce.registerController(EmoController.getInstance(cce));
-            //HACK TEST
+            //HACK Test
             cce.registerControllableDevice(DummyDevice.getInstance(cce));
             //HACK Testende
             cce.loggerUpdated += new EventHandler<LoggerEventArgs>(updateLog);
-            cce.registerMap(new Map(Texts.ControllerTypes.CT_EmotivEPOC, "test", new int[] { 1, 2, 3 }, "Map 1", EmoController.getInstance(cce).getCommands(), new string[] { "asd", "asd2" }));
+            //cce.registerMap(new Map(Texts.ControllerTypes.CT_EmotivEPOC, "test", new int[] { 1, 2, 3 }, "Map 1", EmoController.getInstance(cce).getCommands(), new string[] { "asd", "asd2" }));
+
             log.Text = cce.getLogText();
             log.AppendText("");
-            foreach(string path in Directory.GetFiles(xmlMapPath))
-                cce.registerMap(Map.ReadXml(path));
+            if (Directory.Exists(xmlMapPath))
+                foreach (string path in Directory.GetFiles(xmlMapPath))
+                    cce.registerMap(Map.ReadXml(path));
+
+            List<DeviceCategory> categories = new List<DeviceCategory>();
+            if (Directory.Exists(xmlCategoryPath))
+                foreach (string path in Directory.GetFiles(xmlCategoryPath))
+                    categories.Add(DeviceCategory.ReadXml(XmlReader.Create(path)));
+            if (categories.Count > 0)
+                cce.registerCategories(categories);
             comboBoxSelectController.DataSource = cce.getControllers();
             comboBoxSelectControllable.DataSource = cce.getControllableDevices();
             comboBoxSelectMap.DataSource = cce.getMaps();
             comboBoxSelectMap.DisplayMember = "name";
+
 
         }
 
@@ -46,10 +57,11 @@ namespace EmotivEngine
                 cce.start();
                 statusLabel.BackColor = Color.Green;
                 statusLabel.Text = "Running";
-                toggleStartStop.Text = "Stop Engine";          
+                toggleStartStop.Text = "Stop Engine";
 
             }
-            else { 
+            else
+            {
                 cce.stop();
                 statusLabel.BackColor = Color.Red;
                 statusLabel.Text = "Stopped";
@@ -81,10 +93,10 @@ namespace EmotivEngine
         {
             //TODO: Serialisieren igentlich unnötig, kann gelöscht werden, wenn neu erstellt/geänderte Maps
             //immer gleich serialisiert werden.
-            
+
             if (!Directory.Exists(xmlMapPath))
                 Directory.CreateDirectory(xmlMapPath);
-            foreach(Map m in cce.getMaps())
+            foreach (Map m in cce.getMaps())
             {
                 m.WriteXml(XmlWriter.Create(new StringBuilder().Append(xmlMapPath).Append(m.name).Append(".xml").ToString()));
             }

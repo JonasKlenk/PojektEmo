@@ -23,12 +23,7 @@ namespace EmotivEngine
             throw new NotImplementedException();
         }
 
-        public IControllableDevice getInstance(CentralControlEngine cce)
-        {
-            throw new NotImplementedException();
-        }
-
-        public DeviceKategory getType()
+        public DeviceCategory getType()
         {
             throw new NotImplementedException();
         }

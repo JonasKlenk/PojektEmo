@@ -19,6 +19,7 @@ namespace EmotivEngine
             static public string engineStoppedByUser = "Engine stopped by user";
             static public string mapRegistered = "Map {0} registered.";
             static public string mapUnregistered = "Map {0} unregisteerd.";
+            static public string categoryRegistered = "Device Category {0} registered";
         }
 
         public static class GUITexts

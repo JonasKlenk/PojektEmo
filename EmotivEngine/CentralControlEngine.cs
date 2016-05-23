@@ -24,9 +24,24 @@ namespace EmotivEngine
         private const string name = "CCE";
         private Logger.loggingLevel loggingLevel = Logger.loggingLevel.debug;
         private List<Map> mapList = new List<Map>();
+        private List<DeviceCategory> knownCategories = new List<DeviceCategory>();
         public void addLog(string sender, string message, Logger.loggingLevel level)
         {
             logger.addLog(sender, message, level);
+        }
+
+        public void registerCategories(ICollection<DeviceCategory> dcc)
+        {
+            foreach (DeviceCategory dc in dcc)
+            {
+                knownCategories.Add(dc);
+                logger.addLog(name, String.Format(Texts.Logging.categoryRegistered, dc.getCategoryName()), Logger.loggingLevel.info);
+            }
+        }
+
+        public DeviceCategory findCategoryByName(string name)
+        {
+            return knownCategories.Find(c => c.getCategoryName() == name);
         }
 
         //Anlegen einer Controller - device - Map Verknüpfung
@@ -111,8 +126,6 @@ namespace EmotivEngine
         public void registerMap(Map map)
         {
             mapList.Add(map);
-            //TODO  TEST If eingefügt
-            if (map!=null)
             logger.addLog(name, String.Format(Texts.Logging.mapRegistered, map.name), Logger.loggingLevel.info);
         }
         public void unregisterMap(Map map)
