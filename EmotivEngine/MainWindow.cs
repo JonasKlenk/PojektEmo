@@ -54,7 +54,9 @@ namespace EmotivEngine
             if (categories.Count > 0)
                 cce.registerCategories(categories);
             comboBoxSelectController.DataSource = cce.getControllers();
+            comboBoxSelectController.DisplayMember = "Name";
             comboBoxSelectControllable.DataSource = cce.getControllableDevices();
+            comboBoxSelectControllable.DisplayMember = "Name";
             comboBoxSelectMap.DataSource = cce.getMaps();
             comboBoxSelectMap.DisplayMember = "name";
 

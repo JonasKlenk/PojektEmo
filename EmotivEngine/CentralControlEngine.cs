@@ -56,7 +56,7 @@ namespace EmotivEngine
                 string[][] bindingStringRepresentation = new string[controllerDeviceMap.Count][];
                 int i = 0;
                 foreach (ControllerBinding cb in controllerDeviceMap)
-                    bindingStringRepresentation[i++] = new string[] { cb.controller.ToString(), cb.controllableDevice.ToString(), cb.map.name };
+                    bindingStringRepresentation[i++] = new string[] { cb.controller.Name, cb.controllableDevice.Name, cb.map.name };
                 lclBindingsChanged(this, new BindingsEventArgs(bindingStringRepresentation));
             }
         }
@@ -189,8 +189,6 @@ namespace EmotivEngine
 
         public void start()
         {
-            foreach (IController c in controllerList)
-                c.setActive();
             foreach (ControllerBinding cb in controllerDeviceMap)
                 cb.startInputHandler();
             isRunning = true;
@@ -202,12 +200,8 @@ namespace EmotivEngine
             isRunning = false;
             foreach (ControllerBinding c in controllerDeviceMap)
             {
-                while (!c.inputQueue.isEmpty())
-                    Thread.Sleep(10);
-                c.inputHandler.Suspend();
+                c.stopInputHandler();
             }
-            foreach (IController c in controllerList)
-                c.setDeactive();
             logger.addLog(name, Texts.Logging.engineStoppedByUser, Logger.loggingLevel.info);
         }
 
@@ -248,6 +242,8 @@ namespace EmotivEngine
 
             public void startInputHandler()
             {
+                controller.setActive();
+                controllableDevice.setActive();
                 if (inputHandler != null)
                 {
                     inputHandler.Resume();
@@ -255,6 +251,18 @@ namespace EmotivEngine
                 }
                 inputHandler = new Thread(new ThreadStart(run));
                 inputHandler.Start();
+            }
+
+            public void stopInputHandler()
+            {
+                if (inputHandler != null && inputHandler.IsAlive)
+                {
+                    while (!inputQueue.isEmpty())
+                        Thread.Sleep(10);
+                    inputHandler.Suspend();
+                    controller.setDeactive();
+                    controllableDevice.setDeactive();
+                }
             }
         }
     }

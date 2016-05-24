@@ -19,5 +19,6 @@ namespace EmotivEngine
         string[] getCommands();
         event EventHandler Warning;
         event EventHandler Error;
+        string Name { get; }
     }
 }

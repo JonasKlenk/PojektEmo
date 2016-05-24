@@ -26,6 +26,15 @@ namespace EmotivEngine
         {
             return id;
         }
+
+        public string Name
+        {
+            get
+            {
+                return type + " (ID: " + id + ")";
+            }
+        }
+
         public void setId(int id)
         {
             this.id=id;
@@ -60,10 +69,6 @@ namespace EmotivEngine
             engine.UserAdded += new EmoEngine.UserAddedEventHandler(engine_UserAdded_Event);
             engine.EmoEngineConnected += new EmoEngine.EmoEngineConnectedEventHandler(connected);
             engine.EmoEngineDisconnected += new EmoEngine.EmoEngineDisconnectedEventHandler(discon);
-            engine.AffectivEmoStateUpdated += Engine_AffectivEmoStateUpdated;
-            engine.CognitivEmoStateUpdated += Engine_CognitivEmoStateUpdated;
-            engine.EmoEngineEmoStateUpdated += Engine_EmoEngineEmoStateUpdated;
-            engine.ExpressivEmoStateUpdated += Engine_ExpressivEmoStateUpdated;
 
             try {
                 engine.RemoteConnect("127.0.0.1", 1726);
@@ -117,6 +122,10 @@ namespace EmotivEngine
                 case EdkDll.EE_CognitivAction_t.COG_ROTATE_REVERSE:
                     success = controlEngine.addCommand(new Command((int)command.CognitiveRotateBackwards, command.CognitiveRotateBackwards.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
                     break;
+                default:
+                    success = true;
+                    controlEngine.addLog(Name, String.Format(Texts.Logging.unhandledCommand, e.emoState.CognitivGetCurrentAction()), Logger.loggingLevel.warning);
+                    break;
             }
             if (!success)
             {
@@ -124,7 +133,7 @@ namespace EmotivEngine
                 if (lclWarning != null)
                     lclWarning(this, e);
             }
-            controlEngine.addLog("EmoController", String.Format("Could not add command {0} to queue.", e.emoState.CognitivGetCurrentAction().ToString()), Logger.loggingLevel.warning);
+            controlEngine.addLog(Name, String.Format(Texts.Logging.couldntAddcommand, e.emoState.CognitivGetCurrentAction().ToString()), Logger.loggingLevel.warning);
         }
 
         private void Engine_EmoEngineEmoStateUpdated(object sender, EmoStateUpdatedEventArgs e)
@@ -187,6 +196,10 @@ namespace EmotivEngine
 
         public bool setActive()
         {
+            engine.AffectivEmoStateUpdated += Engine_AffectivEmoStateUpdated;
+            engine.CognitivEmoStateUpdated += Engine_CognitivEmoStateUpdated;
+            engine.EmoEngineEmoStateUpdated += Engine_EmoEngineEmoStateUpdated;
+            engine.ExpressivEmoStateUpdated += Engine_ExpressivEmoStateUpdated;
             runEngineThread = new Thread(new ThreadStart(runEngine));
             runEngineThread.Start();
             return true;
@@ -196,6 +209,10 @@ namespace EmotivEngine
 
         public bool setDeactive()
         {
+            engine.AffectivEmoStateUpdated -= Engine_AffectivEmoStateUpdated;
+            engine.CognitivEmoStateUpdated -= Engine_CognitivEmoStateUpdated;
+            engine.EmoEngineEmoStateUpdated -= Engine_EmoEngineEmoStateUpdated;
+            engine.ExpressivEmoStateUpdated -= Engine_ExpressivEmoStateUpdated;
             runEngineThread.Abort();
             return true;
         }

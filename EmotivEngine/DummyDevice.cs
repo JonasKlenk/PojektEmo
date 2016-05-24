@@ -9,7 +9,6 @@ namespace EmotivEngine
     {
         DeviceCategory c = new DeviceCategory("DummyTimCategory", new string[] { "RechtenArmheben", "LinkenArmHeben", "LinkesBeinHeben", "RechtesBeinHeben", "Umfallen" });
         private int id = 42;
-        private string name; 
         static private DummyDevice singleInstance = null;
         private CentralControlEngine controlEngine;
 
@@ -30,7 +29,7 @@ namespace EmotivEngine
         {
             get
             {
-                return name;
+                return c.getCategoryName() + " (ID: " + Id + ")";
             }
         }
 
