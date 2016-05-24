@@ -91,7 +91,7 @@
     <Compile Include="CentralControlEngine.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="CommandQueue.cs" />
-    <Compile Include="DeviceKategory.cs" />
+    <Compile Include="DeviceCategory.cs" />
     <Compile Include="DummyDevice.cs" />
     <Compile Include="EmoController.cs" />
     <Compile Include="IControllableDevice.cs" />
