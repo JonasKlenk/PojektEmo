@@ -140,7 +140,7 @@ namespace EmotivEngine
             controllableDevice.setId(++highestControllableId);
             controllableDeviceList.Add(controllableDevice);
             controllableDevice.initialize();
-            logger.addLog(name, String.Format(Texts.Logging.controllableRegistered, controllableDevice.getType(), controllableDevice.getId()), Logger.loggingLevel.info);
+            logger.addLog(name, String.Format(Texts.Logging.controllableRegistered, controllableDevice.getType(), controllableDevice.Id), Logger.loggingLevel.info);
         }
 
         public void registerMap(Map map)
@@ -168,7 +168,7 @@ namespace EmotivEngine
         {
             controllableDevice.setDeactive();
             controllableDeviceList.Remove(controllableDevice);
-            logger.addLog(name, String.Format(Texts.Logging.controllableUnregistered, controllableDevice.getType(), controllableDevice.getId()), Logger.loggingLevel.info);
+            logger.addLog(name, String.Format(Texts.Logging.controllableUnregistered, controllableDevice.getType(), controllableDevice.Id), Logger.loggingLevel.info);
         }
 
         public bool getIsRunning()

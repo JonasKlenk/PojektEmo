@@ -8,6 +8,8 @@ namespace EmotivEngine
 {
     interface IControllableDevice
     {
+        int Id { get; set; }
+        string Name { get; set; }
         void performAction(Command action); // Führt Command entsprechend aus
         void enterFallbackMode(); //Notfallmethode: Bringt Gerät in sicheren Zustand
 
@@ -16,9 +18,7 @@ namespace EmotivEngine
         //Administrativ:
         void initialize();
         DeviceCategory getType();
-
-        int getId();
-        void setId(int id);
+        
         //IControllableDevice getInstance();
         string[] getActions(); //gibt Liste mit den ausführbaren Aktionen zurück
         bool isReady(); //überprüft die Einsatzfähigkeit des Geräte (checkliste)
