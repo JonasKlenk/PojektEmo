@@ -41,6 +41,15 @@ namespace EmotivEngine
                        this.listViewCurrentBindings.Items.Add(newItem);
                    } }), argument);
            });
+            cce.mapsChanged += new EventHandler((sender, arguments) =>
+            {
+                this.Invoke(new Action(() =>
+                {
+                    Map currentSelectedMap = (Map)comboBoxSelectMap.SelectedItem;
+                    comboBoxSelectMap.DataSource = cce.getMaps();
+                    comboBoxSelectMap.SelectedItem = currentSelectedMap;
+                }));
+            });
             for (int i = 0; i < listViewCurrentBindings.Columns.Count; i++)
                 listViewCurrentBindings.Columns[i].Width = this.Width / listViewCurrentBindings.Columns.Count;
                 

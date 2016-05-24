@@ -87,10 +87,9 @@ namespace EmotivEngine
         }
         public Map saveMapping(Stream writeStream)
         {
-            Map a = new Map(controllerType, deviceType, bindings, name, getCommandList(), getActionList());
-
-            a.WriteXml(XmlWriter.Create(writeStream));
-            return a;
+            Map newMap = new Map(controllerType, deviceType, bindings, name, getCommandList(), getActionList());
+            newMap.WriteXml(XmlWriter.Create(writeStream));
+            return newMap;
             
         }
 

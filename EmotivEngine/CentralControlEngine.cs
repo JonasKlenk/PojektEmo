@@ -26,6 +26,7 @@ namespace EmotivEngine
         private List<Map> mapList = new List<Map>();
         private List<DeviceCategory> knownCategories = new List<DeviceCategory>();
         public event EventHandler<BindingsEventArgs> bindingsChanged;
+        public event EventHandler mapsChanged;
         public void addLog(string sender, string message, Logger.loggingLevel level)
         {
             logger.addLog(sender, message, level);
@@ -149,11 +150,21 @@ namespace EmotivEngine
                 mapList.Add(map);
                 logger.addLog(name, String.Format(Texts.Logging.mapRegistered, map.name), Logger.loggingLevel.info);
             }
+            EventHandler lclMapsChanged = mapsChanged;
+            if(lclMapsChanged != null)
+            {
+                lclMapsChanged(this, new EventArgs());
+            }
         }
         public void unregisterMap(Map map)
         {
             mapList.Remove(map);
             logger.addLog(name, String.Format(Texts.Logging.mapUnregistered, map.name), Logger.loggingLevel.info);
+            EventHandler lclMapsChanged = mapsChanged;
+            if (lclMapsChanged != null)
+            {
+                lclMapsChanged(this, new EventArgs());
+            }
         }
 
         public void unregisterController(IController controller)
