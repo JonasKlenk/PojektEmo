@@ -10,6 +10,7 @@ namespace EmotivEngine
     class TcpDevice : IControllableDevice
     {
         private int id;
+        private DeviceCategory deviceCategory;
         private CentralControlEngine cce;
         private TcpClient client;
         private NetworkStream stream;
@@ -22,6 +23,7 @@ namespace EmotivEngine
             this.cce = cce;
             client = new TcpClient(deviceIp, devicePort);
             stream = client.GetStream();
+            deviceCategory = cce.findCategoryByName(SendAndReceive("type"));
         }
 
         ~TcpDevice()
@@ -53,12 +55,12 @@ namespace EmotivEngine
 
         public string[] getActions()
         {
-            throw new NotImplementedException();
+            return deviceCategory.actionList;
         }
 
         public DeviceCategory getType()
         {
-            return cce.findCategoryByName("Drohne");
+            return deviceCategory;
         }
 
         public void initialize()
@@ -68,7 +70,7 @@ namespace EmotivEngine
 
         public bool isReady()
         {
-            throw new NotImplementedException();
+            return Convert.ToBoolean(SendAndReceive("ready"));
         }
 
         public void performAction(Command action)
@@ -76,14 +78,14 @@ namespace EmotivEngine
             throw new NotImplementedException();
         }
 
-        public bool setActive()
+        public void setActive()
         {
-            throw new NotImplementedException();
+            SendCommmand("activate");
         }
 
-        public bool setDeactive()
+        public void setDeactive()
         {
-            throw new NotImplementedException();
+            SendCommmand("deactivate");
         }
     }
 }

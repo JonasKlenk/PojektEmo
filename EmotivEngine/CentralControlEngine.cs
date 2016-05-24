@@ -137,7 +137,7 @@ namespace EmotivEngine
 
         public void registerControllableDevice(IControllableDevice controllableDevice)
         {
-            controllableDevice.setId(++highestControllableId);
+            controllableDevice.Id = ++highestControllableId;
             controllableDeviceList.Add(controllableDevice);
             controllableDevice.initialize();
             logger.addLog(name, String.Format(Texts.Logging.controllableRegistered, controllableDevice.getType(), controllableDevice.Id), Logger.loggingLevel.info);

@@ -11,6 +11,33 @@ namespace EmotivEngine
         private int id = 42;
         static private DummyDevice singleInstance = null;
         private CentralControlEngine controlEngine;
+
+        public int Id
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         private DummyDevice(CentralControlEngine cce) { this.controlEngine = cce; }
         public void enterFallbackMode()
         {
@@ -46,17 +73,27 @@ namespace EmotivEngine
         {
             controlEngine.addLog("DummyDevice", String.Format("Received command {0} with id {1}", action.getCommandName(), action.getCommandName()), Logger.loggingLevel.debug);
         }
-        public bool setActive()
+        public void setActive()
         {
             throw new NotImplementedException();
         }
-        public bool setDeactive()
+        public void setDeactive()
         {
             throw new NotImplementedException();
         }
         public void setId(int id)
         {
             this.id = id;
+        }
+
+        void IControllableDevice.setActive()
+        {
+            throw new NotImplementedException();
+        }
+
+        void IControllableDevice.setDeactive()
+        {
+            throw new NotImplementedException();
         }
     }
 }
