@@ -111,7 +111,7 @@ namespace EmotivEngine
                 Directory.CreateDirectory(xmlMapPath);
             foreach (Map m in cce.getMaps())
             {
-                m.WriteXml(XmlWriter.Create(new StringBuilder().Append(xmlMapPath).Append(m.name).Append(".xml").ToString()));
+               // TODO Serialisierung läuft nicht so: m.WriteXml(XmlWriter.Create(new StringBuilder().Append(xmlMapPath).Append(m.name).Append(".xml").ToString()));
             }
             Application.Exit();
         }

@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
 <MAP xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <creationDateTime>24.05.16 12:29:18</creationDateTime>
+  <creationDateTime>24.05.16 12:34:59</creationDateTime>
   <controllerType>Emotiv EPOC</controllerType>
   <controllableDeviceType>DummyTimCategory</controllableDeviceType>
   <bindings>
     <binding>0</binding>
-    <binding>2</binding>
-    <binding>4</binding>
+    <binding>1</binding>
     <binding>3</binding>
     <binding>-1</binding>
+    <binding>4</binding>
+    <binding>-1</binding>
+    <binding>0</binding>
     <binding>-1</binding>
     <binding>-1</binding>
     <binding>-1</binding>
     <binding>-1</binding>
     <binding>-1</binding>
-    <binding>-1</binding>
-    <binding>-1</binding>
-    <binding>-1</binding>
+    <binding>2</binding>
     <binding>-1</binding>
     <binding>-1</binding>
     <binding>-1</binding>

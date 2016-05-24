@@ -21,7 +21,7 @@ namespace EmotivEngine
 
             set
             {
-                id = value;
+                this.id=value;
             }
         }
 
