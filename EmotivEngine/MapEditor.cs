@@ -87,8 +87,9 @@ namespace EmotivEngine
         }
         public void saveMapping(Stream writeStream)
         {
-            Map a = new Map(controller.getType(), device.getCategory().categoryName, bindings, name, getCommandList(), getActionList());
-            
+            Map a = new Map(controllerType, deviceType, bindings, name, getCommandList(), getActionList());
+
+            a.WriteXml(XmlWriter.Create(writeStream));
             
         }
 
@@ -103,15 +104,24 @@ namespace EmotivEngine
         }
         public string[] getTextCommandMapping()
         {
-            string[] a = new string[bindings.Length];
+            try
+            {
+string[] a = new string[this.bindings.Length];
 
-            for (int i = 0; i < bindings.Length; i++)
+            for (int i = 0; i < this.bindings.Length; i++)
             {
                 if (bindings[i] != -1)
                     a[i] = getCommandList()[i] + " to " + getActionList()[bindings[i]];
                 else a[i] = "";
             }
             return a;
+            }
+            catch (NullReferenceException)
+            {
+                System.Windows.Forms.MessageBox.Show(Texts.GUITexts.exception);
+                throw new NullReferenceException("OutofBoudns");
+            }
+            
         }
 
     }

@@ -42,29 +42,40 @@ namespace EmotivEngine
         internal MapperGUI(MapEditor mapEditor)
         {
             this.mapEditor = mapEditor;
+            this.InitializeComponent();
+            this.Show();
             this.upateGUI(mapEditor);
         }
 
         private void upateGUI(MapEditor mapEditor)
         {
-            listCommandTypes.DataSource = mapEditor.getCommandList();
-            listActionTypes.DataSource = mapEditor.getActionList();
-            listMapping.DataSource = mapEditor.getTextCommandMapping();
-            name.Text = mapEditor.name;
+            try
+            {
+                listCommandTypes.DataSource = mapEditor.getCommandList();
+                listActionTypes.DataSource = mapEditor.getActionList();
+                listMapping.DataSource = mapEditor.getTextCommandMapping();
+                name.Text = mapEditor.name;
+            }
+            catch (Exception)
+            {
+                System.Windows.Forms.MessageBox.Show(Texts.GUITexts.exception);
+                this.Close();
+            }
+
         }
 
         private void ComboControllerID_SelectedIndexChanged(object sender, EventArgs e)
         {
             mapEditor.setActiveController(comboControllerID.SelectedIndex);
             listCommandTypes.DataSource = mapEditor.getCommandList();
-            listCommandTypes.Enabled = true;
+
         }
 
         private void ComboControllableDeviceID_SelectedIndexChanged(object sender, EventArgs e)
         {
             mapEditor.setActiveDevice(comboControllableDeviceID.SelectedIndex);
             listActionTypes.DataSource = mapEditor.getActionList();
-            listActionTypes.Enabled = true;
+
         }
 
         private void listCommandTypes_SelectedIndexChanged(object sender, EventArgs e)
@@ -103,8 +114,8 @@ namespace EmotivEngine
                 mapEditor.saveMapping(SaveMappingDialog.OpenFile());
             }
             this.Close();
-             
-            
+
+
         }
 
         private void name_TextChanged(object sender, EventArgs e)
@@ -121,15 +132,24 @@ namespace EmotivEngine
         {
             if (openMapDialog.ShowDialog() == DialogResult.OK)
             {
-                mapEditor = MapEditor.loadMap(openMapDialog.OpenFile());
-                name.Text = mapEditor.name;
-                comboControllerID.Text = mapEditor.controllerType;
-                comboControllerID.Enabled = false;
-                comboControllableDeviceID.Text = mapEditor.deviceType;
-                comboControllableDeviceID.Enabled = false;
-                listCommandTypes.DataSource = mapEditor.getCommandList();
-                listActionTypes.DataSource = mapEditor.getActionList();
-                listMapping.DataSource = mapEditor.getTextCommandMapping();
+                try
+                {
+                    mapEditor = MapEditor.loadMap(openMapDialog.OpenFile());
+                    name.Text = mapEditor.name;
+                    comboControllerID.Text = mapEditor.controllerType;
+                    comboControllerID.Enabled = false;
+                    comboControllableDeviceID.Text = mapEditor.deviceType;
+                    comboControllableDeviceID.Enabled = false;
+                    listCommandTypes.DataSource = mapEditor.getCommandList();
+                    listActionTypes.DataSource = mapEditor.getActionList();
+                    listMapping.DataSource = mapEditor.getTextCommandMapping();
+                }
+                catch (Exception)
+                {
+                    System.Windows.Forms.MessageBox.Show(Texts.GUITexts.exception);
+                    this.Close();
+                }
+
             }
             this.Close();
         }

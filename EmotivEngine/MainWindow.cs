@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.Diagnostics;
 
 namespace EmotivEngine
 {
@@ -28,7 +24,7 @@ namespace EmotivEngine
             cce.registerControllableDevice(DummyDevice.getInstance(cce));
             //HACK Testende
             cce.loggerUpdated += new EventHandler<LoggerEventArgs>(updateLog);
-            cce.registerMap(new Map(Texts.ControllerTypes.CT_EmotivEPOC, "test", new int[] { 1, 2, 3 }, "Map 1", EmoController.getInstance(cce).getCommands(), new string[] { "asd", "asd2" }));
+            cce.registerMap(new Map(Texts.ControllerTypes.CT_EmotivEPOC, "test", new int[] { 0, 1, -1 }, "Map 1", EmoController.getInstance(cce).getCommands(), new string[] { "asd", "asd2" }));
             log.Text = cce.getLogText();
             log.AppendText("");
             if (Directory.Exists(xmlMapPath))
@@ -118,29 +114,34 @@ namespace EmotivEngine
 
         private void btnAddMapping_Click(object sender, EventArgs e)
         {
-            //TODO
+            //
             //Setzen der beiden Werte für ComboBoxen in MapperGui
             //comboBoxSelectController.SelectedItem
             //comboBoxSelectControllable.SelectedItem
             new MapperGUI(cce.getControllableDevices(), cce.getControllers()).Show();
             //anlegen der persistierten map
             //cce.Map(createdMap) -> Wo bekomme ich created Map her? Muss das möglicherweise aus deiner MapEditor Klasse ausgerufen werden?
+            //--> Passiert im Konstruktor der Gui...
 
         }
 
         private void btnDelMapping_Click(object sender, EventArgs e)
         {
-            //TODO
-            //löschen der persistierten Version der Map
             cce.unregisterMap((Map)comboBoxSelectMap.SelectedItem);
+            if (Directory.Exists(xmlMapPath))
+                //Warum der den Sonst wo öffent.... kp
+                Process.Start("explorer.exe", @xmlMapPath);
         }
 
         private void btnEditMapping_Click(object sender, EventArgs e)
         {
-            //comboBoxSelectController.SelectedItem
-            //comboBoxSelectControllable.SelectedItem
-            //TODO TESTEN
+            
+            //hmm dann muss das Map objekt auch seinen Speicherort kenne...
+            //Nicht notwendig. 
+
             new MapperGUI(MapEditor.loadMap((Map)comboBoxSelectMap.SelectedItem));
+            
+
         }
 
         private void button1_Click(object sender, EventArgs e)
