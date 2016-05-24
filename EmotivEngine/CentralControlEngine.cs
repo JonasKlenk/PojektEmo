@@ -19,6 +19,8 @@ namespace EmotivEngine
         public event EventHandler<LoggerEventArgs> loggerUpdated;
         public event EventHandler<BindingsEventArgs> bindingsChanged;
         public event EventHandler mapsChanged;
+        public event EventHandler controllerChanged;
+        public event EventHandler controllablesChanged;
 
         //Singleton instance
         private static CentralControlEngine instance = null;
@@ -163,6 +165,14 @@ namespace EmotivEngine
             logger.addLog(name, String.Format(Texts.Logging.controllerRegistered, controller.getType(), controller.getId()), Logger.loggingLevel.info);
             controller.Warning += new EventHandler<WarningEventArgs>((sender, e) => addLog(((IController)sender).Name, e.WarningMessage, Logger.loggingLevel.warning));
             controller.Error += new EventHandler<ErrorEventArgs>((sender, e) => addLog(((IController)sender).Name, e.ErrorMessages, Logger.loggingLevel.error));
+            controller.Error += new EventHandler<ErrorEventArgs>((sender, e) =>
+            {
+                ControllerBinding cb = controllerDeviceMap.Find((binding) => binding.controller == ((IController)sender));
+                cb.stopInputHandler();
+                unbindControllerDeviceMap((IController)sender);
+                unregisterController((IController)sender);
+
+            });
         }
 
         public void registerControllableDevice(IControllableDevice controllableDevice)
@@ -172,6 +182,14 @@ namespace EmotivEngine
             logger.addLog(name, String.Format(Texts.Logging.controllableRegistered, controllableDevice.getCategory(), controllableDevice.Id), Logger.loggingLevel.info);
             controllableDevice.Warning += new EventHandler<WarningEventArgs>((sender, e) => addLog(((IController)sender).Name, e.WarningMessage, Logger.loggingLevel.warning));
             controllableDevice.Error += new EventHandler<ErrorEventArgs>((sender, e) => addLog(((IController)sender).Name, e.ErrorMessages, Logger.loggingLevel.error));
+            controllableDevice.Error += new EventHandler<ErrorEventArgs>((sender, e) =>
+            {
+                ControllerBinding cb = controllerDeviceMap.Find((binding) => binding.controllableDevice == ((IControllableDevice)sender));
+                cb.stopInputHandler();
+                unbindControllerDeviceMap(cb.controller);
+                unregisterControllableDevice((IControllableDevice)sender);
+
+            });
         }
 
         public void registerMap(Map map)
