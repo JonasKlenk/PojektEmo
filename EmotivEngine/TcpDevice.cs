@@ -50,7 +50,7 @@ namespace EmotivEngine
 
         public void enterFallbackMode()
         {
-            throw new NotImplementedException();
+            SendCommmand("fallback");
         }
 
         public string[] getActions()
@@ -63,11 +63,6 @@ namespace EmotivEngine
             return deviceCategory;
         }
 
-        public void initialize()
-        {
-            throw new NotImplementedException();
-        }
-
         public bool isReady()
         {
             return Convert.ToBoolean(SendAndReceive("ready"));
@@ -75,7 +70,7 @@ namespace EmotivEngine
 
         public void performAction(Command action)
         {
-            throw new NotImplementedException();
+            SendCommmand(action.getCommandId() + ";" + action.getIntensity());
         }
 
         public void setActive()

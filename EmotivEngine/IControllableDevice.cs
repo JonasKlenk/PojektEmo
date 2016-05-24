@@ -13,10 +13,7 @@ namespace EmotivEngine
         void performAction(Command action); // Führt Command entsprechend aus
         void enterFallbackMode(); //Notfallmethode: Bringt Gerät in sicheren Zustand
 
-
-
         //Administrativ:
-        void initialize();
         DeviceCategory getType();
         
         //IControllableDevice getInstance();
