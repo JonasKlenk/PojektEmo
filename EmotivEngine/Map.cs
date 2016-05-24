@@ -66,6 +66,13 @@ namespace EmotivEngine
             return a;
         }
 
+        public void WriteXml(XmlWriter writer)
+        {
+            
+            XmlSerializer ser = new XmlSerializer(typeof(Map));
+            ser.Serialize(writer, this);
+        }
+
 
         internal Command translate(Command c)
         {
