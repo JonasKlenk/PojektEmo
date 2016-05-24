@@ -38,3 +38,12 @@ C:\Users\klenkj\Documents\Visual Studio 2015\Projects\PojektEmo\EmotivEngine\obj
 C:\Users\klenkj\Documents\Visual Studio 2015\Projects\PojektEmo\EmotivEngine\obj\x86\Debug\EmotivEngine.MapperGUI.resources
 C:\Users\klenkj\Documents\Visual Studio 2015\Projects\PojektEmo\EmotivEngine\obj\x86\Debug\DevelopProjEmoEngine.csproj.GenerateResource.Cache
 C:\Users\klenkj\Documents\Visual Studio 2015\Projects\PojektEmo\EmotivEngine\obj\x86\Debug\DevelopProjEmoEngine.csprojResolveAssemblyReference.cache
+C:\Users\tstaat\Source\Repos\PojektEmo\EmotivEngine\bin\x86\Debug\EmotivEngine.exe.config
+C:\Users\tstaat\Source\Repos\PojektEmo\EmotivEngine\bin\x86\Debug\EmotivEngine.exe
+C:\Users\tstaat\Source\Repos\PojektEmo\EmotivEngine\bin\x86\Debug\EmotivEngine.pdb
+C:\Users\tstaat\Source\Repos\PojektEmo\EmotivEngine\obj\x86\Debug\DevelopProjEmoEngine.csprojResolveAssemblyReference.cache
+C:\Users\tstaat\Source\Repos\PojektEmo\EmotivEngine\obj\x86\Debug\EmotivEngine.MainWindow.resources
+C:\Users\tstaat\Source\Repos\PojektEmo\EmotivEngine\obj\x86\Debug\EmotivEngine.MapperGUI.resources
+C:\Users\tstaat\Source\Repos\PojektEmo\EmotivEngine\obj\x86\Debug\DevelopProjEmoEngine.csproj.GenerateResource.Cache
+C:\Users\tstaat\Source\Repos\PojektEmo\EmotivEngine\obj\x86\Debug\EmotivEngine.exe
+C:\Users\tstaat\Source\Repos\PojektEmo\EmotivEngine\obj\x86\Debug\EmotivEngine.pdb

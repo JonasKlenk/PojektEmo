@@ -9,6 +9,7 @@ namespace EmotivEngine
     {
         DeviceCategory c = new DeviceCategory("DummyTimCategory", new string[] { "RechtenArmheben", "LinkenArmHeben", "LinkesBeinHeben", "RechtesBeinHeben", "Umfallen" });
         private int id = 42;
+        private string name; 
         static private DummyDevice singleInstance = null;
         private CentralControlEngine controlEngine;
 
@@ -16,12 +17,12 @@ namespace EmotivEngine
         {
             get
             {
-                throw new NotImplementedException();
+                return id;
             }
 
             set
             {
-                throw new NotImplementedException();
+                id = value;
             }
         }
 
@@ -29,12 +30,7 @@ namespace EmotivEngine
         {
             get
             {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
+                return name;
             }
         }
 
