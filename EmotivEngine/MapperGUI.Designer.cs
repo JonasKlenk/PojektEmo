@@ -282,6 +282,7 @@
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonBind);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.listViewMapping);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MapperGUI";
             this.Text = "Map Editor";
