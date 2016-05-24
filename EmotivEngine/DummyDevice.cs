@@ -62,7 +62,7 @@ namespace EmotivEngine
             return singleInstance = new DummyDevice(cce);
         }
 
-        public DeviceCategory getType()
+        public DeviceCategory getCategory()
         {
             return c;
         }
