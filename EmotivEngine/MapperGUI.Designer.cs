@@ -245,7 +245,7 @@
             this.listViewMapping.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnControllerCommand,
             this.columnDeviceAction});
-            this.listViewMapping.Location = new System.Drawing.Point(12, 413);
+            this.listViewMapping.Location = new System.Drawing.Point(12, 243);
             this.listViewMapping.MultiSelect = false;
             this.listViewMapping.Name = "listViewMapping";
             this.listViewMapping.Size = new System.Drawing.Size(696, 198);
@@ -282,6 +282,7 @@
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonBind);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.listViewMapping);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MapperGUI";
             this.Text = "Map Editor";
