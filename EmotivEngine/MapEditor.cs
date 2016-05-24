@@ -90,6 +90,7 @@ namespace EmotivEngine
             Map a = new Map(controllerType, deviceType, bindings, name, getCommandList(), getActionList());
 
             a.WriteXml(XmlWriter.Create(writeStream));
+            return a;
             
         }
 
@@ -125,14 +126,7 @@ namespace EmotivEngine
                     textMappings[i] = new string[] { getCommandList()[i], "" };
             }
             return textMappings;
-        }
-            catch (NullReferenceException)
-            {
-                System.Windows.Forms.MessageBox.Show(Texts.GUITexts.exception);
-                throw new NullReferenceException("OutofBoudns");
-            }
-            
-        }
+        }   
 
         internal void deleteMapping(string xmlMapDir)
         {
