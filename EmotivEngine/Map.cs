@@ -50,6 +50,7 @@ namespace EmotivEngine
  
             XmlReader reader = XmlReader.Create(inputUri);
             XmlSerializer serializer = new XmlSerializer(typeof(Map));
+            //Todo kurrupte XML wirft Exception
             Map a = (Map)serializer.Deserialize(reader);
             reader.Close();
             return a;

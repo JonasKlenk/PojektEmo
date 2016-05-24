@@ -90,16 +90,6 @@
             // comboControllerID
             // 
             this.comboControllerID.FormattingEnabled = true;
-            this.comboControllerID.Items.AddRange(new object[] {
-            "a",
-            "b",
-            "c",
-            "d",
-            "e",
-            "f",
-            "g",
-            "h",
-            "i"});
             this.comboControllerID.Location = new System.Drawing.Point(12, 89);
             this.comboControllerID.Name = "comboControllerID";
             this.comboControllerID.Size = new System.Drawing.Size(300, 21);
@@ -242,6 +232,8 @@
             // 
             // listViewMapping
             // 
+            this.listViewMapping.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewMapping.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnControllerCommand,
             this.columnDeviceAction});
