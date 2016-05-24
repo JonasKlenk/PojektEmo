@@ -228,9 +228,6 @@ namespace EmotivEngine
                         Thread.Sleep(1);
                     Command c = inputQueue.dequeue();
                     processCommand(c);
-                    //TODO:
-                    //Id für Zielobjekt finden (über Mapper Objekt
-
                 }
             }
 
