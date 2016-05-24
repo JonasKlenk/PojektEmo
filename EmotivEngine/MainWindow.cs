@@ -35,10 +35,9 @@ namespace EmotivEngine
                this.Invoke(new Action<BindingsEventArgs>( (binding) => {
                    this.listViewCurrentBindings.Items.Clear();
                foreach (string[] test in binding.bindings) {
-                   ListViewItem newItem = new ListViewItem("item_test");
-                   newItem.SubItems.Add(test[0]);
+                   ListViewItem newItem = new ListViewItem(test[0]);
                    newItem.SubItems.Add(test[1]);
-                       newItem.SubItems.Add(test[2]);
+                   newItem.SubItems.Add(test[2]);
                        this.listViewCurrentBindings.Items.Add(newItem);
                    } }), argument);
            });

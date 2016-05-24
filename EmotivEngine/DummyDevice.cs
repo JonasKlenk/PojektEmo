@@ -64,7 +64,8 @@ namespace EmotivEngine
 
         public bool isReady()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return true;
         }
 
         public void performAction(Command action)
@@ -74,12 +75,12 @@ namespace EmotivEngine
 
         public void setActive()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public void setDeactive()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         public void setId(int id)
