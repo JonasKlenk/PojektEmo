@@ -94,6 +94,7 @@
     <Compile Include="DeviceCategory.cs" />
     <Compile Include="DummyDevice.cs" />
     <Compile Include="EmoController.cs" />
+    <Compile Include="ErrorEventArgs.cs" />
     <Compile Include="IControllableDevice.cs" />
     <Compile Include="IController.cs" />
     <Compile Include="Logger.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="TcpDevice.cs" />
     <Compile Include="Test.cs" />
     <Compile Include="Texts.cs" />
+    <Compile Include="WarningEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

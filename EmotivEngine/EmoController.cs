@@ -11,8 +11,8 @@ namespace EmotivEngine
 {
     class EmoController : IController
     {
-        public event EventHandler Error;
-        public event EventHandler Warning;
+        public event EventHandler<ErrorEventArgs> Error;
+        public event EventHandler<WarningEventArgs> Warning;
         private static string type = Texts.ControllerTypes.CT_EmotivEPOC;
         private CentralControlEngine controlEngine;
         private EmoState lastEmoState = new EmoState();
@@ -129,53 +129,74 @@ namespace EmotivEngine
             }
             if (!success)
             {
-                EventHandler lclWarning = Warning;
+                EventHandler<WarningEventArgs> lclWarning = Warning;
                 if (lclWarning != null)
-                    lclWarning(this, e);
+                    lclWarning(this, new WarningEventArgs(String.Format(Texts.WarningMessages.couldntAddcommand, e.emoState.CognitivGetCurrentAction().ToString())));
             }
-            controlEngine.addLog(Name, String.Format(Texts.Logging.couldntAddcommand, e.emoState.CognitivGetCurrentAction().ToString()), Logger.loggingLevel.warning);
         }
 
         private void Engine_EmoEngineEmoStateUpdated(object sender, EmoStateUpdatedEventArgs e)
         {
             if (e.emoState.GetWirelessSignalStatus() == EdkDll.EE_SignalStrength_t.BAD_SIGNAL)
             {
-                EventHandler lclWarning = Warning;
+                EventHandler<WarningEventArgs> lclWarning = Warning;
                 if (lclWarning != null)
-                    lclWarning(this, e);
+                    lclWarning(this, new WarningEventArgs(Texts.WarningMessages.badSignal));
             }
             else if (e.emoState.GetWirelessSignalStatus() == EdkDll.EE_SignalStrength_t.NO_SIGNAL)
             {
-                EventHandler lclError = Error;
+                EventHandler<ErrorEventArgs> lclError = Error;
                 if (lclError != null)
-                    lclError(this, e);
+                    lclError(this, new ErrorEventArgs(Texts.ErrorMessages.noSignal));
             }
         }
 
         private void Engine_ExpressivEmoStateUpdated(object sender, EmoStateUpdatedEventArgs e)
         {
             double smileThreshold = 0.5;
-
-            bool success = true;
-            if ((double)e.emoState.ExpressivGetSmileExtent() > smileThreshold)
-                success = controlEngine.addCommand(new Command((int)command.ExpressiveSmile, command.ExpressiveSmile.ToString("G"), this.id, e.emoState.ExpressivGetSmileExtent()));
-            if (e.emoState.ExpressivIsLookingLeft())
-                success = controlEngine.addCommand(new Command((int)command.ExpressiveLookLeft, command.ExpressiveLookLeft.ToString("G"), this.id, 1.0));
-            if (e.emoState.ExpressivIsLookingRight())
-                success = controlEngine.addCommand(new Command((int)command.ExpressiveLookRight, command.ExpressiveLookRight.ToString("G"), this.id, 1.0));
-            if (e.emoState.ExpressivIsLeftWink())
-                success = controlEngine.addCommand(new Command((int)command.ExpressiveWinkLeft, command.ExpressiveWinkLeft.ToString("G"), this.id, 1.0));
-            if (e.emoState.ExpressivIsRightWink())
-                success = controlEngine.addCommand(new Command((int)command.ExpressiveWinkRight, command.ExpressiveWinkRight.ToString("G"), this.id, 1.0));
-            if (e.emoState.ExpressivIsBlink())
-                success = controlEngine.addCommand(new Command((int)command.ExpressiveBlink, command.ExpressiveBlink.ToString("G"), this.id, 1.0));
-
-            if (!success)
+            if (e.emoState.ExpressivGetSmileExtent() != lastEmoState.ExpressivGetSmileExtent() && (double)e.emoState.ExpressivGetSmileExtent() > smileThreshold)
+                if(!controlEngine.addCommand(new Command((int)command.ExpressiveSmile, command.ExpressiveSmile.ToString("G"), this.id, e.emoState.ExpressivGetSmileExtent())))
+                {
+                    EventHandler<WarningEventArgs> lclWarning = Warning;
+                    if (lclWarning != null)
+                        lclWarning(this, new WarningEventArgs(String.Format(Texts.WarningMessages.couldntAddcommand, command.ExpressiveSmile.ToString("G"))));
+                }
+            if (e.emoState.ExpressivIsLookingLeft() != lastEmoState.ExpressivIsLookingLeft())
+                if(!controlEngine.addCommand(new Command((int)command.ExpressiveLookLeft, command.ExpressiveLookLeft.ToString("G"), this.id, 1.0)))
+                {
+                    EventHandler<WarningEventArgs> lclWarning = Warning;
+                    if (lclWarning != null)
+                        lclWarning(this, new WarningEventArgs(String.Format(Texts.WarningMessages.couldntAddcommand, command.ExpressiveLookLeft.ToString("G"))));
+                }
+            if (e.emoState.ExpressivIsLookingRight() != lastEmoState.ExpressivIsLookingRight())
+                if(!controlEngine.addCommand(new Command((int)command.ExpressiveLookRight, command.ExpressiveLookRight.ToString("G"), this.id, 1.0)))
             {
-                EventHandler lclWarning = Warning;
+                EventHandler<WarningEventArgs> lclWarning = Warning;
                 if (lclWarning != null)
-                    lclWarning(this, e);
+                    lclWarning(this, new WarningEventArgs(String.Format(Texts.WarningMessages.couldntAddcommand, command.ExpressiveLookRight.ToString("G"))));
             }
+            if (e.emoState.ExpressivIsLeftWink() != lastEmoState.ExpressivIsLeftWink())
+                if(!controlEngine.addCommand(new Command((int)command.ExpressiveWinkLeft, command.ExpressiveWinkLeft.ToString("G"), this.id, 1.0)))
+                {
+                    EventHandler<WarningEventArgs> lclWarning = Warning;
+                    if (lclWarning != null)
+                        lclWarning(this, new WarningEventArgs(String.Format(Texts.WarningMessages.couldntAddcommand, command.ExpressiveWinkLeft.ToString("G"))));
+                }
+            if (e.emoState.ExpressivIsRightWink() != lastEmoState.ExpressivIsRightWink())
+                if (!controlEngine.addCommand(new Command((int)command.ExpressiveWinkRight, command.ExpressiveWinkRight.ToString("G"), this.id, 1.0)))
+                {
+                    EventHandler<WarningEventArgs> lclWarning = Warning;
+                    if (lclWarning != null)
+                        lclWarning(this, new WarningEventArgs(String.Format(Texts.WarningMessages.couldntAddcommand, command.ExpressiveWinkRight.ToString("G"))));
+                }
+
+            if (e.emoState.ExpressivIsBlink() != lastEmoState.ExpressivIsBlink())
+                if(!controlEngine.addCommand(new Command((int)command.ExpressiveBlink, command.ExpressiveBlink.ToString("G"), this.id, 1.0)))
+                {
+                    EventHandler<WarningEventArgs> lclWarning = Warning;
+                    if (lclWarning != null)
+                        lclWarning(this, new WarningEventArgs(String.Format(Texts.WarningMessages.couldntAddcommand, command.ExpressiveBlink.ToString("G"))));
+                }
         }
 
         private void Engine_AffectivEmoStateUpdated(object sender, EmoStateUpdatedEventArgs e)
@@ -183,18 +204,17 @@ namespace EmotivEngine
             bool success = true;
             if (!success)
             {
-                EventHandler lclWarning = Warning;
+                EventHandler<WarningEventArgs> lclWarning = Warning;
                 if (lclWarning != null)
-                    lclWarning(this, e);
+                    lclWarning(this, new WarningEventArgs(Texts.WarningMessages.couldntAddcommand));
             }
         }
 
         public bool isReady()
         {
-            return runEngineThread.IsAlive;
-        }
+            return true;        }
 
-        public bool setActive()
+        public void setActive()
         {
             engine.AffectivEmoStateUpdated += Engine_AffectivEmoStateUpdated;
             engine.CognitivEmoStateUpdated += Engine_CognitivEmoStateUpdated;
@@ -202,19 +222,17 @@ namespace EmotivEngine
             engine.ExpressivEmoStateUpdated += Engine_ExpressivEmoStateUpdated;
             runEngineThread = new Thread(new ThreadStart(runEngine));
             runEngineThread.Start();
-            return true;
 
 
         }
 
-        public bool setDeactive()
+        public void setDeactive()
         {
             engine.AffectivEmoStateUpdated -= Engine_AffectivEmoStateUpdated;
             engine.CognitivEmoStateUpdated -= Engine_CognitivEmoStateUpdated;
             engine.EmoEngineEmoStateUpdated -= Engine_EmoEngineEmoStateUpdated;
             engine.ExpressivEmoStateUpdated -= Engine_ExpressivEmoStateUpdated;
             runEngineThread.Abort();
-            return true;
         }
 
         private void runEngine()
@@ -229,22 +247,17 @@ namespace EmotivEngine
 
         private void connected(object sender, EmoEngineEventArgs e)
         {
-            Console.WriteLine("connected");
+            controlEngine.addLog(this.Name, String.Format(Texts.Logging.connected, "engine"), Logger.loggingLevel.info);
         }
 
         private void discon(object sender, EmoEngineEventArgs e)
         {
-            Console.WriteLine("disc");
+            controlEngine.addLog(this.Name, String.Format(Texts.Logging.disconnected, "engine"), Logger.loggingLevel.info);
         }
 
         private void engine_UserAdded_Event(object sender, EmoEngineEventArgs e)
         {
-            Console.WriteLine("User Added Event has occured");
-
-            Profile p = engine.GetUserProfile((uint)e.userId);
-            Console.Out.WriteLine("UserID = " + e.userId);
-            Console.Out.WriteLine(p.ToString());
-
+            controlEngine.addLog(this.Name, String.Format(Texts.Logging.emotivUserAdded, e.userId), Logger.loggingLevel.debug);
         }
 
         public string getType()
@@ -254,4 +267,33 @@ namespace EmotivEngine
 
         
     }
+
+    //class EmoExpressiveState
+    //{
+
+    //    private double smileExtent;
+    //    public double SmileExtent { get; }
+
+    //    private bool isLookingLeft;
+    //    public bool IsLookingLeft { get; }
+    //    private bool isLookingRight;
+    //    public bool IsLookingRight { get; }
+    //    private bool isLeftWink;
+    //    public bool IsLeftWink { get; }
+    //    private bool isRightWink;
+    //    public bool IsRightWink { get; }
+    //    private bool isBlink;
+    //    private bool IsBlink { get; }
+
+    //    public EmoExpressiveState(double smileExtent, bool isLookingLeft, bool isLookingRight, bool isLeftWink, bool isRightWink, bool isBlink)
+    //    {
+    //        this.smileExtent = smileExtent;
+    //        this.isLookingLeft = isLookingLeft;
+    //        this.isLookingRight = isLookingRight;
+    //        this.isLeftWink = isLeftWink;
+    //        this.isRightWink = isRightWink;
+    //        this.isBlink = isBlink;
+    //    }
+    //}
+
 }

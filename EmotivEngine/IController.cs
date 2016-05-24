@@ -11,14 +11,14 @@ namespace EmotivEngine
         string getType();
         int getId();
         bool isReady();
-        bool setActive();
-        bool setDeactive();
+        void setActive();
+        void setDeactive();
         bool initialize();
         void setId(int id);
         //IController getInstance(CentralControlEngine cce);
         string[] getCommands();
-        event EventHandler Warning;
-        event EventHandler Error;
+        event EventHandler<WarningEventArgs> Warning;
+        event EventHandler<ErrorEventArgs> Error;
         string Name { get; }
     }
 }

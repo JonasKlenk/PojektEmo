@@ -21,8 +21,10 @@ namespace EmotivEngine
             static public string mapUnregistered = "Map {0} unregistered.";
             static public string categoryRegistered = "Device Category {0} registered";
             static public string unhandledCommand = "Signal is not handled by this driver: {0}.";
-            static public string couldntAddcommand = "Could not add command {0} to queue.";
             static public string receivedCommand = "Received command {0}with id {1}";
+            static public string connected = "Connected to {0}";
+            static public string disconnected = "Disconnected from {0}";
+            static public string emotivUserAdded = "User with id {0} added!";
         }
 
         public static class GUITexts
@@ -35,6 +37,19 @@ namespace EmotivEngine
             static public string CT_EmotivEPOC = "Emotiv EPOC";
             static public string CT_EmotivInsight = "Emotiv Insight";
             static public string CT_MicrosoftController360 = "Microsoft Controller XBOX 360";
+        }
+
+        public static class WarningMessages
+        {
+            static public string defaultMessage = "No warning message given by event creator";
+            static public string badSignal = "Bad wireless signal quality.";
+            static public string couldntAddcommand = "Could not add command {0} to queue.";
+        }
+
+        public static class ErrorMessages
+        {
+            static public string defaultMessage = "No error message given by event creator";
+            static public string noSignal = "No wireless signal.";
         }
     }
 }
