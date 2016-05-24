@@ -14,19 +14,22 @@ namespace EmotivEngine
     public class Map
     {
         [System.Xml.Serialization.XmlElement("controllerType")]
-        public string controllerType { get; }
+        public string controllerType { get; set; }
         [System.Xml.Serialization.XmlElement("controllableDeviceType")]
-        public string controllableDeviceType { get; }
+        public string controllableDeviceType { get; set; }
         [System.Xml.Serialization.XmlElement("creationDateTime")]
-        private string creationDateTime;
+        public string creationDateTime;
         [System.Xml.Serialization.XmlElement("name")]
-        public string name { get; }
-        [System.Xml.Serialization.XmlElement("bindings")]
-        public int[] bindings { get; }
+        public string name { get; set; }
+        [System.Xml.Serialization.XmlArray("bindings")]
+        [System.Xml.Serialization.XmlArrayItem("binding")]
+        public int[] bindings { get; set; }
         [System.Xml.Serialization.XmlArray("commandList")]
-        public string[] commandList { get; }
+        [System.Xml.Serialization.XmlArrayItem("command")]
+        public string[] commandList { get; set; }
         [System.Xml.Serialization.XmlArray("actionList")]
-        public string[] actionList { get; }
+        [System.Xml.Serialization.XmlArrayItem("action")]
+        public string[] actionList { get; set; }
 
         public Map(string contollerType, string controllableDeviceType, int[] commandoMapping, string name, string[] commandList, string[] actionList)
         {
@@ -40,8 +43,6 @@ namespace EmotivEngine
             this.creationDateTime = DateTime.Now.ToString("dd.MM.yy HH:mm:ss");
         }
 
-        //Hinzugefügt, weil nötig für XML Serialiserr... 
-        //TODO eig. Nicht
         private Map() { }
 
         public static Map ReadXml(string inputUri)
@@ -65,13 +66,6 @@ namespace EmotivEngine
             return a;
         }
 
-        public void WriteXml(XmlWriter writer)
-        {
-            //TODO kp warum der kack nicht geht... ich bin jetztpennen
-            XmlSerializer serializer = new XmlSerializer(typeof(Map));
-            serializer.Serialize(writer, this);
-            writer.Close();
-        }
 
         internal Command translate(Command c)
         {

@@ -90,7 +90,8 @@ namespace EmotivEngine
             Map a = new Map(controller.getType(), device.getCategory().categoryName, bindings, name, getCommandList(), getActionList());
             
             XmlWriter writer = XmlWriter.Create(writeStream);
-            a.WriteXml(writer);
+            XmlSerializer ser = new XmlSerializer(typeof(Map));
+            ser.Serialize(writeStream, a);
         }
 
         public static MapEditor loadMap(Map map)

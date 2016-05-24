@@ -16,7 +16,7 @@ namespace EmotivEngine
         {
             get
             {
-                throw new NotImplementedException();
+                return id;
             }
 
             set
