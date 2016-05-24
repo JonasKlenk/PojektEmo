@@ -52,6 +52,8 @@ namespace EmotivEngine
         internal MapperGUI(MapEditor mapEditor, CentralControlEngine cce)
         {
             this.mapEditor = mapEditor;
+            this.InitializeComponent();
+            this.Show();
             this.upateGUI(mapEditor);
             controlEngine = cce;
             initializeList();
@@ -59,12 +61,20 @@ namespace EmotivEngine
 
         private void upateGUI(MapEditor mapEditor)
         {
-            listCommandTypes.DataSource = mapEditor.getCommandList();
-            listCommandTypes.DisplayMember = "Name";
-            listActionTypes.DataSource = mapEditor.getActionList();
-            listActionTypes.DisplayMember = "Name";
-            setMappingList();
-            name.Text = mapEditor.name;
+            try
+            {
+                listCommandTypes.DataSource = mapEditor.getCommandList();
+                listCommandTypes.DisplayMember = "Name";
+                listActionTypes.DataSource = mapEditor.getActionList();
+                listActionTypes.DisplayMember = "Name";
+                setMappingList();
+                name.Text = mapEditor.name;
+            }
+            catch (Exception)
+            {
+                System.Windows.Forms.MessageBox.Show(Texts.GUITexts.exception);
+                this.Close();
+            }
         }
 
         private void setMappingList()
@@ -90,14 +100,14 @@ namespace EmotivEngine
         {
             mapEditor.setActiveController(comboControllerID.SelectedIndex);
             listCommandTypes.DataSource = mapEditor.getCommandList();
-            listCommandTypes.Enabled = true;
+
         }
 
         private void ComboControllableDeviceID_SelectedIndexChanged(object sender, EventArgs e)
         {
             mapEditor.setActiveDevice(comboControllableDeviceID.SelectedIndex);
             listActionTypes.DataSource = mapEditor.getActionList();
-            listActionTypes.Enabled = true;
+
         }
 
         private void listCommandTypes_SelectedIndexChanged(object sender, EventArgs e)
@@ -121,7 +131,7 @@ namespace EmotivEngine
         private void buttonBind_Click(object sender, EventArgs e)
         {
 
-                mapEditor.bind(selectedCommand, selectedAction);
+            mapEditor.bind(selectedCommand, selectedAction);
                 setMappingList();
                 listViewMapping.Show();
 
@@ -131,10 +141,10 @@ namespace EmotivEngine
         {
             if (selectedMapping >= 0)
             {
-                mapEditor.unbind(selectedMapping);
+            mapEditor.unbind(selectedMapping);
                 setMappingList();
                 listViewMapping.Show();
-           }
+        }
             else
                 MessageBox.Show("Please select a single binding");
         }
@@ -159,6 +169,8 @@ namespace EmotivEngine
         {
             if (openMapDialog.ShowDialog() == DialogResult.OK)
             {
+                try
+                {
                 mapEditor = MapEditor.loadMap(openMapDialog.OpenFile());
                 name.Text = mapEditor.name;
                 comboControllerID.Text = mapEditor.controllerType;
@@ -168,6 +180,13 @@ namespace EmotivEngine
                 listCommandTypes.DataSource = mapEditor.getCommandList();
                 listActionTypes.DataSource = mapEditor.getActionList();
                 //listMapping.DataSource = mapEditor.getTextCommandMapping();
+            }
+                catch (Exception)
+                {
+                    System.Windows.Forms.MessageBox.Show(Texts.GUITexts.exception);
+                    this.Close();
+                }
+
             }
             this.Close();
         }

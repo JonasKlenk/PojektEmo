@@ -68,7 +68,7 @@
             // buttonSave
             // 
             this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSave.Location = new System.Drawing.Point(552, 617);
+            this.buttonSave.Location = new System.Drawing.Point(552, 456);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 23);
             this.buttonSave.TabIndex = 1;
@@ -79,7 +79,7 @@
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Location = new System.Drawing.Point(635, 617);
+            this.buttonCancel.Location = new System.Drawing.Point(635, 456);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 2;
@@ -120,11 +120,10 @@
             // 
             this.listCommandTypes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.listCommandTypes.Enabled = false;
             this.listCommandTypes.FormattingEnabled = true;
             this.listCommandTypes.Location = new System.Drawing.Point(12, 129);
             this.listCommandTypes.Name = "listCommandTypes";
-            this.listCommandTypes.Size = new System.Drawing.Size(300, 277);
+            this.listCommandTypes.Size = new System.Drawing.Size(300, 108);
             this.listCommandTypes.TabIndex = 6;
             this.listCommandTypes.SelectedIndexChanged += new System.EventHandler(this.listCommandTypes_SelectedIndexChanged);
             // 
@@ -132,11 +131,10 @@
             // 
             this.listActionTypes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listActionTypes.Enabled = false;
             this.listActionTypes.FormattingEnabled = true;
             this.listActionTypes.Location = new System.Drawing.Point(399, 129);
             this.listActionTypes.Name = "listActionTypes";
-            this.listActionTypes.Size = new System.Drawing.Size(309, 277);
+            this.listActionTypes.Size = new System.Drawing.Size(309, 108);
             this.listActionTypes.TabIndex = 7;
             this.listActionTypes.SelectedIndexChanged += new System.EventHandler(this.listActionTypes_SelectedIndexChanged);
             // 
@@ -213,7 +211,7 @@
             // buttonDeleteBind
             // 
             this.buttonDeleteBind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDeleteBind.Location = new System.Drawing.Point(12, 617);
+            this.buttonDeleteBind.Location = new System.Drawing.Point(12, 456);
             this.buttonDeleteBind.Name = "buttonDeleteBind";
             this.buttonDeleteBind.Size = new System.Drawing.Size(158, 23);
             this.buttonDeleteBind.TabIndex = 13;
@@ -268,8 +266,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(720, 650);
-            this.Controls.Add(this.listViewMapping);
+            this.ClientSize = new System.Drawing.Size(720, 489);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.name);
             this.Controls.Add(this.buttonDeleteBind);

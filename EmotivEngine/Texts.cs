@@ -27,7 +27,7 @@ namespace EmotivEngine
 
         public static class GUITexts
         {
-
+            static public string exception = "Map not fund or invalid.";
         }
 
         public static class ControllerTypes
