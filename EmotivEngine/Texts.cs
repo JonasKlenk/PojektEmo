@@ -18,10 +18,11 @@ namespace EmotivEngine
             static public string engineStarted = "Engine started succesfully.";
             static public string engineStoppedByUser = "Engine stopped by user";
             static public string mapRegistered = "Map {0} registered.";
-            static public string mapUnregistered = "Map {0} unregisteerd.";
+            static public string mapUnregistered = "Map {0} unregistered.";
             static public string categoryRegistered = "Device Category {0} registered";
             static public string unhandledCommand = "Signal is not handled by this driver: {0}.";
             static public string couldntAddcommand = "Could not add command {0} to queue.";
+            static public string receivedCommand = "Received command {0}with id {1}";
         }
 
         public static class GUITexts

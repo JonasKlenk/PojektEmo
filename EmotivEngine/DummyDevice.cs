@@ -70,7 +70,7 @@ namespace EmotivEngine
 
         public void performAction(Command action)
         {
-            controlEngine.addLog("DummyDevice", String.Format("Received command {0} with id {1}", action.getCommandName(), action.getCommandName()), Logger.loggingLevel.debug);
+            controlEngine.addLog(Name, String.Format(Texts.Logging.receivedCommand, action.getCommandName(), action.getCommandName()), Logger.loggingLevel.debug);
         }
 
         public void setActive()
@@ -86,16 +86,6 @@ namespace EmotivEngine
         public void setId(int id)
         {
             this.id = id;
-        }
-
-        void IControllableDevice.setActive()
-        {
-            throw new NotImplementedException();
-        }
-
-        void IControllableDevice.setDeactive()
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -44,11 +44,13 @@
             this.newMappingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadMappingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonDeleteBind = new System.Windows.Forms.Button();
-            this.listMapping = new System.Windows.Forms.ListBox();
             this.SaveMappingDialog = new System.Windows.Forms.SaveFileDialog();
             this.name = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.openMapDialog = new System.Windows.Forms.OpenFileDialog();
+            this.listViewMapping = new System.Windows.Forms.ListView();
+            this.columnControllerCommand = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnDeviceAction = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -219,18 +221,6 @@
             this.buttonDeleteBind.UseVisualStyleBackColor = true;
             this.buttonDeleteBind.Click += new System.EventHandler(this.buttonDeleteBind_Click);
             // 
-            // listMapping
-            // 
-            this.listMapping.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listMapping.Location = new System.Drawing.Point(12, 411);
-            this.listMapping.MultiColumn = true;
-            this.listMapping.Name = "listMapping";
-            this.listMapping.ScrollAlwaysVisible = true;
-            this.listMapping.Size = new System.Drawing.Size(696, 199);
-            this.listMapping.TabIndex = 14;
-            this.listMapping.SelectedIndexChanged += new System.EventHandler(this.listMapping_SelectedIndexChanged);
-            // 
             // name
             // 
             this.name.Location = new System.Drawing.Point(12, 47);
@@ -252,14 +242,36 @@
             // 
             this.openMapDialog.FileName = "openFileDialog1";
             // 
+            // listViewMapping
+            // 
+            this.listViewMapping.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnControllerCommand,
+            this.columnDeviceAction});
+            this.listViewMapping.Location = new System.Drawing.Point(12, 413);
+            this.listViewMapping.MultiSelect = false;
+            this.listViewMapping.Name = "listViewMapping";
+            this.listViewMapping.Size = new System.Drawing.Size(696, 198);
+            this.listViewMapping.TabIndex = 17;
+            this.listViewMapping.UseCompatibleStateImageBehavior = false;
+            this.listViewMapping.View = System.Windows.Forms.View.Details;
+            this.listViewMapping.SelectedIndexChanged += new System.EventHandler(this.listMapping_SelectedIndexChanged);
+            // 
+            // columnControllerCommand
+            // 
+            this.columnControllerCommand.Text = "Controller command";
+            // 
+            // columnDeviceAction
+            // 
+            this.columnDeviceAction.Text = "Device cction";
+            // 
             // MapperGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(720, 650);
+            this.Controls.Add(this.listViewMapping);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.name);
-            this.Controls.Add(this.listMapping);
             this.Controls.Add(this.buttonDeleteBind);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -300,12 +312,14 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadMappingToolStripMenuItem;
         private System.Windows.Forms.Button buttonDeleteBind;
-        private System.Windows.Forms.ListBox listMapping;
         private System.Windows.Forms.SaveFileDialog SaveMappingDialog;
         private System.Windows.Forms.TextBox name;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.OpenFileDialog openMapDialog;
         private System.Windows.Forms.ToolStripMenuItem newMappingToolStripMenuItem;
+        private System.Windows.Forms.ListView listViewMapping;
+        private System.Windows.Forms.ColumnHeader columnControllerCommand;
+        private System.Windows.Forms.ColumnHeader columnDeviceAction;
     }
 }
 

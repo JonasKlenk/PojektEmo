@@ -25,7 +25,7 @@ namespace EmotivEngine
         private string[] commandList;
         private string[] actionList;
         /// <summary>
-        /// Construktor mit Gui
+        /// Construktor für Gui
         /// </summary>
         /// <param name="availiableControllers"></param>
         /// <param name="availiableControllabelDevices"></param>
@@ -85,11 +85,10 @@ namespace EmotivEngine
         {
             return actionList;
         }
-        public void saveMapping(Stream writeStream)
+        public Map saveMapping(Stream writeStream)
         {
             Map a = new Map(controller.getType(), device.getCategory().categoryName, bindings, name, getCommandList(), getActionList());
-            
-            
+            return a;
         }
 
         public static MapEditor loadMap(Map map)
@@ -101,19 +100,36 @@ namespace EmotivEngine
         {           
             return new MapEditor(Map.ReadXml(XmlReader.Create(readStream)));
         }
-        public string[] getTextCommandMapping()
+        public string[][] getTextCommandMapping()
         {
-            string[] a = new string[bindings.Length];
-
-            for (int i = 0; i < bindings.Length; i++)
+            string[][] textMappings;
+            if (bindings != null)
             {
-                if (bindings[i] != -1)
-                    a[i] = getCommandList()[i] + " to " + getActionList()[bindings[i]];
-                else a[i] = "";
+                textMappings = new string[bindings.Length][];
+
+                for (int i = 0; i < bindings.Length; i++)
+                {
+                    textMappings[i] = new string[2];
+                    textMappings[i][0] = getCommandList()[i];
+                    if (bindings[i] != -1)
+                        textMappings[i][1] = getActionList()[bindings[i]];
+                    else textMappings[i][1] = "";
+                }
             }
-            return a;
+            else
+            {
+                textMappings = new string[getCommandList().Length][];
+                for (int i = 0; i < textMappings.Length; i++)
+                    textMappings[i] = new string[] { getCommandList()[i], "" };
+            }
+            return textMappings;
         }
 
+        internal void deleteMapping(string xmlMapDir)
+        {
+            if (File.Exists(xmlMapDir + name + ".xml"))
+                File.Delete(xmlMapDir + name + ".xml");
+        }
     }
 
 

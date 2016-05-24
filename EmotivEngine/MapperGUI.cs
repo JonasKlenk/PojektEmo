@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,14 @@ namespace EmotivEngine
         private MapEditor mapEditor;
         private IController[] availableControllers;
         private IControllableDevice[] availableDevices;
+        private CentralControlEngine controlEngine;
 
+        private void initializeList()
+        {
+            for(int i = 0; i < listViewMapping.Columns.Count; i++)
+                listViewMapping.Columns[i].Width = (listViewMapping.Width - 25)/ listViewMapping.Columns.Count;
+            setMappingList();
+        }
 
         private void setAvailableControllers(IController[] availiableControllers)
         {
@@ -29,7 +37,7 @@ namespace EmotivEngine
             comboControllableDeviceID.DataSource = availiableDevices;
         }
 
-        internal MapperGUI(IControllableDevice[] availableDevices, IController[] availableControllers)
+        internal MapperGUI(IControllableDevice[] availableDevices, IController[] availableControllers, CentralControlEngine cce)
         {
             InitializeComponent();
             mapEditor = new MapEditor(availableControllers, availableDevices);
@@ -37,20 +45,45 @@ namespace EmotivEngine
             this.availableDevices = availableDevices;
             setAvailableControllers(availableControllers);
             setAvailableControllabelDevices(availableDevices);
+            controlEngine = cce;
+            initializeList();
         }
 
-        internal MapperGUI(MapEditor mapEditor)
+        internal MapperGUI(MapEditor mapEditor, CentralControlEngine cce)
         {
             this.mapEditor = mapEditor;
             this.upateGUI(mapEditor);
+            controlEngine = cce;
+            initializeList();
         }
 
         private void upateGUI(MapEditor mapEditor)
         {
             listCommandTypes.DataSource = mapEditor.getCommandList();
+            listCommandTypes.DisplayMember = "Name";
             listActionTypes.DataSource = mapEditor.getActionList();
-            listMapping.DataSource = mapEditor.getTextCommandMapping();
+            listActionTypes.DisplayMember = "Name";
+            setMappingList();
             name.Text = mapEditor.name;
+        }
+
+        private void setMappingList()
+        {
+            string[][] textList = mapEditor.getTextCommandMapping();
+            if (listViewMapping.InvokeRequired)
+                this.Invoke(new Action(() => { listViewMapping.Items.Clear(); }));
+            else
+                listViewMapping.Items.Clear();
+            for(int i = 0; i < textList.Length; i++ )
+            {
+                ListViewItem li = new ListViewItem(textList[i][0]);
+                li.SubItems.Add(textList[i][1]);
+                if (listViewMapping.InvokeRequired)
+                    this.Invoke(new Action<ListViewItem>((lclLi) => { listViewMapping.Items.Add(lclLi); }), li);
+                else
+                    listViewMapping.Items.Add(li);
+            }
+
         }
 
         private void ComboControllerID_SelectedIndexChanged(object sender, EventArgs e)
@@ -79,32 +112,37 @@ namespace EmotivEngine
 
         private void listMapping_SelectedIndexChanged(object sender, EventArgs e)
         {
-            selectedMapping = listMapping.SelectedIndex;
+            if (listViewMapping.SelectedIndices.Count == 1)
+                selectedMapping = listViewMapping.SelectedIndices[0];
+            else
+                selectedMapping = -1;
         }
 
         private void buttonBind_Click(object sender, EventArgs e)
         {
-            mapEditor.bind(selectedCommand, selectedAction);
-            listMapping.DataSource = mapEditor.getTextCommandMapping();
-            listMapping.Show();
+
+                mapEditor.bind(selectedCommand, selectedAction);
+                setMappingList();
+                listViewMapping.Show();
+
         }
 
         private void buttonDeleteBind_Click(object sender, EventArgs e)
         {
-            mapEditor.unbind(selectedMapping);
-            listMapping.DataSource = mapEditor.getTextCommandMapping();
-            listMapping.Show();
+            if (selectedMapping >= 0)
+            {
+                mapEditor.unbind(selectedMapping);
+                setMappingList();
+                listViewMapping.Show();
+           }
+            else
+                MessageBox.Show("Please select a single binding");
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            if (SaveMappingDialog.ShowDialog() == DialogResult.OK)
-            {
-                mapEditor.saveMapping(SaveMappingDialog.OpenFile());
-            }
+            controlEngine.registerMap(mapEditor.saveMapping(File.Open(MainWindow.xmlMapPath + mapEditor.name + ".xml", FileMode.OpenOrCreate)));
             this.Close();
-             
-            
         }
 
         private void name_TextChanged(object sender, EventArgs e)
@@ -129,7 +167,7 @@ namespace EmotivEngine
                 comboControllableDeviceID.Enabled = false;
                 listCommandTypes.DataSource = mapEditor.getCommandList();
                 listActionTypes.DataSource = mapEditor.getActionList();
-                listMapping.DataSource = mapEditor.getTextCommandMapping();
+                //listMapping.DataSource = mapEditor.getTextCommandMapping();
             }
             this.Close();
         }
