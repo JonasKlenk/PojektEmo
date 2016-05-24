@@ -21,7 +21,7 @@ namespace EmotivEngine
 
             set
             {
-                throw new NotImplementedException();
+                this.id=value;
             }
         }
 
