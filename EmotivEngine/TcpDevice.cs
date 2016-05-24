@@ -15,6 +15,9 @@ namespace EmotivEngine
         private TcpClient client;
         private NetworkStream stream;
 
+        public event EventHandler<WarningEventArgs> Warning;
+        public event EventHandler<ErrorEventArgs> Error;
+
         /// <summary>
         /// ID of this device
         /// </summary>

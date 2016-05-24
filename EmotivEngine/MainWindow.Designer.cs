@@ -46,6 +46,8 @@
             this.columnController = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnDevice = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnMap = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.comboBoxSelectLogLevel = new System.Windows.Forms.ComboBox();
+            this.labelLogLevel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // toggleStartStop
@@ -66,15 +68,15 @@
             this.log.Name = "log";
             this.log.ReadOnly = true;
             this.log.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.log.Size = new System.Drawing.Size(242, 253);
+            this.log.Size = new System.Drawing.Size(242, 209);
             this.log.TabIndex = 4;
             this.log.Text = "No Events";
             // 
             // resetLog
             // 
-            this.resetLog.Location = new System.Drawing.Point(223, 271);
+            this.resetLog.Location = new System.Drawing.Point(223, 284);
             this.resetLog.Name = "resetLog";
-            this.resetLog.Size = new System.Drawing.Size(242, 50);
+            this.resetLog.Size = new System.Drawing.Size(242, 37);
             this.resetLog.TabIndex = 5;
             this.resetLog.Text = "Reset Log";
             this.resetLog.UseVisualStyleBackColor = true;
@@ -212,11 +214,31 @@
             this.columnMap.Text = "Map";
             this.columnMap.Width = 204;
             // 
+            // comboBoxSelectLogLevel
+            // 
+            this.comboBoxSelectLogLevel.FormattingEnabled = true;
+            this.comboBoxSelectLogLevel.Location = new System.Drawing.Point(223, 249);
+            this.comboBoxSelectLogLevel.Name = "comboBoxSelectLogLevel";
+            this.comboBoxSelectLogLevel.Size = new System.Drawing.Size(242, 21);
+            this.comboBoxSelectLogLevel.TabIndex = 17;
+            this.comboBoxSelectLogLevel.SelectedIndexChanged += new System.EventHandler(this.comboBoxSelectLogLevel_SelectedIndexChanged);
+            // 
+            // labelLogLevel
+            // 
+            this.labelLogLevel.AutoSize = true;
+            this.labelLogLevel.Location = new System.Drawing.Point(220, 233);
+            this.labelLogLevel.Name = "labelLogLevel";
+            this.labelLogLevel.Size = new System.Drawing.Size(54, 13);
+            this.labelLogLevel.TabIndex = 18;
+            this.labelLogLevel.Text = "Log Level";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(478, 536);
+            this.Controls.Add(this.labelLogLevel);
+            this.Controls.Add(this.comboBoxSelectLogLevel);
             this.Controls.Add(this.listViewCurrentBindings);
             this.Controls.Add(this.btnBind);
             this.Controls.Add(this.btnEditMapping);
@@ -260,5 +282,7 @@
         private System.Windows.Forms.ColumnHeader columnDevice;
         private System.Windows.Forms.ColumnHeader columnMap;
         private System.Windows.Forms.ColumnHeader columnController;
+        private System.Windows.Forms.ComboBox comboBoxSelectLogLevel;
+        private System.Windows.Forms.Label labelLogLevel;
     }
 }

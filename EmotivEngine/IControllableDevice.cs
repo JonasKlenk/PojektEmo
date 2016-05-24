@@ -1,10 +1,15 @@
-﻿namespace EmotivEngine
+﻿using System;
+
+namespace EmotivEngine
 {
     /// <summary>
     /// Interface for basic commands and util functions any device should support
     /// </summary>
     interface IControllableDevice
     {
+
+        event EventHandler<WarningEventArgs> Warning;
+        event EventHandler<ErrorEventArgs> Error;
         /// <summary>
         /// Device ID
         /// </summary>
@@ -39,7 +44,7 @@
         string[] getActions();
 
         /// <summary>
-        /// Returns if device is ready to perform actions
+        /// Returns if device is ready to perform actions, is called by engine before setting active!
         /// </summary>
         /// <returns>Boolean if device is ready</returns>
         bool isReady();

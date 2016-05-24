@@ -25,6 +25,7 @@ namespace EmotivEngine
             static public string connected = "Connected to {0}";
             static public string disconnected = "Disconnected from {0}";
             static public string emotivUserAdded = "User with id {0} added!";
+            static public string logLevelChanged = "Log level changed from {0} to {1}";
         }
 
         public static class GUITexts

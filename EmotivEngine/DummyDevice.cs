@@ -12,6 +12,9 @@ namespace EmotivEngine
         static private DummyDevice singleInstance = null;
         private CentralControlEngine controlEngine;
 
+        public event EventHandler<WarningEventArgs> Warning;
+        public event EventHandler<ErrorEventArgs> Error;
+
         public int Id
         {
             get

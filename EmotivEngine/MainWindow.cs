@@ -66,6 +66,9 @@ namespace EmotivEngine
             comboBoxSelectMap.DataSource = cce.getMaps();
             comboBoxSelectMap.DisplayMember = "name";
 
+            comboBoxSelectLogLevel.Items.AddRange(Enum.GetNames(typeof(Logger.loggingLevel)));
+            comboBoxSelectLogLevel.SelectedItem = comboBoxSelectLogLevel.Items[0];
+
 
         }
 
@@ -153,6 +156,11 @@ namespace EmotivEngine
         {
             if (comboBoxSelectControllable.SelectedItem != null && comboBoxSelectController.SelectedItem != null && comboBoxSelectMap.SelectedItem != null)
                 cce.bindControllerDeviceMap((IController)comboBoxSelectController.SelectedItem, (IControllableDevice)comboBoxSelectControllable.SelectedItem, (Map)comboBoxSelectMap.SelectedItem); 
+        }
+
+        private void comboBoxSelectLogLevel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cce.setLogLevel((Logger.loggingLevel)Enum.Parse(typeof(Logger.loggingLevel),comboBoxSelectLogLevel.SelectedItem.ToString()));
         }
     }
 }

@@ -9,6 +9,8 @@ namespace EmotivEngine
     class WarningEventArgs : EventArgs
     {
         string warningMessage;
+
+        public string WarningMessage { get; }
         public WarningEventArgs()
         {
             warningMessage = Texts.WarningMessages.defaultMessage;

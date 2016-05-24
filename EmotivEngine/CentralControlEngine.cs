@@ -10,27 +10,53 @@ namespace EmotivEngine
 {
     class CentralControlEngine
     {
-
+        //Logger Object for central Logging. Logging is fully handled by CCE.
         private Logger logger;
+        //Central Control Engine Name, used for Logging Messages
+        private const string name = "CCE";
+
+        //EventHandler for informing external Programms about internal changes
         public event EventHandler<LoggerEventArgs> loggerUpdated;
+        public event EventHandler<BindingsEventArgs> bindingsChanged;
+        public event EventHandler mapsChanged;
+
+        //Singleton instance
         private static CentralControlEngine instance = null;
         private CentralControlEngine() { }
+
+        //Variables for setting internally used ids
         private int highestControllerId = -1;
         private int highestControllableId = -1;
+
+        //Is Engine running (and processing input)
         private bool isRunning = false;
+
+        //Lists for managing Objects
         private List<IControllableDevice> controllableDeviceList = new List<IControllableDevice>();
         private List<IController> controllerList = new List<IController>();
         private List<ControllerBinding> controllerDeviceMap = new List<ControllerBinding>();
-        private const string name = "CCE";
-        private Logger.loggingLevel loggingLevel = Logger.loggingLevel.debug;
         private List<Map> mapList = new List<Map>();
         private List<DeviceCategory> knownCategories = new List<DeviceCategory>();
-        public event EventHandler<BindingsEventArgs> bindingsChanged;
-        public event EventHandler mapsChanged;
+
+        //Current Log Level
+        private Logger.loggingLevel loggingLevel = Logger.loggingLevel.debug;
+
+        public void setLogLevel(Logger.loggingLevel ll)
+        {
+            if (loggingLevel != ll)
+            {
+                string oldll = this.loggingLevel.ToString("G");
+                this.loggingLevel = ll;
+                logger.setLogLevel(ll);
+                addLog("Log", String.Format(Texts.Logging.logLevelChanged, oldll, loggingLevel.ToString("G")), Logger.loggingLevel.info);
+            }
+        }
+
         public void addLog(string sender, string message, Logger.loggingLevel level)
         {
             logger.addLog(sender, message, level);
         }
+
 
         public void registerCategories(ICollection<DeviceCategory> dcc)
         {
@@ -84,6 +110,7 @@ namespace EmotivEngine
 
             };
         }
+
         //Löschen einer Controller - device - Map Verknüpfung
         public void unbindControllerDeviceMap(IController controller)
         {
@@ -134,6 +161,8 @@ namespace EmotivEngine
             controllerList.Add(controller);
             controller.initialize();
             logger.addLog(name, String.Format(Texts.Logging.controllerRegistered, controller.getType(), controller.getId()), Logger.loggingLevel.info);
+            controller.Warning += new EventHandler<WarningEventArgs>((sender, e) => addLog(((IController)sender).Name, e.WarningMessage, Logger.loggingLevel.warning));
+            controller.Error += new EventHandler<ErrorEventArgs>((sender, e) => addLog(((IController)sender).Name, e.ErrorMessages, Logger.loggingLevel.error));
         }
 
         public void registerControllableDevice(IControllableDevice controllableDevice)
@@ -141,6 +170,8 @@ namespace EmotivEngine
             controllableDevice.Id = ++highestControllableId;
             controllableDeviceList.Add(controllableDevice);
             logger.addLog(name, String.Format(Texts.Logging.controllableRegistered, controllableDevice.getCategory(), controllableDevice.Id), Logger.loggingLevel.info);
+            controllableDevice.Warning += new EventHandler<WarningEventArgs>((sender, e) => addLog(((IController)sender).Name, e.WarningMessage, Logger.loggingLevel.warning));
+            controllableDevice.Error += new EventHandler<ErrorEventArgs>((sender, e) => addLog(((IController)sender).Name, e.ErrorMessages, Logger.loggingLevel.error));
         }
 
         public void registerMap(Map map)
