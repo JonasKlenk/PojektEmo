@@ -13,7 +13,7 @@
         /// <summary>
         /// Device name
         /// </summary>
-        string Name { get; set; }
+        string Name { get; }
 
         /// <summary>
         /// Execute command on device
