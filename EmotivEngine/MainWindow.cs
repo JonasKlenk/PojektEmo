@@ -42,7 +42,6 @@ namespace EmotivEngine
                    ListViewItem newItem = new ListViewItem(test[0]);
                    newItem.SubItems.Add(test[1]);
                    newItem.SubItems.Add(test[2]);
-                   //newItem.SubItems.Add(test[2]);
                        this.listViewCurrentBindings.Items.Add(newItem);
                    } }), argument);
            });
