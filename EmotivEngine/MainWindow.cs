@@ -24,7 +24,7 @@ namespace EmotivEngine
             cce.registerControllableDevice(DummyDevice.getInstance(cce));
             //HACK Testende
             cce.loggerUpdated += new EventHandler<LoggerEventArgs>(updateLog);
-            cce.registerMap(new Map(Texts.ControllerTypes.CT_EmotivEPOC, "test", new int[] { 0, 1, -1 }, "Map 1", EmoController.getInstance(cce).getCommands(), new string[] { "asd", "asd2" }));
+            //cce.registerMap(new Map(Texts.ControllerTypes.CT_EmotivEPOC, "test", new int[] { 0, 1, -1 }, "Map 1", EmoController.getInstance(cce).getCommands(), new string[] { "asd", "asd2" }));
             log.Text = cce.getLogText();
             log.AppendText("");
             if (Directory.Exists(xmlMapPath))
@@ -137,6 +137,7 @@ namespace EmotivEngine
         private void btnEditMapping_Click(object sender, EventArgs e)
         {
             new MapperGUI(MapEditor.loadMap((Map)comboBoxSelectMap.SelectedItem), cce);
+            
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -67,6 +67,7 @@ namespace EmotivEngine
         {
             XmlSerializer ser = new XmlSerializer(typeof(Map));
             ser.Serialize(writer, this);
+            writer.Close();
         }
 
 
