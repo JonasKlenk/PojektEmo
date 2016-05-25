@@ -38,7 +38,18 @@ namespace EmotivEngine
         public TcpDevice(CentralControlEngine cce, string deviceIp, int devicePort)
         {
             this.cce = cce;
-            client = new TcpClient(deviceIp, devicePort);
+            try
+            {
+                client = new TcpClient(deviceIp, devicePort);
+            }
+            catch (Exception)
+            {
+                EventHandler<ErrorEventArgs> lclError = Error;
+                if (lclError != null)
+                    lclError(this, new ErrorEventArgs(String.Format("Could not connect to TCP device at adress {0}:{1}", deviceIp, devicePort)));
+            }
+            client.SendTimeout = 1000;
+            client.ReceiveTimeout = 5000;
             stream = client.GetStream();
             deviceCategory = cce.findCategoryByName(SendAndReceive("type"));
         }
@@ -60,7 +71,16 @@ namespace EmotivEngine
         {
             Console.WriteLine("Sending : " + command);
             byte[] bytesToSend = ASCIIEncoding.ASCII.GetBytes(command);
-            stream.Write(bytesToSend, 0, bytesToSend.Length);
+            try
+            {
+                stream.Write(bytesToSend, 0, bytesToSend.Length);
+            }
+            catch (Exception)
+            {
+                EventHandler<ErrorEventArgs> lclError = Error;
+                if (lclError != null)
+                    lclError(this, new ErrorEventArgs("Could not send TCP message."));
+            }
         }
 
         /// <summary>
@@ -72,10 +92,20 @@ namespace EmotivEngine
         {
             SendCommmand(command);
             byte[] bytesToRead = new byte[client.ReceiveBufferSize];
-            int bytesRead = stream.Read(bytesToRead, 0, client.ReceiveBufferSize);
-            string answer = Encoding.ASCII.GetString(bytesToRead, 0, bytesRead);
-            Console.WriteLine("Received : " + answer);
-            return answer;
+            try
+            {
+                int bytesRead = stream.Read(bytesToRead, 0, client.ReceiveBufferSize);
+                string answer = Encoding.ASCII.GetString(bytesToRead, 0, bytesRead);
+                Console.WriteLine("Received : " + answer);
+                return answer;
+            }
+            catch (Exception)
+            {
+                EventHandler<ErrorEventArgs> lclError = Error;
+                if (lclError != null)
+                    lclError(this, new ErrorEventArgs("Could not receive answer from TCP device."));
+                return "";
+            }
         }
 
         /// <summary>
