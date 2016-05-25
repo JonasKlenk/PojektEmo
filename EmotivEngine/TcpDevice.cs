@@ -44,9 +44,9 @@ namespace EmotivEngine
             }
             catch (Exception)
             {
-                EventHandler<ErrorEventArgs> lclError = Error;
-                if (lclError != null)
-                    lclError(this, new ErrorEventArgs(String.Format("Could not connect to TCP device at adress {0}:{1}", deviceIp, devicePort)));
+                EventHandler<WarningEventArgs> lclWarning = Warning;
+                if (lclWarning != null)
+                    lclWarning(this, new WarningEventArgs(String.Format("Could not connect to TCP device at adress {0}:{1}", deviceIp, devicePort)));
             }
             client.SendTimeout = 1000;
             client.ReceiveTimeout = 5000;
@@ -77,9 +77,9 @@ namespace EmotivEngine
             }
             catch (Exception)
             {
-                EventHandler<ErrorEventArgs> lclError = Error;
-                if (lclError != null)
-                    lclError(this, new ErrorEventArgs("Could not send TCP message."));
+                EventHandler<WarningEventArgs> lclWarning = Warning;
+                if (lclWarning != null)
+                    lclWarning(this, new WarningEventArgs("Could not send TCP message."));
             }
         }
 
@@ -101,9 +101,9 @@ namespace EmotivEngine
             }
             catch (Exception)
             {
-                EventHandler<ErrorEventArgs> lclError = Error;
-                if (lclError != null)
-                    lclError(this, new ErrorEventArgs("Could not receive answer from TCP device."));
+                EventHandler<WarningEventArgs> lclWarning = Warning;
+                if (lclWarning != null)
+                    lclWarning(this, new WarningEventArgs("Could not receive answer from TCP device."));
                 return "";
             }
         }
