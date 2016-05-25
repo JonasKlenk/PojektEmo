@@ -160,19 +160,25 @@ namespace EmotivEngine
         public void registerController(IController controller)
         {
             controller.setId(++highestControllerId);
-            controllerList.Add(controller);
-            controller.initialize();
-            logger.addLog(name, String.Format(Texts.Logging.controllerRegistered, controller.getType(), controller.getId()), Logger.loggingLevel.info);
-            controller.Warning += new EventHandler<WarningEventArgs>((sender, e) => addLog(((IController)sender).Name, e.WarningMessage, Logger.loggingLevel.warning));
-            controller.Error += new EventHandler<ErrorEventArgs>((sender, e) => addLog(((IController)sender).Name, e.ErrorMessages, Logger.loggingLevel.error));
-            controller.Error += new EventHandler<ErrorEventArgs>((sender, e) =>
+            if (controller.initialize())
             {
-                ControllerBinding cb = controllerDeviceMap.Find((binding) => binding.controller == ((IController)sender));
-                cb.stopInputHandler();
-                unbindControllerDeviceMap((IController)sender);
-                unregisterController((IController)sender);
+                controllerList.Add(controller);
+                logger.addLog(name, String.Format(Texts.Logging.controllerRegistered, controller.getType(), controller.getId()), Logger.loggingLevel.info);
+                controller.Warning += new EventHandler<WarningEventArgs>((sender, e) => addLog(((IController)sender).Name, e.WarningMessage, Logger.loggingLevel.warning));
+                controller.Error += new EventHandler<ErrorEventArgs>((sender, e) => addLog(((IController)sender).Name, e.ErrorMessages, Logger.loggingLevel.error));
+                controller.Error += new EventHandler<ErrorEventArgs>((sender, e) =>
+                {
+                    ControllerBinding cb = controllerDeviceMap.Find((binding) => binding.controller == ((IController)sender));
+                    cb.stopInputHandler();
+                    unbindControllerDeviceMap((IController)sender);
+                    unregisterController((IController)sender);
 
-            });
+                });
+            }
+            else
+            {
+                logger.addLog(name, String.Format(Texts.Logging.controllerRegistrationError, controller.Name), Logger.loggingLevel.error);
+            }
         }
 
         public void registerControllableDevice(IControllableDevice controllableDevice)

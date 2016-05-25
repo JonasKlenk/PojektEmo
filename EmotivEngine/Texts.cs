@@ -26,6 +26,7 @@ namespace EmotivEngine
             static public string disconnected = "Disconnected from {0}";
             static public string emotivUserAdded = "User with id {0} added!";
             static public string logLevelChanged = "Log level changed from {0} to {1}";
+            static public string controllerRegistrationError = "Could not Register Controller {0}";
         }
 
         public static class GUITexts
