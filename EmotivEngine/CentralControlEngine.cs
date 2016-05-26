@@ -160,7 +160,6 @@ namespace EmotivEngine
                     return instance;
                 instance = new CentralControlEngine();
                 instance.resetLog();
-                ControllerBinding.cce = instance;
                 return instance;
             }
         }
@@ -282,7 +281,6 @@ namespace EmotivEngine
         //Stellt eine Verknüpfung zwischen COntroller - Device - Mapping dar.
         class ControllerBinding
         {
-            static public CentralControlEngine cce;
             public IController controller;
             public IControllableDevice controllableDevice;
             public Map map;
@@ -301,14 +299,8 @@ namespace EmotivEngine
                     while (inputQueue.isEmpty())
                         Thread.Sleep(1);
                     Command c = inputQueue.dequeue();
-                    processCommand(c);
+                    controllableDevice.performAction(map.translate(c));
                 }
-            }
-
-            private void processCommand(Command c)
-            {
-                cce.controllerDeviceMap.Find(binding => binding.controller.getId() == ((Command)c).getSenderId()).controllableDevice.performAction(cce.controllerDeviceMap.Find(binding => binding.controller.getId() == ((Command)c).getSenderId()).map.translate(c));
-                Console.Out.WriteLine(((Command)c).ToString());
             }
 
             public void startInputHandler()
