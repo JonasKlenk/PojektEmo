@@ -43,6 +43,8 @@ namespace EmotivEngine
         //Current Log Level
         private Logger.loggingLevel loggingLevel = Logger.loggingLevel.debug;
 
+
+        #region log
         public void setLogLevel(Logger.loggingLevel ll)
         {
             if (loggingLevel != ll)
@@ -57,37 +59,6 @@ namespace EmotivEngine
         public void addLog(string sender, string message, Logger.loggingLevel level)
         {
             logger.addLog(sender, message, level);
-        }
-
-
-        public void registerCategories(ICollection<DeviceCategory> dcc)
-        {
-            foreach (DeviceCategory dc in dcc)
-            {
-                knownCategories.Add(dc);
-                logger.addLog(name, String.Format(Texts.Logging.categoryRegistered, dc.getCategoryName()), Logger.loggingLevel.info);
-            }
-        }
-
-        public DeviceCategory findCategoryByName(string name)
-        {
-            return knownCategories.Find(c => c.getCategoryName() == name);
-        }
-
-        //Anlegen einer Controller - device - Map Verknüpfung
-        public void bindControllerDeviceMap(IController controller, IControllableDevice controllableDevice, Map map)
-        {
-            unbindControllerDeviceMap(controller);
-            controllerDeviceMap.Add(new ControllerBinding(controller, controllableDevice, map));
-            EventHandler<BindingsEventArgs> lclBindingsChanged = bindingsChanged;
-            if (lclBindingsChanged != null)
-            {
-                string[][] bindingStringRepresentation = new string[controllerDeviceMap.Count][];
-                int i = 0;
-                foreach (ControllerBinding cb in controllerDeviceMap)
-                    bindingStringRepresentation[i++] = new string[] { cb.controller.Name, cb.controllableDevice.Name, cb.map.name };
-                lclBindingsChanged(this, new BindingsEventArgs(bindingStringRepresentation));
-            }
         }
 
         public string getLogText()
@@ -113,6 +84,41 @@ namespace EmotivEngine
             };
         }
 
+        #endregion log
+
+        #region categories
+        public void registerCategories(ICollection<DeviceCategory> dcc)
+        {
+            foreach (DeviceCategory dc in dcc)
+            {
+                knownCategories.Add(dc);
+                logger.addLog(name, String.Format(Texts.Logging.categoryRegistered, dc.getCategoryName()), Logger.loggingLevel.info);
+            }
+        }
+
+        public DeviceCategory findCategoryByName(string name)
+        {
+            return knownCategories.Find(c => c.getCategoryName() == name);
+        }
+        #endregion categories
+
+        #region binding
+        //Anlegen einer Controller - device - Map Verknüpfung
+        public void bindControllerDeviceMap(IController controller, IControllableDevice controllableDevice, Map map)
+        {
+            unbindControllerDeviceMap(controller);
+            controllerDeviceMap.Add(new ControllerBinding(controller, controllableDevice, map));
+            EventHandler<BindingsEventArgs> lclBindingsChanged = bindingsChanged;
+            if (lclBindingsChanged != null)
+            {
+                string[][] bindingStringRepresentation = new string[controllerDeviceMap.Count][];
+                int i = 0;
+                foreach (ControllerBinding cb in controllerDeviceMap)
+                    bindingStringRepresentation[i++] = new string[] { cb.controller.Name, cb.controllableDevice.Name, cb.map.name };
+                lclBindingsChanged(this, new BindingsEventArgs(bindingStringRepresentation));
+            }
+        }
+
         //Löschen einer Controller - device - Map Verknüpfung
         public void unbindControllerDeviceMap(IController controller)
         {
@@ -128,6 +134,8 @@ namespace EmotivEngine
                 lclBindingsChanged(this, new BindingsEventArgs(bindingStringRepresentation));
             }
         }
+
+        #endregion binding
 
         public IControllableDevice[] getControllableDevices()
         {
