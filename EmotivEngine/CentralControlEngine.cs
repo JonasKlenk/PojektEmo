@@ -187,24 +187,27 @@ namespace EmotivEngine
                 logger.addLog(name, String.Format(Texts.Logging.controllerRegistrationError, controller.Name), Logger.loggingLevel.error);
             }
         }
+        
 
         public void registerControllableDevice(IControllableDevice controllableDevice)
         {
             controllableDevice.Id = ++highestControllableId;
             controllableDeviceList.Add(controllableDevice);
             logger.addLog(name, String.Format(Texts.Logging.controllableRegistered, controllableDevice.getCategory(), controllableDevice.Id), Logger.loggingLevel.info);
-            controllableDevice.Warning += new EventHandler<WarningEventArgs>((sender, e) => addLog(((IController)sender).Name, e.WarningMessage, Logger.loggingLevel.warning));
-            controllableDevice.Error += new EventHandler<ErrorEventArgs>((sender, e) => addLog(((IController)sender).Name, e.ErrorMessages, Logger.loggingLevel.error));
+            controllableDevice.Warning += new EventHandler<WarningEventArgs>((sender, e) 
+                => addLog(((IController)sender).Name, e.WarningMessage, Logger.loggingLevel.warning));
+            controllableDevice.Error += new EventHandler<ErrorEventArgs>((sender, e) 
+                => addLog(((IController)sender).Name, e.ErrorMessages, Logger.loggingLevel.error));
             controllableDevice.Error += new EventHandler<ErrorEventArgs>((sender, e) =>
             {
-                List<ControllerBinding> cbl = controllerDeviceMap.FindAll((binding) => binding.controllableDevice == ((IControllableDevice)sender));
+                List<ControllerBinding> cbl = controllerDeviceMap.FindAll((binding) 
+                    => binding.controllableDevice == ((IControllableDevice)sender));
                 foreach (ControllerBinding cb in cbl)
                 {
                     cb.stopInputHandler();
                     unbindControllerDeviceMap(cb.controller);
                 }
                 unregisterControllableDevice((IControllableDevice)sender);
-
             });
         }
 
@@ -255,10 +258,15 @@ namespace EmotivEngine
         {
             if (isRunning)
             {
-                ControllerBinding cb = controllerDeviceMap.Find(binding => binding.controller.getId() == c.getSenderId());
+                ControllerBinding cb = controllerDeviceMap.Find(binding 
+                    => binding.controller.getId() == c.getSenderId());
                 if (cb != null)
                     if (cb.inputQueue.enqueue(c))
-                        logger.addLog(name, String.Format(Texts.Logging.commandAddedToQueue, c.getCommandName(), c.getCommandId(), c.getSenderId(), c.getIntensity()), Logger.loggingLevel.debug);
+                    {
+                        logger.addLog(name, String.Format(Texts.Logging.commandAddedToQueue, 
+                            c.getCommandName(), c.getCommandId(), c.getSenderId(), c.getIntensity()), Logger.loggingLevel.debug);
+                        return true;
+                    }
             }
             return false;
         }
