@@ -197,9 +197,12 @@ namespace EmotivEngine
             controllableDevice.Error += new EventHandler<ErrorEventArgs>((sender, e) => addLog(((IController)sender).Name, e.ErrorMessages, Logger.loggingLevel.error));
             controllableDevice.Error += new EventHandler<ErrorEventArgs>((sender, e) =>
             {
-                ControllerBinding cb = controllerDeviceMap.Find((binding) => binding.controllableDevice == ((IControllableDevice)sender));
-                cb.stopInputHandler();
-                unbindControllerDeviceMap(cb.controller);
+                List<ControllerBinding> cbl = controllerDeviceMap.FindAll((binding) => binding.controllableDevice == ((IControllableDevice)sender));
+                foreach (ControllerBinding cb in cbl)
+                {
+                    cb.stopInputHandler();
+                    unbindControllerDeviceMap(cb.controller);
+                }
                 unregisterControllableDevice((IControllableDevice)sender);
 
             });
@@ -213,7 +216,7 @@ namespace EmotivEngine
                 logger.addLog(name, String.Format(Texts.Logging.mapRegistered, map.name), Logger.loggingLevel.info);
             }
             EventHandler lclMapsChanged = mapsChanged;
-            if(lclMapsChanged != null)
+            if (lclMapsChanged != null)
             {
                 lclMapsChanged(this, new EventArgs());
             }
@@ -286,12 +289,14 @@ namespace EmotivEngine
             public Map map;
             public CommandQueue inputQueue = new CommandQueue(8);
             public Thread inputHandler;
+
             public ControllerBinding(IController controller, IControllableDevice controllableDevice, Map map)
             {
                 this.controller = controller;
                 this.controllableDevice = controllableDevice;
                 this.map = map;
             }
+
             private void run()
             {
                 while (true)
