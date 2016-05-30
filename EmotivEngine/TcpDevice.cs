@@ -37,8 +37,6 @@ namespace EmotivEngine
         public TcpDevice(CentralControlEngine cce, string deviceIp, int devicePort)
         {
             this.cce = cce;
-            client.SendTimeout = 1000;
-            client.ReceiveTimeout = 5000;
             connectToRemoteDevice(deviceIp, devicePort);
         }
 
@@ -71,6 +69,8 @@ namespace EmotivEngine
                     lclWarning(this, new WarningEventArgs(String.Format("Could not connect to TCP device at adress {0}:{1}", deviceIp, devicePort)));
                 return;
             }
+            client.SendTimeout = 1000;
+            client.ReceiveTimeout = 5000;
             deviceCategory = cce.findCategoryByName(SendAndReceive("type"));
         }
 
