@@ -49,7 +49,7 @@ namespace EmotivEngine
         }
 
 
-        private enum command : int
+        private enum commands : int
         {
             CognitivPush = 0, CognitivPull = 1, CognitivLift = 2, CognitivDrop = 3, CognitivLeft = 4,
             CognitivRight = 5, CognitivRotateLeft = 6, CognitivRotateRight = 7, CognitivRotateClockwise = 8,
@@ -70,7 +70,7 @@ namespace EmotivEngine
 
         public string[] getCommands()
         {
-            return (string[])Enum.GetNames(typeof(command));
+            return (string[])Enum.GetNames(typeof(commands));
         }
 
         public bool initialize()
@@ -97,48 +97,48 @@ namespace EmotivEngine
             switch (e.emoState.CognitivGetCurrentAction())
             {
                 case EdkDll.EE_CognitivAction_t.COG_PUSH:
-                    controlEngine.addCommand(new Command((int)command.CognitivPush, command.CognitivPush.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
+                    controlEngine.addCommand(new Command((int)commands.CognitivPush, commands.CognitivPush.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
                     break;
                 case EdkDll.EE_CognitivAction_t.COG_PULL:
-                    success = controlEngine.addCommand(new Command((int)command.CognitivPull, command.CognitivPull.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
+                    success = controlEngine.addCommand(new Command((int)commands.CognitivPull, commands.CognitivPull.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
                     break;
                 case EdkDll.EE_CognitivAction_t.COG_LIFT:
-                    success = controlEngine.addCommand(new Command((int)command.CognitivLift, command.CognitivLift.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
+                    success = controlEngine.addCommand(new Command((int)commands.CognitivLift, commands.CognitivLift.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
                     break;
                 case EdkDll.EE_CognitivAction_t.COG_DROP:
-                    success = controlEngine.addCommand(new Command((int)command.CognitivDrop, command.CognitivDrop.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
+                    success = controlEngine.addCommand(new Command((int)commands.CognitivDrop, commands.CognitivDrop.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
                     break;
                 case EdkDll.EE_CognitivAction_t.COG_LEFT:
-                    success = controlEngine.addCommand(new Command((int)command.CognitivLeft, command.CognitivLeft.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
+                    success = controlEngine.addCommand(new Command((int)commands.CognitivLeft, commands.CognitivLeft.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
                     break;
                 case EdkDll.EE_CognitivAction_t.COG_RIGHT:
-                    success = controlEngine.addCommand(new Command((int)command.CognitivRight, command.CognitivRight.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
+                    success = controlEngine.addCommand(new Command((int)commands.CognitivRight, commands.CognitivRight.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
                     break;
                 case EdkDll.EE_CognitivAction_t.COG_ROTATE_LEFT:
-                    success = controlEngine.addCommand(new Command((int)command.CognitivRotateLeft, command.CognitivRotateLeft.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
+                    success = controlEngine.addCommand(new Command((int)commands.CognitivRotateLeft, commands.CognitivRotateLeft.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
                     break;
                 case EdkDll.EE_CognitivAction_t.COG_ROTATE_RIGHT:
-                    success = controlEngine.addCommand(new Command((int)command.CognitivRotateRight, command.CognitivRotateRight.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
+                    success = controlEngine.addCommand(new Command((int)commands.CognitivRotateRight, commands.CognitivRotateRight.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
                     break;
                 case EdkDll.EE_CognitivAction_t.COG_ROTATE_CLOCKWISE:
-                    success = controlEngine.addCommand(new Command((int)command.CognitivRotateClockwise, command.CognitivRotateClockwise.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
+                    success = controlEngine.addCommand(new Command((int)commands.CognitivRotateClockwise, commands.CognitivRotateClockwise.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
                     break;
                 case EdkDll.EE_CognitivAction_t.COG_ROTATE_COUNTER_CLOCKWISE:
-                    success = controlEngine.addCommand(new Command((int)command.CognitivRotateCounterClockwise, command.CognitivRotateCounterClockwise.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
+                    success = controlEngine.addCommand(new Command((int)commands.CognitivRotateCounterClockwise, commands.CognitivRotateCounterClockwise.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
                     break;
                 case EdkDll.EE_CognitivAction_t.COG_ROTATE_FORWARDS:
-                    success = controlEngine.addCommand(new Command((int)command.CognitivRotateForward, command.CognitivRotateForward.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
+                    success = controlEngine.addCommand(new Command((int)commands.CognitivRotateForward, commands.CognitivRotateForward.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
                     break;
                 case EdkDll.EE_CognitivAction_t.COG_ROTATE_REVERSE:
-                    success = controlEngine.addCommand(new Command((int)command.CognitivRotateBackwards, command.CognitivRotateBackwards.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
+                    success = controlEngine.addCommand(new Command((int)commands.CognitivRotateBackwards, commands.CognitivRotateBackwards.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
                     break;
                 case EdkDll.EE_CognitivAction_t.COG_NEUTRAL:
-                    success = controlEngine.addCommand(new Command((int)command.CognitivNeutral, command.CognitivNeutral.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
+                    success = controlEngine.addCommand(new Command((int)commands.CognitivNeutral, commands.CognitivNeutral.ToString("G"), this.id, (double)e.emoState.CognitivGetCurrentActionPower()));
                     break;
-                default:
-                    success = true;
-                    controlEngine.addLog(Name, String.Format(Texts.Logging.unhandledCommand, e.emoState.CognitivGetCurrentAction()), Logger.loggingLevel.warning);
-                    break;
+                //default:
+                  //  success = true;
+                  //  controlEngine.addLog(Name, String.Format(Texts.Logging.unhandledCommand, e.emoState.CognitivGetCurrentAction()), Logger.loggingLevel.warning);
+                  //  break;
             }
             if (!success)
             {
@@ -168,47 +168,47 @@ namespace EmotivEngine
         {
             double smileThreshold = 0.5;
             if (e.emoState.ExpressivGetSmileExtent() != lastEmoState.ExpressivGetSmileExtent() && (double)e.emoState.ExpressivGetSmileExtent() > smileThreshold)
-                if(!controlEngine.addCommand(new Command((int)command.ExpressivSmile, command.ExpressivSmile.ToString("G"), this.id, e.emoState.ExpressivGetSmileExtent())))
+                if(!controlEngine.addCommand(new Command((int)commands.ExpressivSmile, commands.ExpressivSmile.ToString("G"), this.id, e.emoState.ExpressivGetSmileExtent())))
                 {
                     EventHandler<WarningEventArgs> lclWarning = Warning;
                     if (lclWarning != null)
-                        lclWarning(this, new WarningEventArgs(String.Format(Texts.WarningMessages.couldntAddcommand, command.ExpressivSmile.ToString("G"))));
+                        lclWarning(this, new WarningEventArgs(String.Format(Texts.WarningMessages.couldntAddcommand, commands.ExpressivSmile.ToString("G"))));
                 }
             if (e.emoState.ExpressivIsLookingLeft() != lastEmoState.ExpressivIsLookingLeft())
-                if(!controlEngine.addCommand(new Command((int)command.ExpressivLookLeft, command.ExpressivLookLeft.ToString("G"), this.id, 1.0)))
+                if(!controlEngine.addCommand(new Command((int)commands.ExpressivLookLeft, commands.ExpressivLookLeft.ToString("G"), this.id, 1.0)))
                 {
                     EventHandler<WarningEventArgs> lclWarning = Warning;
                     if (lclWarning != null)
-                        lclWarning(this, new WarningEventArgs(String.Format(Texts.WarningMessages.couldntAddcommand, command.ExpressivLookLeft.ToString("G"))));
+                        lclWarning(this, new WarningEventArgs(String.Format(Texts.WarningMessages.couldntAddcommand, commands.ExpressivLookLeft.ToString("G"))));
                 }
             if (e.emoState.ExpressivIsLookingRight() != lastEmoState.ExpressivIsLookingRight())
-                if(!controlEngine.addCommand(new Command((int)command.ExpressivLookRight, command.ExpressivLookRight.ToString("G"), this.id, 1.0)))
+                if(!controlEngine.addCommand(new Command((int)commands.ExpressivLookRight, commands.ExpressivLookRight.ToString("G"), this.id, 1.0)))
             {
                 EventHandler<WarningEventArgs> lclWarning = Warning;
                 if (lclWarning != null)
-                    lclWarning(this, new WarningEventArgs(String.Format(Texts.WarningMessages.couldntAddcommand, command.ExpressivLookRight.ToString("G"))));
+                    lclWarning(this, new WarningEventArgs(String.Format(Texts.WarningMessages.couldntAddcommand, commands.ExpressivLookRight.ToString("G"))));
             }
             if (e.emoState.ExpressivIsLeftWink() != lastEmoState.ExpressivIsLeftWink())
-                if(!controlEngine.addCommand(new Command((int)command.ExpressivWinkLeft, command.ExpressivWinkLeft.ToString("G"), this.id, 1.0)))
+                if(!controlEngine.addCommand(new Command((int)commands.ExpressivWinkLeft, commands.ExpressivWinkLeft.ToString("G"), this.id, 1.0)))
                 {
                     EventHandler<WarningEventArgs> lclWarning = Warning;
                     if (lclWarning != null)
-                        lclWarning(this, new WarningEventArgs(String.Format(Texts.WarningMessages.couldntAddcommand, command.ExpressivWinkLeft.ToString("G"))));
+                        lclWarning(this, new WarningEventArgs(String.Format(Texts.WarningMessages.couldntAddcommand, commands.ExpressivWinkLeft.ToString("G"))));
                 }
             if (e.emoState.ExpressivIsRightWink() != lastEmoState.ExpressivIsRightWink())
-                if (!controlEngine.addCommand(new Command((int)command.ExpressivWinkRight, command.ExpressivWinkRight.ToString("G"), this.id, 1.0)))
+                if (!controlEngine.addCommand(new Command((int)commands.ExpressivWinkRight, commands.ExpressivWinkRight.ToString("G"), this.id, 1.0)))
                 {
                     EventHandler<WarningEventArgs> lclWarning = Warning;
                     if (lclWarning != null)
-                        lclWarning(this, new WarningEventArgs(String.Format(Texts.WarningMessages.couldntAddcommand, command.ExpressivWinkRight.ToString("G"))));
+                        lclWarning(this, new WarningEventArgs(String.Format(Texts.WarningMessages.couldntAddcommand, commands.ExpressivWinkRight.ToString("G"))));
                 }
 
             if (e.emoState.ExpressivIsBlink() != lastEmoState.ExpressivIsBlink())
-                if(!controlEngine.addCommand(new Command((int)command.ExpressivBlink, command.ExpressivBlink.ToString("G"), this.id, 1.0)))
+                if(!controlEngine.addCommand(new Command((int)commands.ExpressivBlink, commands.ExpressivBlink.ToString("G"), this.id, 1.0)))
                 {
                     EventHandler<WarningEventArgs> lclWarning = Warning;
                     if (lclWarning != null)
-                        lclWarning(this, new WarningEventArgs(String.Format(Texts.WarningMessages.couldntAddcommand, command.ExpressivBlink.ToString("G"))));
+                        lclWarning(this, new WarningEventArgs(String.Format(Texts.WarningMessages.couldntAddcommand, commands.ExpressivBlink.ToString("G"))));
                 }
         }
 
@@ -260,17 +260,20 @@ namespace EmotivEngine
 
         private void connected(object sender, EmoEngineEventArgs e)
         {
-            controlEngine.addLog(this.Name, String.Format(Texts.Logging.connected, "engine"), Logger.loggingLevel.info);
+            if(controlEngine != null)
+                controlEngine.addLog(this.Name, String.Format(Texts.Logging.connected, "engine"), Logger.loggingLevel.info);
         }
 
         private void discon(object sender, EmoEngineEventArgs e)
         {
-            controlEngine.addLog(this.Name, String.Format(Texts.Logging.disconnected, "engine"), Logger.loggingLevel.info);
+            if (controlEngine != null)
+                controlEngine.addLog(this.Name, String.Format(Texts.Logging.disconnected, "engine"), Logger.loggingLevel.info);
         }
 
         private void engine_UserAdded_Event(object sender, EmoEngineEventArgs e)
         {
-            controlEngine.addLog(this.Name, String.Format(Texts.Logging.emotivUserAdded, e.userId), Logger.loggingLevel.debug);
+            if (controlEngine != null)
+                controlEngine.addLog(this.Name, String.Format(Texts.Logging.emotivUserAdded, e.userId), Logger.loggingLevel.debug);
         }
     }
 
