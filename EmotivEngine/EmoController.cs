@@ -154,15 +154,15 @@ namespace EmotivEngine
             }
             else if (e.emoState.GetWirelessSignalStatus() == EdkDll.EE_SignalStrength_t.NO_SIGNAL)
             {
-                EventHandler<ErrorEventArgs> lclError = Error;
-                if (lclError != null)
-                    lclError(this, new ErrorEventArgs(Texts.ErrorMessages.noSignal));
+                EventHandler<WarningEventArgs> lclWarning = Warning;
+                if (lclWarning!= null)
+                    lclWarning(this, new WarningEventArgs(Texts.ErrorMessages.noSignal));
             }
         }
 
         private void Engine_ExpressivEmoStateUpdated(object sender, EmoStateUpdatedEventArgs e)
         {
-            double smileThreshold = 0.5;
+            double smileThreshold = 0.1;
             if (e.emoState.ExpressivGetSmileExtent() != lastEmoState.ExpressivGetSmileExtent() && (double)e.emoState.ExpressivGetSmileExtent() > smileThreshold)
                 if(!controlEngine.addCommand(new Command((int)commands.ExpressivSmile, commands.ExpressivSmile.ToString("G"), this.id, e.emoState.ExpressivGetSmileExtent())))
                 {
@@ -210,13 +210,13 @@ namespace EmotivEngine
 
         private void Engine_AffectivEmoStateUpdated(object sender, EmoStateUpdatedEventArgs e)
         {
-            bool success = true;
-            if (!success)
-            {
-                EventHandler<WarningEventArgs> lclWarning = Warning;
-                if (lclWarning != null)
-                    lclWarning(this, new WarningEventArgs(Texts.WarningMessages.couldntAddcommand));
-            }
+            //bool success = true;
+            //if (!success)
+            //{
+            //    EventHandler<WarningEventArgs> lclWarning = Warning;
+            //    if (lclWarning != null)
+            //        lclWarning(this, new WarningEventArgs(Texts.WarningMessages.couldntAddcommand));
+            //}
         }
 
         public bool isReady()
