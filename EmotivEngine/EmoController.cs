@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Emotiv;
-using EmotivEngine;
+﻿using Emotiv;
+using System;
 using System.Threading;
 
 namespace EmotivEngine
@@ -40,6 +35,7 @@ namespace EmotivEngine
                 return type;
             }
         }
+
         public string Name
         {
             get
@@ -78,7 +74,7 @@ namespace EmotivEngine
             engine = EmoEngine.Instance;
             engine.UserAdded += new EmoEngine.UserAddedEventHandler(engine_UserAdded_Event);
             engine.EmoEngineConnected += new EmoEngine.EmoEngineConnectedEventHandler(connected);
-            engine.EmoEngineDisconnected += new EmoEngine.EmoEngineDisconnectedEventHandler(discon);
+            engine.EmoEngineDisconnected += new EmoEngine.EmoEngineDisconnectedEventHandler(disconnected);
 
             try {
                 engine.RemoteConnect("127.0.0.1", 1726);
@@ -158,15 +154,15 @@ namespace EmotivEngine
             }
             else if (e.emoState.GetWirelessSignalStatus() == EdkDll.EE_SignalStrength_t.NO_SIGNAL)
             {
-                EventHandler<ErrorEventArgs> lclError = Error;
-                if (lclError != null)
-                    lclError(this, new ErrorEventArgs(Texts.ErrorMessages.noSignal));
+                EventHandler<WarningEventArgs> lclWarning = Warning;
+                if (lclWarning!= null)
+                    lclWarning(this, new WarningEventArgs(Texts.ErrorMessages.noSignal));
             }
         }
 
         private void Engine_ExpressivEmoStateUpdated(object sender, EmoStateUpdatedEventArgs e)
         {
-            double smileThreshold = 0.5;
+            double smileThreshold = 0.1;
             if (e.emoState.ExpressivGetSmileExtent() != lastEmoState.ExpressivGetSmileExtent() && (double)e.emoState.ExpressivGetSmileExtent() > smileThreshold)
                 if(!controlEngine.addCommand(new Command((int)commands.ExpressivSmile, commands.ExpressivSmile.ToString("G"), this.id, e.emoState.ExpressivGetSmileExtent())))
                 {
@@ -214,13 +210,13 @@ namespace EmotivEngine
 
         private void Engine_AffectivEmoStateUpdated(object sender, EmoStateUpdatedEventArgs e)
         {
-            bool success = true;
-            if (!success)
-            {
-                EventHandler<WarningEventArgs> lclWarning = Warning;
-                if (lclWarning != null)
-                    lclWarning(this, new WarningEventArgs(Texts.WarningMessages.couldntAddcommand));
-            }
+            //bool success = true;
+            //if (!success)
+            //{
+            //    EventHandler<WarningEventArgs> lclWarning = Warning;
+            //    if (lclWarning != null)
+            //        lclWarning(this, new WarningEventArgs(Texts.WarningMessages.couldntAddcommand));
+            //}
         }
 
         public bool isReady()
@@ -233,7 +229,14 @@ namespace EmotivEngine
             engine.CognitivEmoStateUpdated += Engine_CognitivEmoStateUpdated;
             engine.EmoEngineEmoStateUpdated += Engine_EmoEngineEmoStateUpdated;
             engine.ExpressivEmoStateUpdated += Engine_ExpressivEmoStateUpdated;
-            runEngineThread = new Thread(new ThreadStart(runEngine));
+            runEngineThread = new Thread(new ThreadStart(() =>
+            {
+                while (true)
+                {
+                    engine.ProcessEvents();
+                    Thread.Sleep(10);
+                }
+            }));
             runEngineThread.Start();
 
 
@@ -248,23 +251,13 @@ namespace EmotivEngine
             runEngineThread.Abort();
         }
 
-        private void runEngine()
-        {
-            while (true)
-            {
-                engine.ProcessEvents();
-                Thread.Sleep(10);
-            }
-        }
-
-
         private void connected(object sender, EmoEngineEventArgs e)
         {
             if(controlEngine != null)
                 controlEngine.addLog(this.Name, String.Format(Texts.Logging.connected, "engine"), Logger.loggingLevel.info);
         }
 
-        private void discon(object sender, EmoEngineEventArgs e)
+        private void disconnected(object sender, EmoEngineEventArgs e)
         {
             if (controlEngine != null)
                 controlEngine.addLog(this.Name, String.Format(Texts.Logging.disconnected, "engine"), Logger.loggingLevel.info);
