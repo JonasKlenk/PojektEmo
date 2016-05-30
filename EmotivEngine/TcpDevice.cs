@@ -29,8 +29,7 @@ namespace EmotivEngine
         public string Name { get; set; }
 
         /// <summary>
-        /// Creates an instance of TcpDevice and opens socket stream immediately
-        /// Fetches DeviceCategory over TCP connection, which is later available under getCategory()
+        /// Creates an instance of TcpDevice and call method to open socket stream
         /// </summary>
         /// <param name="cce">Reference to calling CentralControlEngine</param>
         /// <param name="deviceIp">Remote IP. Used to open socket stream</param>
@@ -38,20 +37,9 @@ namespace EmotivEngine
         public TcpDevice(CentralControlEngine cce, string deviceIp, int devicePort)
         {
             this.cce = cce;
-            try
-            {
-                client = new TcpClient(deviceIp, devicePort);
-            }
-            catch (Exception)
-            {
-                EventHandler<WarningEventArgs> lclWarning = Warning;
-                if (lclWarning != null)
-                    lclWarning(this, new WarningEventArgs(String.Format("Could not connect to TCP device at adress {0}:{1}", deviceIp, devicePort)));
-            }
             client.SendTimeout = 1000;
             client.ReceiveTimeout = 5000;
-            stream = client.GetStream();
-            deviceCategory = cce.findCategoryByName(SendAndReceive("type"));
+            connectToRemoteDevice(deviceIp, devicePort);
         }
 
         /// <summary>
@@ -61,6 +49,29 @@ namespace EmotivEngine
         ~TcpDevice()
         {
             client.Close();
+        }
+
+        /// <summary>
+        /// Opens socket stream to specified remote device
+        /// Fetches DeviceCategory over TCP connection, which is later available under getCategory()
+        /// </summary>
+        /// <param name="deviceIp">Remote IP. Used to open socket stream</param>
+        /// <param name="devicePort">Remote Port used for socket stream</param>
+        private void connectToRemoteDevice(string deviceIp, int devicePort)
+        {
+            try
+            {
+                client = new TcpClient(deviceIp, devicePort);
+                stream = client.GetStream();
+            }
+            catch (Exception)
+            {
+                EventHandler<WarningEventArgs> lclWarning = Warning;
+                if (lclWarning != null)
+                    lclWarning(this, new WarningEventArgs(String.Format("Could not connect to TCP device at adress {0}:{1}", deviceIp, devicePort)));
+                return;
+            }
+            deviceCategory = cce.findCategoryByName(SendAndReceive("type"));
         }
 
         /// <summary>
