@@ -36,12 +36,12 @@ namespace EmotivEngine
         }
         private MapEditor(Map a)
         {
-            name = a.name;
-            bindings = a.bindings;
-            controllerType = a.controllerType;
-            deviceType = a.controllableDeviceType;
-            commandList = a.commandList;
-            actionList = a.actionList;
+            name = a.Name;
+            bindings = a.Bindings;
+            controllerType = a.ControllerType;
+            deviceType = a.ControllableDeviceType;
+            commandList = a.CommandList;
+            actionList = a.ActionList;
 
         }
 

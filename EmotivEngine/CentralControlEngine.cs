@@ -114,7 +114,7 @@ namespace EmotivEngine
                 string[][] bindingStringRepresentation = new string[controllerDeviceMap.Count][];
                 int i = 0;
                 foreach (ControllerBinding cb in controllerDeviceMap)
-                    bindingStringRepresentation[i++] = new string[] { cb.controller.Name, cb.controllableDevice.Name, cb.map.name };
+                    bindingStringRepresentation[i++] = new string[] { cb.controller.Name, cb.controllableDevice.Name, cb.map.Name };
                 lclBindingsChanged(this, new BindingsEventArgs(bindingStringRepresentation));
             }
         }
@@ -129,7 +129,7 @@ namespace EmotivEngine
                 string[][] bindingStringRepresentation = new string[controllerDeviceMap.Count][];
                 int i = 0;
                 foreach (ControllerBinding cb in controllerDeviceMap)
-                    bindingStringRepresentation[i++] = new string[] { cb.controller.ToString(), cb.controllableDevice.ToString(), cb.map.name };
+                    bindingStringRepresentation[i++] = new string[] { cb.controller.ToString(), cb.controllableDevice.ToString(), cb.map.Name };
 
                 lclBindingsChanged(this, new BindingsEventArgs(bindingStringRepresentation));
             }
@@ -216,7 +216,7 @@ namespace EmotivEngine
             if (map != null)
             {
                 mapList.Add(map);
-                logger.addLog(name, String.Format(Texts.Logging.mapRegistered, map.name), Logger.loggingLevel.info);
+                logger.addLog(name, String.Format(Texts.Logging.mapRegistered, map.Name), Logger.loggingLevel.info);
             }
             EventHandler lclMapsChanged = mapsChanged;
             if (lclMapsChanged != null)
@@ -227,7 +227,7 @@ namespace EmotivEngine
         public void unregisterMap(Map map)
         {
             mapList.Remove(map);
-            logger.addLog(name, String.Format(Texts.Logging.mapUnregistered, map.name), Logger.loggingLevel.info);
+            logger.addLog(name, String.Format(Texts.Logging.mapUnregistered, map.Name), Logger.loggingLevel.info);
             EventHandler lclMapsChanged = mapsChanged;
             if (lclMapsChanged != null)
             {
