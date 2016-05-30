@@ -8,16 +8,17 @@ namespace EmotivEngine
 {
     interface IController
     {
-        string getType();
-        int getId();
         bool isReady();
         void setActive();
         void setDeactive();
         bool initialize();
-        void setId(int id);
-        string[] getCommands();
-        event EventHandler<WarningEventArgs> Warning;
-        event EventHandler<ErrorEventArgs> Error;
+
         string Name { get; }
+        string Type { get; }
+        int ID { get; set; }
+        string[] getCommands();
+
+        event EventHandler<WarningEventArgs> Warning;
+        event EventHandler<ErrorEventArgs> Error;      
     }
 }
