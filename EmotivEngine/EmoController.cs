@@ -22,11 +22,24 @@ namespace EmotivEngine
 
         private int id;
 
-        public int getId()
+        public int ID
         {
-            return id;
+            get
+            {
+                return id;
+            }
+            set
+            {
+                id = value;
+            }
         }
 
+        public string Type {
+            get
+            {
+                return type;
+            }
+        }
         public string Name
         {
             get
@@ -35,10 +48,7 @@ namespace EmotivEngine
             }
         }
 
-        public void setId(int id)
-        {
-            this.id=id;
-        }
+
         private enum command : int
         {
             CognitivePush = 0, CognitivePull = 1, CognitiveLift = 2, CognitiveDrop = 3, CognitiveLeft = 4,
@@ -259,13 +269,6 @@ namespace EmotivEngine
         {
             controlEngine.addLog(this.Name, String.Format(Texts.Logging.emotivUserAdded, e.userId), Logger.loggingLevel.debug);
         }
-
-        public string getType()
-        {
-            return type;
-        }
-
-        
     }
 
     //class EmoExpressiveState

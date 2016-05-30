@@ -166,11 +166,11 @@ namespace EmotivEngine
 
         public void registerController(IController controller)
         {
-            controller.setId(++highestControllerId);
+            controller.ID = ++highestControllerId;
             if (controller.initialize())
             {
                 controllerList.Add(controller);
-                logger.addLog(name, String.Format(Texts.Logging.controllerRegistered, controller.getType(), controller.getId()), Logger.loggingLevel.info);
+                logger.addLog(name, String.Format(Texts.Logging.controllerRegistered, controller.Type, controller.ID), Logger.loggingLevel.info);
                 controller.Warning += new EventHandler<WarningEventArgs>((sender, e) => addLog(((IController)sender).Name, e.WarningMessage, Logger.loggingLevel.warning));
                 controller.Error += new EventHandler<ErrorEventArgs>((sender, e) => addLog(((IController)sender).Name, e.ErrorMessages, Logger.loggingLevel.error));
                 controller.Error += new EventHandler<ErrorEventArgs>((sender, e) =>
@@ -239,7 +239,7 @@ namespace EmotivEngine
         {
             controller.setDeactive();
             controllerList.Remove(controller);
-            logger.addLog(name, String.Format(Texts.Logging.controllerUnregistered, controller.getType(), controller.getId()), Logger.loggingLevel.info);
+            logger.addLog(name, String.Format(Texts.Logging.controllerUnregistered, controller.Type, controller.ID), Logger.loggingLevel.info);
         }
 
         public void unregisterControllableDevice(IControllableDevice controllableDevice)
@@ -259,7 +259,7 @@ namespace EmotivEngine
             if (isRunning)
             {
                 ControllerBinding cb = controllerDeviceMap.Find(binding 
-                    => binding.controller.getId() == c.getSenderId());
+                    => binding.controller.ID == c.getSenderId());
                 if (cb != null)
                     if (cb.inputQueue.enqueue(c))
                     {
