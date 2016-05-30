@@ -15,7 +15,7 @@ namespace EmotivEngine
         //Central Control Engine Name, used for Logging Messages
         private const string name = "CCE";
 
-        //EventHandler for informing external Programms about internal changes
+        //events for informing external programmes about internal changes
         public event EventHandler<LoggerEventArgs> loggerUpdated;
         public event EventHandler<BindingsEventArgs> bindingsChanged;
         public event EventHandler mapsChanged;
