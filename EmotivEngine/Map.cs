@@ -14,33 +14,33 @@ namespace EmotivEngine
     public class Map
     {
         [System.Xml.Serialization.XmlElement("controllerType")]
-        public string controllerType { get; set; }
+        public string ControllerType { get; set; }
         [System.Xml.Serialization.XmlElement("controllableDeviceType")]
-        public string controllableDeviceType { get; set; }
+        public string ControllableDeviceType { get; set; }
         [System.Xml.Serialization.XmlElement("creationDateTime")]
-        public string creationDateTime;
+        public string CreationDateTime;
         [System.Xml.Serialization.XmlElement("name")]
-        public string name { get; set; }
+        public string Name { get; set; }
         [System.Xml.Serialization.XmlArray("bindings")]
         [System.Xml.Serialization.XmlArrayItem("binding")]
-        public int[] bindings { get; set; }
+        public int[] Bindings { get; set; }
         [System.Xml.Serialization.XmlArray("commandList")]
         [System.Xml.Serialization.XmlArrayItem("command")]
-        public string[] commandList { get; set; }
+        public string[] CommandList { get; set; }
         [System.Xml.Serialization.XmlArray("actionList")]
         [System.Xml.Serialization.XmlArrayItem("action")]
-        public string[] actionList { get; set; }
+        public string[] ActionList { get; set; }
 
         public Map(string contollerType, string controllableDeviceType, int[] commandoMapping, string name, string[] commandList, string[] actionList)
         {
-            this.controllerType = contollerType;
-            this.controllableDeviceType = controllableDeviceType;
-            this.bindings = commandoMapping;
-            this.name = name;
-            this.commandList = commandList;
-            this.actionList = actionList;
+            this.ControllerType = contollerType;
+            this.ControllableDeviceType = controllableDeviceType;
+            this.Bindings = commandoMapping;
+            this.Name = name;
+            this.CommandList = commandList;
+            this.ActionList = actionList;
 
-            this.creationDateTime = DateTime.Now.ToString("dd.MM.yy HH:mm:ss");
+            this.CreationDateTime = DateTime.Now.ToString("dd.MM.yy HH:mm:ss");
         }
 
         private Map() { }
@@ -75,10 +75,10 @@ namespace EmotivEngine
         internal Command translate(Command c)
         {
             //TODO: "dummy" durch richtige Namensfindung ersetzen
-            return new Command(this.bindings[c.getCommandId()], "dummy", c.getSenderId(), c.getIntensity());
+            return new Command(this.Bindings[c.getCommandId()], "dummy", c.getSenderId(), c.getIntensity());
         }
 
         public int translate(int id)
-        { return bindings[id]; }
+        { return Bindings[id]; }
     }
 }
