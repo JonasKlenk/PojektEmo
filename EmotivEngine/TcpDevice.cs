@@ -160,7 +160,7 @@ namespace EmotivEngine
         /// <param name="action">Action as command object</param>
         public void performAction(Command action)
         {
-            SendCommmand(action.getCommandId() + ";" + action.getIntensity());
+            SendCommmand(action.getCommandId() + ";" + action.getIntensity() + "$");
         }
 
         /// <summary>
