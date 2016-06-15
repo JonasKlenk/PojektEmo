@@ -108,7 +108,7 @@ namespace EmotivEngine
 
             static public string invalidMapName = "Please enter a name";
             //Todo Wir brauchen noch einen geilen Namen
-            static public string applicationName = "";
+            static public string applicationName = "Controllify";
         }
 
         /// <summary>

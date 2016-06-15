@@ -296,7 +296,7 @@
             this.Controls.Add(this.log);
             this.Controls.Add(this.toggleStartStop);
             this.Name = "MainWindow";
-            this.Text = "MainWindow";
+            this.Text = Texts.GUITexts.applicationName;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainWindow_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
