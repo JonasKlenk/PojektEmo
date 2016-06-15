@@ -195,9 +195,9 @@ namespace EmotivEngine
             controllableDeviceList.Add(controllableDevice);
             logger.addLog(name, String.Format(Texts.Logging.controllableRegistered, controllableDevice.getCategory(), controllableDevice.Id), Logger.loggingLevel.info);
             controllableDevice.Warning += new EventHandler<WarningEventArgs>((sender, e) 
-                => addLog(((IController)sender).Name, e.WarningMessage, Logger.loggingLevel.warning));
+                => addLog(((IControllableDevice)sender).Name, e.WarningMessage, Logger.loggingLevel.warning));
             controllableDevice.Error += new EventHandler<ErrorEventArgs>((sender, e) 
-                => addLog(((IController)sender).Name, e.ErrorMessages, Logger.loggingLevel.error));
+                => addLog(((IControllableDevice)sender).Name, e.ErrorMessages, Logger.loggingLevel.error));
             controllableDevice.Error += new EventHandler<ErrorEventArgs>((sender, e) =>
             {
                 List<ControllerBinding> cbl = controllerDeviceMap.FindAll((binding) 
@@ -209,6 +209,12 @@ namespace EmotivEngine
                 }
                 unregisterControllableDevice((IControllableDevice)sender);
             });
+
+            EventHandler lcl_controllablesChanged = controllablesChanged;
+            if (lcl_controllablesChanged != null)
+            {
+                lcl_controllablesChanged(this, EventArgs.Empty);
+            }
         }
 
         public void registerMap(Map map)

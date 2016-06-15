@@ -26,7 +26,11 @@ namespace EmotivEngine
         /// <summary>
         /// Name of this device
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get
+            {
+                return this.deviceCategory + " (ID: " + this.id + ")";
+            }
+        }
 
         /// <summary>
         /// Creates an instance of TcpDevice and call method to open socket stream
@@ -85,7 +89,7 @@ namespace EmotivEngine
         private void SendCommmand(string command)
         {
             Console.WriteLine("Sending : " + command);
-            byte[] bytesToSend = ASCIIEncoding.ASCII.GetBytes(command);
+            byte[] bytesToSend = ASCIIEncoding.ASCII.GetBytes(command + "$");
             try
             {
                 stream.Write(bytesToSend, 0, bytesToSend.Length);
@@ -165,7 +169,7 @@ namespace EmotivEngine
         /// <param name="action">Action as command object</param>
         public void performAction(Command action)
         {
-            SendCommmand(action.getCommandId() + ";" + action.getIntensity() + "$");
+            SendCommmand(action.getCommandId() + ";" + action.getIntensity());
         }
 
         /// <summary>

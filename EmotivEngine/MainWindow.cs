@@ -19,7 +19,7 @@ namespace EmotivEngine
             //TODO: Liste von Controller und Devices initialisieren.
             InitializeComponent();
             cce = CentralControlEngine.Instance;
-            //cce.registerController(EmoController.getInstance(cce));
+            cce.registerController(EmoController.getInstance(cce));
             //HACK Test
             //cce.registerControllableDevice(DummyDevice.getInstance(cce));
             //HACK Testende
@@ -52,7 +52,14 @@ namespace EmotivEngine
             });
             for (int i = 0; i < listViewCurrentBindings.Columns.Count; i++)
                 listViewCurrentBindings.Columns[i].Width = listViewCurrentBindings.Width / listViewCurrentBindings.Columns.Count;
-                
+
+            cce.controllablesChanged += new EventHandler((sender, arguments) =>
+            {
+                if (comboBoxSelectControllable.InvokeRequired)
+                    comboBoxSelectControllable.Invoke(new Action(() => { comboBoxSelectControllable.Refresh();/*comboBoxSelectControllable.DataSource = cce.getControllableDevices(); */}));
+                else
+                    comboBoxSelectControllable.Refresh(); /*comboBoxSelectControllable.DataSource = cce.getControllableDevices(); */
+            });
             List<DeviceCategory> categories = new List<DeviceCategory>();
             if (Directory.Exists(xmlCategoryPath))
                 foreach (string path in Directory.GetFiles(xmlCategoryPath))
