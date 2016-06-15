@@ -133,7 +133,7 @@ namespace EmotivEngine
         /// <returns>List of available actions</returns>
         public string[] getActions()
         {
-            return deviceCategory.actionList;
+            return deviceCategory.ActionList;
         }
 
         /// <summary>

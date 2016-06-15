@@ -11,19 +11,21 @@ namespace EmotivEngine
 {
     [Serializable()]
     [System.Xml.Serialization.XmlRoot("DEVICETYPE")]
-    class DeviceCategory
+    public class DeviceCategory
     {
+        [System.Xml.Serialization.XmlElement("CategoryName")]
+        public string CategoryName { get; }
+        [System.Xml.Serialization.XmlArray("ActionList")]
+        [System.Xml.Serialization.XmlArrayItem("Action")] 
+        public string[] ActionList{ get;  }
+        //public string[] actionList;
+
         public DeviceCategory(string categoryName, string[] actionlist)
         {
-            this.categoryName = categoryName;
-            this.actionList = actionlist;
+            this.CategoryName = categoryName;
+            this.ActionList = actionlist;
         }
-
-        [System.Xml.Serialization.XmlElement("CategoryName")]
-        public string categoryName { get; }
-        //TODO: Zweimal der gleiche Elementname - ich glaube nicht.
-        //[System.Xml.Serialization.XmlElement("KategoryType")]
-        public string[] actionList{ get;  }
+        public DeviceCategory() { }
 
         public static DeviceCategory ReadXml(XmlReader reader)
         {
@@ -35,14 +37,14 @@ namespace EmotivEngine
 
         public void WriteXml(XmlWriter writer)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(Map));
-            serializer.Serialize(writer, this);
+            XmlSerializer ser = new XmlSerializer(typeof(DeviceCategory));
+            ser.Serialize(writer, this);
             writer.Close();
         }
 
-        internal string getCategoryName()
+        public string getCategoryName()
         {
-            return categoryName;
+            return CategoryName;
         }
 
         //TODO Einzelnen Klassen Implementieren

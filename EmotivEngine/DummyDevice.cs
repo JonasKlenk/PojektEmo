@@ -8,6 +8,7 @@ namespace EmotivEngine
     class DummyDevice : IControllableDevice
     {
         DeviceCategory c = new DeviceCategory("DummyTimCategory", new string[] { "RechtenArmheben", "LinkenArmHeben", "LinkesBeinHeben", "RechtesBeinHeben", "Umfallen" });
+        
         private int id = 42;
         static private DummyDevice singleInstance = null;
         private CentralControlEngine controlEngine;
@@ -45,7 +46,7 @@ namespace EmotivEngine
 
         public string[] getActions()
         {
-            return c.actionList;
+            return c.ActionList;
         }
 
         public int getId()
