@@ -19,9 +19,9 @@ namespace EmotivEngine
             //TODO: Liste von Controller und Devices initialisieren.
             InitializeComponent();
             cce = CentralControlEngine.Instance;
-            cce.registerController(EmoController.getInstance(cce));
+            //cce.registerController(EmoController.getInstance(cce));
             //HACK Test
-            cce.registerControllableDevice(DummyDevice.getInstance(cce));
+            //cce.registerControllableDevice(DummyDevice.getInstance(cce));
             //HACK Testende
             cce.loggerUpdated += new EventHandler<LoggerEventArgs>(updateLog);
             //cce.registerMap(new Map(Texts.ControllerTypes.CT_EmotivEPOC, "test", new int[] { 0, 1, -1 }, "Map 1", EmoController.getInstance(cce).getCommands(), new string[] { "asd", "asd2" }));
@@ -68,6 +68,11 @@ namespace EmotivEngine
 
             comboBoxSelectLogLevel.Items.AddRange(Enum.GetNames(typeof(Logger.loggingLevel)));
             comboBoxSelectLogLevel.SelectedItem = comboBoxSelectLogLevel.Items[0];
+            
+            
+            //local java client Tim
+            //cce.registerControllableDevice(new TcpDevice(cce, "127.0.0.1", 23232));
+            cce.registerControllableDevice(new TcpDevice(cce, "192.168.0.24", 8890));
 
 
         }

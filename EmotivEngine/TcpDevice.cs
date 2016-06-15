@@ -46,8 +46,12 @@ namespace EmotivEngine
         /// </summary>
         ~TcpDevice()
         {
-            client.Close();
-        }
+            if (client != null)
+            {
+                client.Close();
+                client.Client.Disconnect(false);
+            }
+            }
 
         /// <summary>
         /// Opens socket stream to specified remote device
@@ -64,9 +68,9 @@ namespace EmotivEngine
             }
             catch (Exception)
             {
-                EventHandler<WarningEventArgs> lclWarning = Warning;
-                if (lclWarning != null)
-                    lclWarning(this, new WarningEventArgs(String.Format("Could not connect to TCP device at adress {0}:{1}", deviceIp, devicePort)));
+                EventHandler<ErrorEventArgs> lclError = Error;
+                if (lclError != null)
+                    lclError(this, new ErrorEventArgs(String.Format("Could not connect to TCP device at adress {0}:{1}", deviceIp, devicePort)));
                 return;
             }
             client.SendTimeout = 1000;
@@ -110,8 +114,9 @@ namespace EmotivEngine
                 Console.WriteLine("Received : " + answer);
                 return answer;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 EventHandler<WarningEventArgs> lclWarning = Warning;
                 if (lclWarning != null)
                     lclWarning(this, new WarningEventArgs("Could not receive answer from TCP device."));

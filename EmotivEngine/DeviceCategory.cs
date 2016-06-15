@@ -14,10 +14,10 @@ namespace EmotivEngine
     public class DeviceCategory
     {
         [System.Xml.Serialization.XmlElement("CategoryName")]
-        public string CategoryName { get; }
+        public string CategoryName { get; set; }
         [System.Xml.Serialization.XmlArray("ActionList")]
         [System.Xml.Serialization.XmlArrayItem("Action")] 
-        public string[] ActionList{ get;  }
+        public string[] ActionList{ get; set; }
         //public string[] actionList;
 
         public DeviceCategory(string categoryName, string[] actionlist)
