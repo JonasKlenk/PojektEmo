@@ -51,7 +51,7 @@ namespace EmotivEngine
                 }));
             });
             for (int i = 0; i < listViewCurrentBindings.Columns.Count; i++)
-                listViewCurrentBindings.Columns[i].Width = this.Width / listViewCurrentBindings.Columns.Count;
+                listViewCurrentBindings.Columns[i].Width = listViewCurrentBindings.Width / listViewCurrentBindings.Columns.Count;
                 
             List<DeviceCategory> categories = new List<DeviceCategory>();
             if (Directory.Exists(xmlCategoryPath))
