@@ -56,9 +56,9 @@ namespace EmotivEngine
             cce.controllablesChanged += new EventHandler((sender, arguments) =>
             {
                 if (comboBoxSelectControllable.InvokeRequired)
-                    comboBoxSelectControllable.Invoke(new Action(() => { comboBoxSelectControllable.Refresh();/*comboBoxSelectControllable.DataSource = cce.getControllableDevices(); */}));
+                    comboBoxSelectControllable.Invoke(new Action(() => { comboBoxSelectControllable.DataSource = cce.getControllableDevices(); }));
                 else
-                    comboBoxSelectControllable.Refresh(); /*comboBoxSelectControllable.DataSource = cce.getControllableDevices(); */
+                    comboBoxSelectControllable.DataSource = cce.getControllableDevices();
             });
             List<DeviceCategory> categories = new List<DeviceCategory>();
             if (Directory.Exists(xmlCategoryPath))
@@ -79,7 +79,7 @@ namespace EmotivEngine
             
             //local java client Tim
             //cce.registerControllableDevice(new TcpDevice(cce, "127.0.0.1", 23232));
-            cce.registerControllableDevice(new TcpDevice(cce, "192.168.88.6", 8890));
+            cce.registerControllableDevice(new TcpDevice(cce, "7.237.127.223", 8890));
 
 
         }
