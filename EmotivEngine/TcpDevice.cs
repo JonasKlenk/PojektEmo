@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Net.Sockets;
 using System.Text;
 
@@ -169,7 +170,7 @@ namespace EmotivEngine
         /// <param name="action">Action as command object</param>
         public void performAction(Command action)
         {
-            SendCommmand(action.getCommandId() + ";" + action.getIntensity());
+            SendCommmand(action.getCommandId() + ";" + action.getIntensity().ToString(CultureInfo.CreateSpecificCulture("en-GB")));
         }
 
         /// <summary>

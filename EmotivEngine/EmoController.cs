@@ -77,7 +77,7 @@ namespace EmotivEngine
             engine.EmoEngineDisconnected += new EmoEngine.EmoEngineDisconnectedEventHandler(disconnected);
 
             try {
-                engine.RemoteConnect("192.168.178.199", 1726);
+                engine.RemoteConnect("127.0.0.1", 1726);
             }
             catch(Emotiv.EmoEngineException e)
             {

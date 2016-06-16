@@ -75,8 +75,8 @@ namespace EmotivEngine
 
             comboBoxSelectLogLevel.Items.AddRange(Enum.GetNames(typeof(Logger.loggingLevel)));
             comboBoxSelectLogLevel.SelectedItem = comboBoxSelectLogLevel.Items[0];
-            
-            
+
+
             //local java client Tim
             //cce.registerControllableDevice(new TcpDevice(cce, "127.0.0.1", 23232));
             cce.registerControllableDevice(new TcpDevice(cce, "7.237.127.223", 8890));

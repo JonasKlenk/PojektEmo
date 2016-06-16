@@ -19,9 +19,10 @@ namespace EmotivEngine
         [STAThread]
         static void Main(string[] args)
         {
-            DeviceCategory a = new DeviceCategory("drone", new string[] { "Neutral", "Throttle Up", "Throttle Down", "Yaw Left", "Yaw Right", "Nick Down", "Nick Up", "Roll Left", "Roll Right" });
-            Directory.CreateDirectory("./Data/Categories/");
-            a.WriteXml(XmlWriter.Create("./Data/Categories/drone.xml"));
+
+            //DeviceCategory a = new DeviceCategory("drone", new string[] { "Neutral", "Throttle Up", "Throttle Down", "Yaw Left", "Yaw Right", "Nick Down", "Nick Up", "Roll Left", "Roll Right" });
+            //Directory.CreateDirectory("./Data/Categories/");
+            //a.WriteXml(XmlWriter.Create("./Data/Categories/drone.xml"));
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainWindow());
