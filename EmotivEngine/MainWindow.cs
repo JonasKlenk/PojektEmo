@@ -79,7 +79,7 @@ namespace EmotivEngine
             
             //local java client Tim
             //cce.registerControllableDevice(new TcpDevice(cce, "127.0.0.1", 23232));
-            cce.registerControllableDevice(new TcpDevice(cce, "192.168.0.24", 8890));
+            cce.registerControllableDevice(new TcpDevice(cce, "192.168.88.6", 8890));
 
 
         }
