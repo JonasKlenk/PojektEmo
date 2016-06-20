@@ -32,14 +32,17 @@ namespace EmotivEngine
                     cce.registerMap(Map.ReadXml(path));
             cce.bindingsChanged += new EventHandler<BindingsEventArgs>((sender, argument) =>
            {
-               this.Invoke(new Action<BindingsEventArgs>( (binding) => {
+               this.Invoke(new Action<BindingsEventArgs>((binding) =>
+               {
                    this.listViewCurrentBindings.Items.Clear();
-               foreach (string[] test in binding.bindings) {
-                   ListViewItem newItem = new ListViewItem(test[0]);
-                   newItem.SubItems.Add(test[1]);
-                   newItem.SubItems.Add(test[2]);
+                   foreach (string[] test in binding.bindings)
+                   {
+                       ListViewItem newItem = new ListViewItem(test[0]);
+                       newItem.SubItems.Add(test[1]);
+                       newItem.SubItems.Add(test[2]);
                        this.listViewCurrentBindings.Items.Add(newItem);
-                   } }), argument);
+                   }
+               }), argument);
            });
             cce.mapsChanged += new EventHandler((sender, arguments) =>
             {
@@ -132,7 +135,7 @@ namespace EmotivEngine
                 Directory.CreateDirectory(xmlMapPath);
             foreach (Map m in cce.getMaps())
             {
-               //TODO Serialisierung läuft nicht so: m.WriteXml(XmlWriter.Create(new StringBuilder().Append(xmlMapPath).Append(m.name).Append(".xml").ToString()));
+                //TODO Serialisierung läuft nicht so: m.WriteXml(XmlWriter.Create(new StringBuilder().Append(xmlMapPath).Append(m.name).Append(".xml").ToString()));
             }
             Application.Exit();
         }
@@ -161,24 +164,35 @@ namespace EmotivEngine
         private void btnEditMapping_Click(object sender, EventArgs e)
         {
             new MapperGUI(MapEditor.loadMap((Map)comboBoxSelectMap.SelectedItem), cce);
-            
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             if (comboBoxSelectControllable.SelectedItem != null && comboBoxSelectController.SelectedItem != null && comboBoxSelectMap.SelectedItem != null)
-                cce.bindControllerDeviceMap((IController)comboBoxSelectController.SelectedItem, (IControllableDevice)comboBoxSelectControllable.SelectedItem, (Map)comboBoxSelectMap.SelectedItem); 
+                cce.bindControllerDeviceMap((IController)comboBoxSelectController.SelectedItem, (IControllableDevice)comboBoxSelectControllable.SelectedItem, (Map)comboBoxSelectMap.SelectedItem);
         }
 
         private void comboBoxSelectLogLevel_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cce.setLogLevel((Logger.loggingLevel)Enum.Parse(typeof(Logger.loggingLevel),comboBoxSelectLogLevel.SelectedItem.ToString()));
+            cce.setLogLevel((Logger.loggingLevel)Enum.Parse(typeof(Logger.loggingLevel), comboBoxSelectLogLevel.SelectedItem.ToString()));
         }
 
         private void btnUnbind_Click(object sender, EventArgs e)
         {
             if (cce.getIsRunning())
                 MessageBox.Show(this, Texts.GUITexts.cannotUnbindEngineRunning, Texts.GUITexts.errorUnbindCaption, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            else
+            {
+                foreach (ListViewItem lvi in listViewCurrentBindings.Items)
+                {
+                    if (lvi.Selected == true)
+                    {  
+                        cce.unbindControllerDeviceMap(new List<IController>(cce.getControllers()).Find((c) => c.Name == lvi.SubItems[0].Text));
+                    }
+                }
+
+            }
         }
     }
 }

@@ -50,6 +50,7 @@
             this.labelLogLevel = new System.Windows.Forms.Label();
             this.labelMappingControl = new System.Windows.Forms.Label();
             this.btnUnbind = new System.Windows.Forms.Button();
+            this.labelBinding = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // toggleStartStop
@@ -76,7 +77,7 @@
             // 
             // resetLog
             // 
-            this.resetLog.Location = new System.Drawing.Point(266, 331);
+            this.resetLog.Location = new System.Drawing.Point(266, 303);
             this.resetLog.Name = "resetLog";
             this.resetLog.Size = new System.Drawing.Size(275, 37);
             this.resetLog.TabIndex = 5;
@@ -114,7 +115,7 @@
             // labelController
             // 
             this.labelController.AutoSize = true;
-            this.labelController.Location = new System.Drawing.Point(12, 131);
+            this.labelController.Location = new System.Drawing.Point(9, 131);
             this.labelController.Name = "labelController";
             this.labelController.Size = new System.Drawing.Size(51, 13);
             this.labelController.TabIndex = 8;
@@ -123,7 +124,7 @@
             // labelDevice
             // 
             this.labelDevice.AutoSize = true;
-            this.labelDevice.Location = new System.Drawing.Point(13, 184);
+            this.labelDevice.Location = new System.Drawing.Point(9, 184);
             this.labelDevice.Name = "labelDevice";
             this.labelDevice.Size = new System.Drawing.Size(41, 13);
             this.labelDevice.TabIndex = 9;
@@ -132,7 +133,7 @@
             // labelMapping
             // 
             this.labelMapping.AutoSize = true;
-            this.labelMapping.Location = new System.Drawing.Point(13, 233);
+            this.labelMapping.Location = new System.Drawing.Point(8, 234);
             this.labelMapping.Name = "labelMapping";
             this.labelMapping.Size = new System.Drawing.Size(48, 13);
             this.labelMapping.TabIndex = 11;
@@ -141,14 +142,14 @@
             // comboBoxSelectMap
             // 
             this.comboBoxSelectMap.FormattingEnabled = true;
-            this.comboBoxSelectMap.Location = new System.Drawing.Point(11, 249);
+            this.comboBoxSelectMap.Location = new System.Drawing.Point(11, 250);
             this.comboBoxSelectMap.Name = "comboBoxSelectMap";
             this.comboBoxSelectMap.Size = new System.Drawing.Size(249, 21);
             this.comboBoxSelectMap.TabIndex = 10;
             // 
             // btnAddMapping
             // 
-            this.btnAddMapping.Location = new System.Drawing.Point(12, 331);
+            this.btnAddMapping.Location = new System.Drawing.Point(12, 303);
             this.btnAddMapping.Name = "btnAddMapping";
             this.btnAddMapping.Size = new System.Drawing.Size(36, 37);
             this.btnAddMapping.TabIndex = 12;
@@ -158,7 +159,7 @@
             // 
             // btnDelMapping
             // 
-            this.btnDelMapping.Location = new System.Drawing.Point(98, 331);
+            this.btnDelMapping.Location = new System.Drawing.Point(98, 303);
             this.btnDelMapping.Name = "btnDelMapping";
             this.btnDelMapping.Size = new System.Drawing.Size(55, 37);
             this.btnDelMapping.TabIndex = 13;
@@ -168,7 +169,7 @@
             // 
             // btnEditMapping
             // 
-            this.btnEditMapping.Location = new System.Drawing.Point(54, 331);
+            this.btnEditMapping.Location = new System.Drawing.Point(54, 303);
             this.btnEditMapping.Name = "btnEditMapping";
             this.btnEditMapping.Size = new System.Drawing.Size(38, 37);
             this.btnEditMapping.TabIndex = 14;
@@ -178,7 +179,7 @@
             // 
             // btnBind
             // 
-            this.btnBind.Location = new System.Drawing.Point(219, 331);
+            this.btnBind.Location = new System.Drawing.Point(219, 303);
             this.btnBind.Name = "btnBind";
             this.btnBind.Size = new System.Drawing.Size(37, 37);
             this.btnBind.TabIndex = 15;
@@ -194,7 +195,7 @@
             this.columnDevice,
             this.columnMap});
             this.listViewCurrentBindings.HoverSelection = true;
-            this.listViewCurrentBindings.Location = new System.Drawing.Point(11, 374);
+            this.listViewCurrentBindings.Location = new System.Drawing.Point(11, 346);
             this.listViewCurrentBindings.Name = "listViewCurrentBindings";
             this.listViewCurrentBindings.Size = new System.Drawing.Size(530, 197);
             this.listViewCurrentBindings.TabIndex = 16;
@@ -219,7 +220,7 @@
             // comboBoxSelectLogLevel
             // 
             this.comboBoxSelectLogLevel.FormattingEnabled = true;
-            this.comboBoxSelectLogLevel.Location = new System.Drawing.Point(266, 249);
+            this.comboBoxSelectLogLevel.Location = new System.Drawing.Point(266, 250);
             this.comboBoxSelectLogLevel.Name = "comboBoxSelectLogLevel";
             this.comboBoxSelectLogLevel.Size = new System.Drawing.Size(275, 21);
             this.comboBoxSelectLogLevel.TabIndex = 17;
@@ -228,7 +229,7 @@
             // labelLogLevel
             // 
             this.labelLogLevel.AutoSize = true;
-            this.labelLogLevel.Location = new System.Drawing.Point(263, 233);
+            this.labelLogLevel.Location = new System.Drawing.Point(263, 234);
             this.labelLogLevel.Name = "labelLogLevel";
             this.labelLogLevel.Size = new System.Drawing.Size(54, 13);
             this.labelLogLevel.TabIndex = 18;
@@ -237,7 +238,7 @@
             // labelMappingControl
             // 
             this.labelMappingControl.AutoSize = true;
-            this.labelMappingControl.Location = new System.Drawing.Point(12, 315);
+            this.labelMappingControl.Location = new System.Drawing.Point(9, 287);
             this.labelMappingControl.Name = "labelMappingControl";
             this.labelMappingControl.Size = new System.Drawing.Size(84, 13);
             this.labelMappingControl.TabIndex = 19;
@@ -245,7 +246,7 @@
             // 
             // btnUnbind
             // 
-            this.btnUnbind.Location = new System.Drawing.Point(164, 331);
+            this.btnUnbind.Location = new System.Drawing.Point(164, 303);
             this.btnUnbind.Name = "btnUnbind";
             this.btnUnbind.Size = new System.Drawing.Size(49, 37);
             this.btnUnbind.TabIndex = 20;
@@ -253,11 +254,21 @@
             this.btnUnbind.UseVisualStyleBackColor = true;
             this.btnUnbind.Click += new System.EventHandler(this.btnUnbind_Click);
             // 
+            // labelBinding
+            // 
+            this.labelBinding.AutoSize = true;
+            this.labelBinding.Location = new System.Drawing.Point(161, 287);
+            this.labelBinding.Name = "labelBinding";
+            this.labelBinding.Size = new System.Drawing.Size(78, 13);
+            this.labelBinding.TabIndex = 21;
+            this.labelBinding.Text = "Binding Control";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(553, 583);
+            this.Controls.Add(this.labelBinding);
             this.Controls.Add(this.btnUnbind);
             this.Controls.Add(this.labelMappingControl);
             this.Controls.Add(this.labelLogLevel);
@@ -309,5 +320,6 @@
         private System.Windows.Forms.Label labelLogLevel;
         private System.Windows.Forms.Label labelMappingControl;
         private System.Windows.Forms.Button btnUnbind;
+        private System.Windows.Forms.Label labelBinding;
     }
 }

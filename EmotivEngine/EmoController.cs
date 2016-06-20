@@ -5,6 +5,10 @@ using System.Threading;
 
 namespace EmotivEngine
 {
+    /// <summary>
+    /// EmotivEngine Controller. This Class is a adapter to EmoEngine, so it conforms the <see cref="IController"/> interface an can be used with <see cref="CentralControlEngine"/>.
+    /// </summary>
+    /// <seealso cref="EmotivEngine.IController" />
     class EmoController : IController
     {
         public event EventHandler<ErrorEventArgs> Error;
@@ -18,6 +22,12 @@ namespace EmotivEngine
 
         private int id;
 
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>
+        /// The identifier.
+        /// </value>
         public int ID
         {
             get
@@ -30,6 +40,12 @@ namespace EmotivEngine
             }
         }
 
+        /// <summary>
+        /// Gets the type.
+        /// </summary>
+        /// <value>
+        /// The type.
+        /// </value>
         public string Type {
             get
             {
@@ -37,6 +53,12 @@ namespace EmotivEngine
             }
         }
 
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
         public string Name
         {
             get
@@ -46,17 +68,97 @@ namespace EmotivEngine
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
         private enum commands : int
         {
-            CognitivPush = 0, CognitivPull = 1, CognitivLift = 2, CognitivDrop = 3, CognitivLeft = 4,
-            CognitivRight = 5, CognitivRotateLeft = 6, CognitivRotateRight = 7, CognitivRotateClockwise = 8,
-            CognitivRotateCounterClockwise = 9, CognitivRotateForward = 10, CognitivRotateBackwards = 11,
-            ExpressivSmile = 12, ExpressivLookLeft = 13, ExpressivLookRight = 14, ExpressivWinkLeft = 15, ExpressivWinkRight = 16, ExpressivBlink = 17, CognitivNeutral = 18
+            /// <summary>
+            /// The cognitiv push
+            /// </summary>
+            CognitivPush = 0,
+            /// <summary>
+            /// The cognitiv pull
+            /// </summary>
+            CognitivPull = 1,
+            /// <summary>
+            /// The cognitiv lift
+            /// </summary>
+            CognitivLift = 2,
+            /// <summary>
+            /// The cognitiv drop
+            /// </summary>
+            CognitivDrop = 3,
+            /// <summary>
+            /// The cognitiv left
+            /// </summary>
+            CognitivLeft = 4,
+            /// <summary>
+            /// The cognitiv right
+            /// </summary>
+            CognitivRight = 5,
+            /// <summary>
+            /// The cognitiv rotate left
+            /// </summary>
+            CognitivRotateLeft = 6,
+            /// <summary>
+            /// The cognitiv rotate right
+            /// </summary>
+            CognitivRotateRight = 7,
+            /// <summary>
+            /// The cognitiv rotate clockwise
+            /// </summary>
+            CognitivRotateClockwise = 8,
+            /// <summary>
+            /// The cognitiv rotate counter clockwise
+            /// </summary>
+            CognitivRotateCounterClockwise = 9,
+            /// <summary>
+            /// The cognitiv rotate forward
+            /// </summary>
+            CognitivRotateForward = 10,
+            /// <summary>
+            /// The cognitiv rotate backwards
+            /// </summary>
+            CognitivRotateBackwards = 11,
+            /// <summary>
+            /// The expressiv smile
+            /// </summary>
+            ExpressivSmile = 12,
+            /// <summary>
+            /// The expressiv look left
+            /// </summary>
+            ExpressivLookLeft = 13,
+            /// <summary>
+            /// The expressiv look right
+            /// </summary>
+            ExpressivLookRight = 14,
+            /// <summary>
+            /// The expressiv wink left
+            /// </summary>
+            ExpressivWinkLeft = 15,
+            /// <summary>
+            /// The expressiv wink right
+            /// </summary>
+            ExpressivWinkRight = 16, ExpressivBlink = 17,
+            /// <summary>
+            /// The cognitiv neutral
+            /// </summary>
+            CognitivNeutral = 18
         };
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EmoController"/> class.
+        /// </summary>
+        /// <param name="cce">The cce.</param>
         private EmoController(CentralControlEngine cce) { this.cce = cce; }
 
 
+        /// <summary>
+        /// Gets the instance.
+        /// </summary>
+        /// <param name="cce">The cce.</param>
+        /// <returns></returns>
         public static IController getInstance(CentralControlEngine cce)
         {
             if (singleInstance != null)
@@ -65,11 +167,19 @@ namespace EmotivEngine
 
         }
 
+        /// <summary>
+        /// Gets the commands.
+        /// </summary>
+        /// <returns></returns>
         public string[] getCommands()
         {
             return (string[])Enum.GetNames(typeof(commands));
         }
 
+        /// <summary>
+        /// Initializes this instance, sets connection to local Emotiv Control Panel
+        /// </summary>
+        /// <returns></returns>
         public bool initialize()
         {
             engine = EmoEngine.Instance;
@@ -78,7 +188,10 @@ namespace EmotivEngine
             engine.EmoEngineDisconnected += new EmoEngine.EmoEngineDisconnectedEventHandler(disconnected);
 
             try {
-                engine.RemoteConnect("192.168.178.199", 3008);
+                //Control Panel
+                //engine.RemoteConnect("192.168.178.199", 3008);
+                //Composer
+                engine.RemoteConnect("127.0.0.1", 1726);
             }
             catch(Emotiv.EmoEngineException e)
             {
@@ -88,6 +201,11 @@ namespace EmotivEngine
             return true;
         }
 
+        /// <summary>
+        /// Handles the CognitivEmoStateUpdated event of the Engine control and sends commands to <see cref="CentralControlEngine"/>.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EmoStateUpdatedEventArgs"/> instance containing the event data.</param>
         private void Engine_CognitivEmoStateUpdated(object sender, EmoStateUpdatedEventArgs e)
         {
 
@@ -147,6 +265,11 @@ namespace EmotivEngine
             }
         }
 
+        /// <summary>
+        /// Handles the EmoEngineEmoStateUpdated event of the Engine control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EmoStateUpdatedEventArgs"/> instance containing the event data.</param>
         private void Engine_EmoEngineEmoStateUpdated(object sender, EmoStateUpdatedEventArgs e)
         {
 
@@ -165,8 +288,15 @@ namespace EmotivEngine
             }
         }
 
+        /// <summary>
+        /// Handles the ExpressivEmoStateUpdated event of the Engine control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EmoStateUpdatedEventArgs"/> instance containing the event data.</param>
         private void Engine_ExpressivEmoStateUpdated(object sender, EmoStateUpdatedEventArgs e)
         {
+
+            //it is necessary to ask for each supported expressiv if there were any changes 
 
             double smileThreshold = 0.1;
             if (e.emoState.ExpressivGetSmileExtent() != lastEmoState.ExpressivGetSmileExtent() && (double)e.emoState.ExpressivGetSmileExtent() > smileThreshold)
@@ -179,7 +309,7 @@ namespace EmotivEngine
                         lclWarning(this, new WarningEventArgs(String.Format(Texts.WarningMessages.couldntAddcommand, commands.ExpressivSmile.ToString("G"))));
                 }
             }
-            if (e.emoState.ExpressivIsLookingLeft() != lastEmoState.ExpressivIsLookingLeft())
+            if (e.emoState.ExpressivIsLookingLeft() != lastEmoState.ExpressivIsLookingLeft() && e.emoState.ExpressivIsLookingLeft())
             {
                 cce.addLog(this.Name, new StringBuilder().Append("Received expressive: ").Append(commands.ExpressivLookLeft.ToString("G")).ToString(), Logger.loggingLevel.debug);
                 if (!cce.addCommand(new Command((int)commands.ExpressivLookLeft, commands.ExpressivLookLeft.ToString("G"), this.id, 1.0)))
@@ -189,7 +319,7 @@ namespace EmotivEngine
                         lclWarning(this, new WarningEventArgs(String.Format(Texts.WarningMessages.couldntAddcommand, commands.ExpressivLookLeft.ToString("G"))));
                 }
             }
-            if (e.emoState.ExpressivIsLookingRight() != lastEmoState.ExpressivIsLookingRight())
+            if (e.emoState.ExpressivIsLookingRight() != lastEmoState.ExpressivIsLookingRight() && e.emoState.ExpressivIsLookingRight())
             {
                 cce.addLog(this.Name, new StringBuilder().Append("Received expressive: ").Append(commands.ExpressivLookRight.ToString("G")).ToString(), Logger.loggingLevel.debug);
                 if (!cce.addCommand(new Command((int)commands.ExpressivLookRight, commands.ExpressivLookRight.ToString("G"), this.id, 1.0)))
@@ -199,7 +329,7 @@ namespace EmotivEngine
                         lclWarning(this, new WarningEventArgs(String.Format(Texts.WarningMessages.couldntAddcommand, commands.ExpressivLookRight.ToString("G"))));
                 }
             }
-            if (e.emoState.ExpressivIsLeftWink() != lastEmoState.ExpressivIsLeftWink())
+            if (e.emoState.ExpressivIsLeftWink() != lastEmoState.ExpressivIsLeftWink() && e.emoState.ExpressivIsLeftWink())
             {
                 cce.addLog(this.Name, new StringBuilder().Append("Received expressive: ").Append(commands.ExpressivWinkLeft.ToString("G")).ToString(), Logger.loggingLevel.debug);
                 if (!cce.addCommand(new Command((int)commands.ExpressivWinkLeft, commands.ExpressivWinkLeft.ToString("G"), this.id, 1.0)))
@@ -209,7 +339,7 @@ namespace EmotivEngine
                         lclWarning(this, new WarningEventArgs(String.Format(Texts.WarningMessages.couldntAddcommand, commands.ExpressivWinkLeft.ToString("G"))));
                 }
             }
-            if (e.emoState.ExpressivIsRightWink() != lastEmoState.ExpressivIsRightWink())
+            if (e.emoState.ExpressivIsRightWink() != lastEmoState.ExpressivIsRightWink() && e.emoState.ExpressivIsRightWink())
             {
                 cce.addLog(this.Name, new StringBuilder().Append("Received expressive: ").Append(commands.ExpressivWinkRight.ToString("G")).ToString(), Logger.loggingLevel.debug);
                 if (!cce.addCommand(new Command((int)commands.ExpressivWinkRight, commands.ExpressivWinkRight.ToString("G"), this.id, 1.0)))
@@ -220,7 +350,7 @@ namespace EmotivEngine
                 }
 
             }
-            if (e.emoState.ExpressivIsBlink() != lastEmoState.ExpressivIsBlink())
+            if (e.emoState.ExpressivIsBlink() != lastEmoState.ExpressivIsBlink() && e.emoState.ExpressivIsBlink())
             {
                 cce.addLog(this.Name, new StringBuilder().Append("Received expressive: ").Append(commands.ExpressivBlink.ToString("G")).ToString(), Logger.loggingLevel.debug);
                 if (!cce.addCommand(new Command((int)commands.ExpressivBlink, commands.ExpressivBlink.ToString("G"), this.id, 1.0)))
@@ -244,10 +374,18 @@ namespace EmotivEngine
             //}
         }
 
+        /// <summary>
+        /// Determines whether this instance is ready.
+        /// </summary>
+        /// <returns></returns>
         public bool isReady()
         {
-            return true;        }
+            return true;
+        }
 
+        /// <summary>
+        /// Sets the Controller active, which will give Commands from this point on.
+        /// </summary>
         public void setActive()
         {
             engine.AffectivEmoStateUpdated += Engine_AffectivEmoStateUpdated;
@@ -267,6 +405,9 @@ namespace EmotivEngine
 
         }
 
+        /// <summary>
+        /// Deactives the Controller. It will not give any commands until next activation.
+        /// </summary>
         public void setDeactive()
         {
             engine.AffectivEmoStateUpdated -= Engine_AffectivEmoStateUpdated;
@@ -276,18 +417,33 @@ namespace EmotivEngine
             runEngineThread.Abort();
         }
 
+        /// <summary>
+        /// Logs when engine is connected
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EmoEngineEventArgs"/> instance containing the event data.</param>
         private void connected(object sender, EmoEngineEventArgs e)
         {
             if(cce != null)
                 cce.addLog(this.Name, String.Format(Texts.Logging.connected, "engine"), Logger.loggingLevel.info);
         }
 
+        /// <summary>
+        /// Logs Disconnect
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EmoEngineEventArgs"/> instance containing the event data.</param>
         private void disconnected(object sender, EmoEngineEventArgs e)
         {
             if (cce != null)
                 cce.addLog(this.Name, String.Format(Texts.Logging.disconnected, "engine"), Logger.loggingLevel.info);
         }
 
+        /// <summary>
+        /// Handles the Event event of the engine_UserAdded control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EmoEngineEventArgs"/> instance containing the event data.</param>
         private void engine_UserAdded_Event(object sender, EmoEngineEventArgs e)
         {
             if (cce != null)
