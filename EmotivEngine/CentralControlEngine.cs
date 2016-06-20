@@ -320,7 +320,8 @@ namespace EmotivEngine
                     while (inputQueue.isEmpty())
                         Thread.Sleep(1);
                     Command c = inputQueue.dequeue();
-                    controllableDevice.performAction(map.translate(c));
+                    if (map.translate(c).getCommandId() != -1)
+                        controllableDevice.performAction(map.translate(c));
                 }
             }
 

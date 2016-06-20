@@ -48,13 +48,15 @@
             this.columnMap = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.comboBoxSelectLogLevel = new System.Windows.Forms.ComboBox();
             this.labelLogLevel = new System.Windows.Forms.Label();
+            this.labelMappingControl = new System.Windows.Forms.Label();
+            this.btnUnbind = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // toggleStartStop
             // 
             this.toggleStartStop.Location = new System.Drawing.Point(11, 63);
             this.toggleStartStop.Name = "toggleStartStop";
-            this.toggleStartStop.Size = new System.Drawing.Size(200, 50);
+            this.toggleStartStop.Size = new System.Drawing.Size(249, 50);
             this.toggleStartStop.TabIndex = 1;
             this.toggleStartStop.Text = "Start Engine";
             this.toggleStartStop.UseVisualStyleBackColor = true;
@@ -63,20 +65,20 @@
             // log
             // 
             this.log.AcceptsReturn = true;
-            this.log.Location = new System.Drawing.Point(223, 12);
+            this.log.Location = new System.Drawing.Point(266, 12);
             this.log.Multiline = true;
             this.log.Name = "log";
             this.log.ReadOnly = true;
             this.log.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.log.Size = new System.Drawing.Size(242, 209);
+            this.log.Size = new System.Drawing.Size(275, 209);
             this.log.TabIndex = 4;
             this.log.Text = "No Events";
             // 
             // resetLog
             // 
-            this.resetLog.Location = new System.Drawing.Point(223, 284);
+            this.resetLog.Location = new System.Drawing.Point(266, 331);
             this.resetLog.Name = "resetLog";
-            this.resetLog.Size = new System.Drawing.Size(242, 37);
+            this.resetLog.Size = new System.Drawing.Size(275, 37);
             this.resetLog.TabIndex = 5;
             this.resetLog.Text = "Reset Log";
             this.resetLog.UseVisualStyleBackColor = true;
@@ -88,7 +90,7 @@
             this.statusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.statusLabel.Location = new System.Drawing.Point(12, 12);
             this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(199, 48);
+            this.statusLabel.Size = new System.Drawing.Size(248, 48);
             this.statusLabel.TabIndex = 0;
             this.statusLabel.Text = "Stopped";
             this.statusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -98,7 +100,7 @@
             this.comboBoxSelectController.FormattingEnabled = true;
             this.comboBoxSelectController.Location = new System.Drawing.Point(11, 147);
             this.comboBoxSelectController.Name = "comboBoxSelectController";
-            this.comboBoxSelectController.Size = new System.Drawing.Size(200, 21);
+            this.comboBoxSelectController.Size = new System.Drawing.Size(249, 21);
             this.comboBoxSelectController.TabIndex = 6;
             // 
             // comboBoxSelectControllable
@@ -106,7 +108,7 @@
             this.comboBoxSelectControllable.FormattingEnabled = true;
             this.comboBoxSelectControllable.Location = new System.Drawing.Point(11, 200);
             this.comboBoxSelectControllable.Name = "comboBoxSelectControllable";
-            this.comboBoxSelectControllable.Size = new System.Drawing.Size(200, 21);
+            this.comboBoxSelectControllable.Size = new System.Drawing.Size(249, 21);
             this.comboBoxSelectControllable.TabIndex = 7;
             // 
             // labelController
@@ -141,12 +143,12 @@
             this.comboBoxSelectMap.FormattingEnabled = true;
             this.comboBoxSelectMap.Location = new System.Drawing.Point(11, 249);
             this.comboBoxSelectMap.Name = "comboBoxSelectMap";
-            this.comboBoxSelectMap.Size = new System.Drawing.Size(200, 21);
+            this.comboBoxSelectMap.Size = new System.Drawing.Size(249, 21);
             this.comboBoxSelectMap.TabIndex = 10;
             // 
             // btnAddMapping
             // 
-            this.btnAddMapping.Location = new System.Drawing.Point(70, 284);
+            this.btnAddMapping.Location = new System.Drawing.Point(12, 331);
             this.btnAddMapping.Name = "btnAddMapping";
             this.btnAddMapping.Size = new System.Drawing.Size(36, 37);
             this.btnAddMapping.TabIndex = 12;
@@ -156,7 +158,7 @@
             // 
             // btnDelMapping
             // 
-            this.btnDelMapping.Location = new System.Drawing.Point(156, 284);
+            this.btnDelMapping.Location = new System.Drawing.Point(98, 331);
             this.btnDelMapping.Name = "btnDelMapping";
             this.btnDelMapping.Size = new System.Drawing.Size(55, 37);
             this.btnDelMapping.TabIndex = 13;
@@ -166,7 +168,7 @@
             // 
             // btnEditMapping
             // 
-            this.btnEditMapping.Location = new System.Drawing.Point(112, 284);
+            this.btnEditMapping.Location = new System.Drawing.Point(54, 331);
             this.btnEditMapping.Name = "btnEditMapping";
             this.btnEditMapping.Size = new System.Drawing.Size(38, 37);
             this.btnEditMapping.TabIndex = 14;
@@ -176,9 +178,9 @@
             // 
             // btnBind
             // 
-            this.btnBind.Location = new System.Drawing.Point(11, 284);
+            this.btnBind.Location = new System.Drawing.Point(219, 331);
             this.btnBind.Name = "btnBind";
-            this.btnBind.Size = new System.Drawing.Size(49, 37);
+            this.btnBind.Size = new System.Drawing.Size(37, 37);
             this.btnBind.TabIndex = 15;
             this.btnBind.Text = "Bind";
             this.btnBind.UseVisualStyleBackColor = true;
@@ -192,9 +194,9 @@
             this.columnDevice,
             this.columnMap});
             this.listViewCurrentBindings.HoverSelection = true;
-            this.listViewCurrentBindings.Location = new System.Drawing.Point(11, 327);
+            this.listViewCurrentBindings.Location = new System.Drawing.Point(11, 374);
             this.listViewCurrentBindings.Name = "listViewCurrentBindings";
-            this.listViewCurrentBindings.Size = new System.Drawing.Size(454, 197);
+            this.listViewCurrentBindings.Size = new System.Drawing.Size(530, 197);
             this.listViewCurrentBindings.TabIndex = 16;
             this.listViewCurrentBindings.UseCompatibleStateImageBehavior = false;
             this.listViewCurrentBindings.View = System.Windows.Forms.View.Details;
@@ -217,26 +219,47 @@
             // comboBoxSelectLogLevel
             // 
             this.comboBoxSelectLogLevel.FormattingEnabled = true;
-            this.comboBoxSelectLogLevel.Location = new System.Drawing.Point(223, 249);
+            this.comboBoxSelectLogLevel.Location = new System.Drawing.Point(266, 249);
             this.comboBoxSelectLogLevel.Name = "comboBoxSelectLogLevel";
-            this.comboBoxSelectLogLevel.Size = new System.Drawing.Size(242, 21);
+            this.comboBoxSelectLogLevel.Size = new System.Drawing.Size(275, 21);
             this.comboBoxSelectLogLevel.TabIndex = 17;
             this.comboBoxSelectLogLevel.SelectedIndexChanged += new System.EventHandler(this.comboBoxSelectLogLevel_SelectedIndexChanged);
             // 
             // labelLogLevel
             // 
             this.labelLogLevel.AutoSize = true;
-            this.labelLogLevel.Location = new System.Drawing.Point(220, 233);
+            this.labelLogLevel.Location = new System.Drawing.Point(263, 233);
             this.labelLogLevel.Name = "labelLogLevel";
             this.labelLogLevel.Size = new System.Drawing.Size(54, 13);
             this.labelLogLevel.TabIndex = 18;
             this.labelLogLevel.Text = "Log Level";
             // 
+            // labelMappingControl
+            // 
+            this.labelMappingControl.AutoSize = true;
+            this.labelMappingControl.Location = new System.Drawing.Point(12, 315);
+            this.labelMappingControl.Name = "labelMappingControl";
+            this.labelMappingControl.Size = new System.Drawing.Size(84, 13);
+            this.labelMappingControl.TabIndex = 19;
+            this.labelMappingControl.Text = "Mapping Control";
+            // 
+            // btnUnbind
+            // 
+            this.btnUnbind.Location = new System.Drawing.Point(164, 331);
+            this.btnUnbind.Name = "btnUnbind";
+            this.btnUnbind.Size = new System.Drawing.Size(49, 37);
+            this.btnUnbind.TabIndex = 20;
+            this.btnUnbind.Text = "Unbind";
+            this.btnUnbind.UseVisualStyleBackColor = true;
+            this.btnUnbind.Click += new System.EventHandler(this.btnUnbind_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(478, 536);
+            this.ClientSize = new System.Drawing.Size(553, 583);
+            this.Controls.Add(this.btnUnbind);
+            this.Controls.Add(this.labelMappingControl);
             this.Controls.Add(this.labelLogLevel);
             this.Controls.Add(this.comboBoxSelectLogLevel);
             this.Controls.Add(this.listViewCurrentBindings);
@@ -284,5 +307,7 @@
         private System.Windows.Forms.ColumnHeader columnController;
         private System.Windows.Forms.ComboBox comboBoxSelectLogLevel;
         private System.Windows.Forms.Label labelLogLevel;
+        private System.Windows.Forms.Label labelMappingControl;
+        private System.Windows.Forms.Button btnUnbind;
     }
 }

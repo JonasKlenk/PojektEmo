@@ -32,6 +32,8 @@ namespace EmotivEngine
         public static class GUITexts
         {
             static public string exception = "Map not fund or invalid.";
+            static public string cannotUnbindEngineRunning = "Cannot remove binding while engine still running. It is necessary to first stop the engine.";
+            static public string errorUnbindCaption = "Error unbinding";
         }
 
         public static class ControllerTypes

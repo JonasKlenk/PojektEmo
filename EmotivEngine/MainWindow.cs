@@ -174,5 +174,11 @@ namespace EmotivEngine
         {
             cce.setLogLevel((Logger.loggingLevel)Enum.Parse(typeof(Logger.loggingLevel),comboBoxSelectLogLevel.SelectedItem.ToString()));
         }
+
+        private void btnUnbind_Click(object sender, EventArgs e)
+        {
+            if (cce.getIsRunning())
+                MessageBox.Show(this, Texts.GUITexts.cannotUnbindEngineRunning, Texts.GUITexts.errorUnbindCaption, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+        }
     }
 }
