@@ -89,7 +89,7 @@ namespace EmotivEngine
         /// <param name="command">Command to be sent. Formating depends on the receiving device</param>
         private void SendCommmand(string command)
         {
-            Console.WriteLine("Sending : " + command);
+            cce.addLog("TCP Device " + this.deviceCategory + " (ID " + this.id + ")", "Sending : " + command, Logger.loggingLevel.debug);
             byte[] bytesToSend = ASCIIEncoding.ASCII.GetBytes(command + "$");
             try
             {
@@ -116,12 +116,11 @@ namespace EmotivEngine
             {
                 int bytesRead = stream.Read(bytesToRead, 0, client.ReceiveBufferSize);
                 string answer = Encoding.ASCII.GetString(bytesToRead, 0, bytesRead);
-                Console.WriteLine("Received : " + answer);
+                cce.addLog("TCP Device " + this.deviceCategory + " (ID " + this.id + ")", "Received : " + answer, Logger.loggingLevel.debug);
                 return answer;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
                 EventHandler<WarningEventArgs> lclWarning = Warning;
                 if (lclWarning != null)
                     lclWarning(this, new WarningEventArgs("Could not receive answer from TCP device."));

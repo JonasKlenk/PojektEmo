@@ -52,13 +52,15 @@ namespace EmotivEngine
                 string oldll = this.loggingLevel.ToString("G");
                 this.loggingLevel = ll;
                 logger.setLogLevel(ll);
-                addLog("Log", String.Format(Texts.Logging.logLevelChanged, oldll, loggingLevel.ToString("G")), Logger.loggingLevel.info);
+                addLog("Log", String.Format(Texts.Logging.logLevelChanged, oldll, loggingLevel.ToString("G")), Logger.loggingLevel.info);   
             }
         }
 
         public void addLog(string sender, string message, Logger.loggingLevel level)
         {
             logger.addLog(sender, message, level);
+            if (level >= this.loggingLevel)
+                Console.Out.WriteLine(new StringBuilder().Append(sender).Append(": ").Append(message).ToString());
         }
 
         public string getLogText()
