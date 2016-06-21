@@ -151,6 +151,11 @@ namespace EmotivEngine
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
+            if (mapEditor.name==""|| mapEditor.name ==null)
+            {
+                MessageBox.Show(Texts.GUITexts.invalidMapName, Texts.GUITexts.applicationName,
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
             if (!Directory.Exists(MainWindow.xmlMapPath))
                 Directory.CreateDirectory(MainWindow.xmlMapPath);
             controlEngine.registerMap(mapEditor.saveMapping(File.Open(MainWindow.xmlMapPath + mapEditor.name + ".xml", FileMode.OpenOrCreate)));

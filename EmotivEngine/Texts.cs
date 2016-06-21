@@ -104,6 +104,10 @@ namespace EmotivEngine
             /// The error unbind caption
             /// </summary>
             static public string errorUnbindCaption = "Error unbinding";
+
+            static public string invalidMapName = "Please enter a name";
+            //Todo Wir brauchen noch einen geilen Namen
+            static public string applicationName = "";
         }
 
         /// <summary>

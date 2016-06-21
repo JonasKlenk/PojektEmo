@@ -66,6 +66,8 @@
             // log
             // 
             this.log.AcceptsReturn = true;
+            this.log.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.log.Location = new System.Drawing.Point(266, 12);
             this.log.Multiline = true;
             this.log.Name = "log";
@@ -77,6 +79,7 @@
             // 
             // resetLog
             // 
+            this.resetLog.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.resetLog.Location = new System.Drawing.Point(266, 303);
             this.resetLog.Name = "resetLog";
             this.resetLog.Size = new System.Drawing.Size(275, 37);
@@ -190,6 +193,8 @@
             // listViewCurrentBindings
             // 
             this.listViewCurrentBindings.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.listViewCurrentBindings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewCurrentBindings.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnController,
             this.columnDevice,
@@ -219,6 +224,7 @@
             // 
             // comboBoxSelectLogLevel
             // 
+            this.comboBoxSelectLogLevel.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.comboBoxSelectLogLevel.FormattingEnabled = true;
             this.comboBoxSelectLogLevel.Location = new System.Drawing.Point(266, 250);
             this.comboBoxSelectLogLevel.Name = "comboBoxSelectLogLevel";
@@ -228,6 +234,7 @@
             // 
             // labelLogLevel
             // 
+            this.labelLogLevel.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.labelLogLevel.AutoSize = true;
             this.labelLogLevel.Location = new System.Drawing.Point(263, 234);
             this.labelLogLevel.Name = "labelLogLevel";

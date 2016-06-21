@@ -142,7 +142,12 @@ namespace EmotivEngine
         /// <returns>List of available actions</returns>
         public string[] getActions()
         {
+            //Todo: schmeißt halt immer Fehler; ich kommentier das jetzt mal aus
+            if (deviceCategory == null)
+            return null;
             return deviceCategory.ActionList;
+            
+
         }
 
         /// <summary>
