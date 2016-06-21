@@ -43,9 +43,12 @@ namespace EmotivEngine
             cce.loggerUpdated += new EventHandler<LoggerEventArgs>(updateLog);
             log.Text = cce.getLogText();
 
+            //load maps
             if (Directory.Exists(xmlMapPath))
                 foreach (string path in Directory.GetFiles(xmlMapPath))
                     cce.registerMap(Map.ReadXml(path));
+
+            //change GUI on bindings changed
             cce.bindingsChanged += new EventHandler<BindingsEventArgs>((sender, argument) =>
            {
                this.Invoke(new Action<BindingsEventArgs>((binding) =>
@@ -60,6 +63,8 @@ namespace EmotivEngine
                    }
                }), argument);
            });
+
+            //change GUI on mpas changed
             cce.mapsChanged += new EventHandler((sender, arguments) =>
             {
                 this.Invoke(new Action(() =>
@@ -72,6 +77,7 @@ namespace EmotivEngine
             for (int i = 0; i < listViewCurrentBindings.Columns.Count; i++)
                 listViewCurrentBindings.Columns[i].Width = listViewCurrentBindings.Width / listViewCurrentBindings.Columns.Count;
 
+            //change GUI on controllables changed
             cce.controllablesChanged += new EventHandler((sender, arguments) =>
             {
                 if (comboBoxSelectControllable.InvokeRequired)
@@ -79,12 +85,16 @@ namespace EmotivEngine
                 else
                     comboBoxSelectControllable.DataSource = cce.getControllableDevices();
             });
+
+            //Read categories
             List<DeviceCategory> categories = new List<DeviceCategory>();
             if (Directory.Exists(xmlCategoryPath))
                 foreach (string path in Directory.GetFiles(xmlCategoryPath))
                     categories.Add(DeviceCategory.ReadXml(XmlReader.Create(path)));
             if (categories.Count > 0)
                 cce.registerCategories(categories);
+
+            //set data for GUI elements
             comboBoxSelectController.DataSource = cce.getControllers();
             comboBoxSelectController.DisplayMember = "Name";
             comboBoxSelectControllable.DataSource = cce.getControllableDevices();
@@ -174,15 +184,7 @@ namespace EmotivEngine
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnAddMapping_Click(object sender, EventArgs e)
         {
-            //
-            //Setzen der beiden Werte für ComboBoxen in MapperGui
-            //comboBoxSelectController.SelectedItem
-            //comboBoxSelectControllable.SelectedItem
             new MapperGUI(cce.getControllableDevices(), cce.getControllers(), cce).Show();
-            //anlegen der persistierten map
-            //cce.Map(createdMap) -> Wo bekomme ich created Map her? Muss das möglicherweise aus deiner MapEditor Klasse ausgerufen werden?
-            //--> Passiert im Konstruktor der Gui...
-
         }
 
         /// <summary>

@@ -7,19 +7,43 @@ using System.Threading.Tasks;
 
 namespace EmotivEngine
 {
+    /// <summary>
+    /// 
+    /// </summary>
     class CommandQueue
     {
+        /// <summary>
+        /// The number of current commands
+        /// </summary>
         private int currentCommands;
+        /// <summary>
+        /// The maximum number of commands
+        /// </summary>
         private int maxCommands;
+        /// <summary>
+        /// The command queue
+        /// </summary>
         private ConcurrentQueue<Command> queue;
 
+        /// <summary>
+        /// Occurs when [enqueued command].
+        /// </summary>
         event EventHandler enqueuedCommand;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CommandQueue"/> class.
+        /// </summary>
+        /// <param name="maxCommands">The maximum commands.</param>
         public CommandQueue(int maxCommands)
         {
             queue = new ConcurrentQueue<Command>();
             this.maxCommands = maxCommands;
         }
 
+        /// <summary>
+        /// Enqueues the specified c.
+        /// </summary>
+        /// <param name="c">The c.</param>
+        /// <returns>Boolean true if command was succesfully added to queue</returns>
         public Boolean enqueue(Command c)
         {
             if (currentCommands++ >= maxCommands)
@@ -31,6 +55,10 @@ namespace EmotivEngine
             return true;
         }
 
+        /// <summary>
+        /// Dequeues a command.
+        /// </summary>
+        /// <returns><see cref="Command"/></returns>
         public Command dequeue()
         {
             Command returnCommand;
@@ -46,6 +74,10 @@ namespace EmotivEngine
                 return dequeue();
             }
         }
+        /// <summary>
+        /// Determines whether this instance is empty.
+        /// </summary>
+        /// <returns>Boolean true if empty</returns>
         public bool isEmpty()
         {
             Command c;

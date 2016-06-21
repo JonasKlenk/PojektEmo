@@ -72,7 +72,7 @@ namespace EmotivEngine
             }
             catch (Exception)
             {
-                System.Windows.Forms.MessageBox.Show(Texts.GUITexts.exception);
+                System.Windows.Forms.MessageBox.Show(Texts.GUITexts.MapException);
                 this.Close();
             }
         }
@@ -185,7 +185,7 @@ namespace EmotivEngine
             }
                 catch (Exception)
                 {
-                    System.Windows.Forms.MessageBox.Show(Texts.GUITexts.exception);
+                    System.Windows.Forms.MessageBox.Show(Texts.GUITexts.MapException);
                     this.Close();
                 }
 
