@@ -189,9 +189,9 @@ namespace EmotivEngine
 
             try {
                 //Control Panel
-                //engine.RemoteConnect("192.168.178.199", 3008);
+                engine.RemoteConnect("127.0.0.1", 3008);
                 //Composer
-                engine.RemoteConnect("127.0.0.1", 1726);
+                //engine.RemoteConnect("127.0.0.1", 1726);
             }
             catch(Emotiv.EmoEngineException e)
             {
