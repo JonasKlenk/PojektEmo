@@ -5,28 +5,44 @@ using System.IO;
 using System.Windows.Forms;
 using System.Xml;
 using System.Diagnostics;
+using System.Text;
 
 namespace EmotivEngine
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="System.Windows.Forms.Form" />
     public partial class MainWindow : Form
     {
+        /// <summary>
+        /// The Central Control engine reference
+        /// </summary>
         CentralControlEngine cce;
+        /// <summary>
+        /// The XML map path
+        /// </summary>
         static public string xmlMapPath = "./Data/Maps/";
+        /// <summary>
+        /// The XML category path
+        /// </summary>
         static public string xmlCategoryPath = "./Data/Categories/";
 
+        static public string loggerPath = "./Data/log.txt";
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindow"/> class.
+        /// </summary>
         public MainWindow()
         {
-            //TODO: Liste von Controller und Devices initialisieren.
+
+            //Initialize window, cce, emocontroller, logger
             InitializeComponent();
             cce = CentralControlEngine.Instance;
             cce.registerController(EmoController.getInstance(cce));
-            //HACK Test
-            //cce.registerControllableDevice(DummyDevice.getInstance(cce));
-            //HACK Testende
             cce.loggerUpdated += new EventHandler<LoggerEventArgs>(updateLog);
-            //cce.registerMap(new Map(Texts.ControllerTypes.CT_EmotivEPOC, "test", new int[] { 0, 1, -1 }, "Map 1", EmoController.getInstance(cce).getCommands(), new string[] { "asd", "asd2" }));
             log.Text = cce.getLogText();
-            log.AppendText("");
+
             if (Directory.Exists(xmlMapPath))
                 foreach (string path in Directory.GetFiles(xmlMapPath))
                     cce.registerMap(Map.ReadXml(path));
@@ -82,11 +98,16 @@ namespace EmotivEngine
 
             //local java client Tim
             //cce.registerControllableDevice(new TcpDevice(cce, "127.0.0.1", 23232));
-            cce.registerControllableDevice(new TcpDevice(cce, "127.0.0.1", 8890));
+            cce.registerControllableDevice(new TcpDevice(cce, "7.237.127.223", 8890));
 
 
         }
 
+        /// <summary>
+        /// Handles the Click event of the toggleStartStop control. Start/Stop the <see cref="CentralControlEngine"/>
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void toggleStartStop_Click(object sender, EventArgs e)
         {
             if (!cce.getIsRunning())
@@ -106,6 +127,11 @@ namespace EmotivEngine
             }
         }
 
+        /// <summary>
+        /// Updates the log. Add a log via <see cref="CentralControlEngine"/> to <see cref="Logger"/>
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="LoggerEventArgs"/> instance containing the event data.</param>
         private void updateLog(object sender, LoggerEventArgs e)
         {
             if (this.log.InvokeRequired)
@@ -114,32 +140,38 @@ namespace EmotivEngine
                 log.AppendText(e.getAddedLog());
         }
 
+        /// <summary>
+        /// Handles the Click event of the resetLog control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void resetLog_Click(object sender, EventArgs e)
         {
             cce.resetLog();
             log.Text = cce.getLogText();
         }
 
-        private void openMappingDialog_Click(object sender, EventArgs e)
-        {
-            MapperGUI mapperGui = new MapperGUI(cce.getControllableDevices(), cce.getControllers(), cce);
-            mapperGui.Show();
-        }
-
+        /// <summary>
+        /// Handles the FormClosed event of the MainWindow control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="FormClosedEventArgs"/> instance containing the event data.</param>
         private void MainWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
-            //TODO: Serialisieren igentlich unnötig, kann gelöscht werden, wenn neu erstellt/geänderte Maps
-            //immer gleich serialisiert werden.
-
-            if (!Directory.Exists(xmlMapPath))
-                Directory.CreateDirectory(xmlMapPath);
-            foreach (Map m in cce.getMaps())
-            {
-                //TODO Serialisierung läuft nicht so: m.WriteXml(XmlWriter.Create(new StringBuilder().Append(xmlMapPath).Append(m.name).Append(".xml").ToString()));
-            }
-            Application.Exit();
+            if(File.Exists(loggerPath + ".old"))
+                File.Delete(loggerPath + ".old");
+            if (File.Exists(loggerPath))
+                File.Move(loggerPath, loggerPath + ".old");
+            FileStream fs = File.Open(loggerPath, FileMode.CreateNew);
+            fs.Write(ASCIIEncoding.ASCII.GetBytes(cce.getLogText()), 0, cce.getLogText().Length);
+            fs.Close();
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnAddMapping control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnAddMapping_Click(object sender, EventArgs e)
         {
             //
@@ -153,6 +185,11 @@ namespace EmotivEngine
 
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnDelMapping control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnDelMapping_Click(object sender, EventArgs e)
         {
             //TODO
@@ -161,23 +198,43 @@ namespace EmotivEngine
             MapEditor.loadMap((Map)comboBoxSelectMap.SelectedItem).deleteMapping(xmlMapPath);
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnEditMapping control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnEditMapping_Click(object sender, EventArgs e)
         {
             new MapperGUI(MapEditor.loadMap((Map)comboBoxSelectMap.SelectedItem), cce);
 
         }
 
+        /// <summary>
+        /// Handles the Click event of the button1 control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void button1_Click(object sender, EventArgs e)
         {
             if (comboBoxSelectControllable.SelectedItem != null && comboBoxSelectController.SelectedItem != null && comboBoxSelectMap.SelectedItem != null)
                 cce.bindControllerDeviceMap((IController)comboBoxSelectController.SelectedItem, (IControllableDevice)comboBoxSelectControllable.SelectedItem, (Map)comboBoxSelectMap.SelectedItem);
         }
 
+        /// <summary>
+        /// Handles the SelectedIndexChanged event of the comboBoxSelectLogLevel control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void comboBoxSelectLogLevel_SelectedIndexChanged(object sender, EventArgs e)
         {
             cce.setLogLevel((Logger.loggingLevel)Enum.Parse(typeof(Logger.loggingLevel), comboBoxSelectLogLevel.SelectedItem.ToString()));
         }
 
+        /// <summary>
+        /// Handles the Click event of the btnUnbind control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnUnbind_Click(object sender, EventArgs e)
         {
             if (cce.getIsRunning())
