@@ -106,13 +106,16 @@ namespace EmotivEngine
             comboBoxSelectLogLevel.SelectedItem = comboBoxSelectLogLevel.Items[0];
 
 
-            //local java client Tim
-            //cce.registerControllableDevice(new TcpDevice(cce, "127.0.0.1", 23232));
-            //UE Simulation
-            cce.registerControllableDevice(new TcpDevice(cce, "127.0.0.1", 8890));
-            //cce.registerControllableDevice(new TcpDevice(cce, "7.237.127.223", 8890));
-            cce.registerControllableDevice(new DummyDevice(cce));
-
+            try {
+                //local java client Tim
+                //cce.registerControllableDevice(new TcpDevice(cce, "127.0.0.1", 23232));
+                //UE Simulation
+                TcpDevice tcp = new TcpDevice(cce, "127.0.0.1", 8890);
+                cce.registerControllableDevice(tcp);
+                //cce.registerControllableDevice(new TcpDevice(cce, "7.237.127.223", 8890));
+            } catch (Exception e)
+            {
+            }
 
         }
 
@@ -210,6 +213,8 @@ namespace EmotivEngine
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void btnEditMapping_Click(object sender, EventArgs e)
         {
+            if (cce.getIsRunning())
+                MessageBox.Show(this, Texts.GUITexts.cannotUnbindEngineRunning, Texts.GUITexts.cannotEditMapEngineRunning, MessageBoxButtons.OK, MessageBoxIcon.Stop); 
             new MapperGUI(MapEditor.loadMap((Map)comboBoxSelectMap.SelectedItem), cce);
 
         }

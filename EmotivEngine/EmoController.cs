@@ -189,9 +189,9 @@ namespace EmotivEngine
 
             try {
                 //Control Panel
-                engine.RemoteConnect("127.0.0.1", 3008);
+                //engine.RemoteConnect("127.0.0.1", 3008);
                 //Composer
-                //engine.RemoteConnect("127.0.0.1", 1726);
+                engine.RemoteConnect("127.0.0.1", 1726);
             }
             catch(Emotiv.EmoEngineException e)
             {
@@ -208,7 +208,6 @@ namespace EmotivEngine
         /// <param name="e">The <see cref="EmoStateUpdatedEventArgs"/> instance containing the event data.</param>
         private void Engine_CognitivEmoStateUpdated(object sender, EmoStateUpdatedEventArgs e)
         {
-
             cce.addLog(this.Name, new StringBuilder().Append("Received cognitive: ").Append(e.emoState.CognitivGetCurrentAction()).Append(" with power ").Append(e.emoState.CognitivGetCurrentActionPower()).ToString(), Logger.loggingLevel.debug);
             bool success = true;
             switch (e.emoState.CognitivGetCurrentAction())

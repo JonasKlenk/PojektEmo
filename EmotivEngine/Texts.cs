@@ -99,7 +99,8 @@ namespace EmotivEngine
             /// <summary>
             /// The cannot unbind engine running
             /// </summary>
-            static public string cannotUnbindEngineRunning = "Cannot remove binding while engine still running. It is necessary to first stop the engine.";
+            static public string cannotUnbindEngineRunning = "Cannot remove binding while engine is still running. It is necessary to first stop the engine.";
+            static public string cannotEditMapEngineRunning = "Cannot edit map while engine is still running. It is necessary to first stop the engine.";
             /// <summary>
             /// The error unbind caption
             /// </summary>

@@ -71,12 +71,12 @@ namespace EmotivEngine
                 client = new TcpClient(deviceIp, devicePort);
                 stream = client.GetStream();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 EventHandler<ErrorEventArgs> lclError = Error;
                 if (lclError != null)
                     lclError(this, new ErrorEventArgs(String.Format("Could not connect to TCP device at adress {0}:{1}", deviceIp, devicePort)));
-                return;
+                throw e;
             }
             client.SendTimeout = 1000;
             client.ReceiveTimeout = 5000;
