@@ -18,3 +18,6 @@ C:\Users\Stefan\Source\Repos\PojektEmo\EmotivEngine\obj\x86\Debug\DevelopProjEmo
 C:\Users\Stefan\Source\Repos\PojektEmo\EmotivEngine\obj\x86\Debug\EmotivEngine.MainWindow.resources
 C:\Users\Stefan\Source\Repos\PojektEmo\EmotivEngine\obj\x86\Debug\EmotivEngine.MapperGUI.resources
 C:\Users\Stefan\Source\Repos\PojektEmo\EmotivEngine\obj\x86\Debug\DevelopProjEmoEngine.csproj.GenerateResource.Cache
+C:\Users\klenkj\Documents\Visual Studio 2015\Projects\PojektEmo\EmotivEngine\bin\x86\Debug\EmotivEngine.exe.config
+C:\Users\klenkj\Documents\Visual Studio 2015\Projects\PojektEmo\EmotivEngine\obj\x86\Debug\EmotivEngine.exe
+C:\Users\klenkj\Documents\Visual Studio 2015\Projects\PojektEmo\EmotivEngine\obj\x86\Debug\EmotivEngine.pdb
